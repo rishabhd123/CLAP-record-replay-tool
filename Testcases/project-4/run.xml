@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project name="Testcases.project-4" default="jar">
+
+	<target name="jar">
+		<ant antfile="build.xml">
+		</ant>
+
+		<jar destfile="project-4.jar">
+			<fileset dir="bin" />
+			<fileset dir="src" includes="**/*.java" />
+		</jar>
+	</target>
+
+</project>

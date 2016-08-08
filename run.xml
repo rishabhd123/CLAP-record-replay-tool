@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project name="e0210" default="run">
+
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath>
+			<pathelement location="lib/ant-contrib-0.6.jar" />
+		</classpath>
+	</taskdef>
+
+	<condition property="valid">
+		<and>
+			<matches pattern="^project-[1-4]$" string="${project}" />
+			<or>
+				<matches pattern="^test([1]?\d|20)$" string="${testcase}" />
+				<matches pattern="^testall$" string="${testcase}" />
+			</or>
+		</and>
+	</condition>
+	<fail message="Arguments are not valid!" unless="valid" />
+
+	<path id="e0210.classpath">
+		<pathelement location="bin" />
+		<pathelement location="lib/soot-nightly-05082016.jar" />
+		<pathelement location="lib/jgrapht-core-0.9.2.jar" />
+	</path>
+
+	<target name="-runall">
+		<for list="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20" param="num">
+			<sequential>
+
+				<java classname="e0210.Main">
+					<classpath refid="e0210.classpath" />
+					<arg value="${project}" />
+					<arg value="test@{num}" />
+				</java>
+
+				<echo>
+				</echo>
+				<echo>Finished test@{num}</echo>
+				<echo>
+				</echo>
+			</sequential>
+		</for>
+	</target>
+
+	<target name="-runsingle">
+		<java classname="e0210.Main">
+			<classpath refid="e0210.classpath" />
+			<arg value="${project}" />
+			<arg value="${testcase}" />
+		</java>
+	</target>
+
+	<target name="run">
+		<ant antfile="build.xml">
+		</ant>
+
+		<ant antfile="run.xml" dir="Testcases/${project}">
+		</ant>
+
+		<if>
+			<equals arg1="${testcase}" arg2="testall" />
+			<then>
+				<antcall target="-runall" />
+			</then>
+			<else>
+				<antcall target="-runsingle" />
+			</else>
+		</if>
+	</target>
+
+	<target name="-testall">
+
+		<for list="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20" param="num">
+			<sequential>
+
+				<java classname="e0210.Main">
+					<classpath refid="e0210.classpath" />
+					<arg value="${project}" />
+					<arg value="test@{num}" />
+				</java>
+
+				<java classname="test@{num}.Main">
+					<redirector output="Testcases/${project}/output/test@{num}" alwayslog="true" />
+					<classpath>
+						<pathelement location="Testcases/${project}/sootBin/" />
+					</classpath>
+				</java>
+
+
+
+				<echo>
+				</echo>
+				<echo>Checking the output</echo>
+				<echo>
+				</echo>
+
+				<exec executable="sh">
+					<arg value="-c" />
+					<arg value="diff Testcases/output/${project}/test@{num} Testcases/${project}/output/test@{num} ; if [ $? -eq 0 ]; then echo PASS; else echo FAIL; fi" />
+				</exec>
+
+				<echo>
+				</echo>
+				<echo>Finished test@{num}</echo>
+				<echo>
+				</echo>
+			</sequential>
+		</for>
+	</target>
+
+	<target name="-testsingle">
+
+		<java classname="e0210.Main">
+			<classpath refid="e0210.classpath" />
+			<arg value="${project}" />
+			<arg value="${testcase}" />
+		</java>
+
+		<java classname="${testcase}.Main">
+			<redirector output="Testcases/${project}/output/${testcase}" alwayslog="true" />
+			<classpath>
+				<pathelement location="Testcases/${project}/sootBin/" />
+			</classpath>
+		</java>
+
+		<echo>
+		</echo>
+		<echo>Checking the output</echo>
+		<echo>
+		</echo>
+
+		<exec executable="sh">
+			<arg value="-c" />
+			<arg value="diff Testcases/output/${project}/${testcase} Testcases/${project}/output/${testcase} ; if [ $? -eq 0 ]; then echo PASS; else echo FAIL; fi" />
+		</exec>
+
+	</target>
+
+	<target name="test">
+		<ant antfile="build.xml">
+		</ant>
+
+		<ant antfile="run.xml" dir="Testcases/${project}">
+		</ant>
+
+		<if>
+			<equals arg1="${testcase}" arg2="testall" />
+			<then>
+				<antcall target="-testall" />
+			</then>
+			<else>
+				<antcall target="-testsingle" />
+			</else>
+		</if>
+	</target>
+
+</project>
