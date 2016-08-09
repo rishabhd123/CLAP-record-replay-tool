@@ -3,7 +3,8 @@ package test4;
 public class Main {
 
 	public static void main(String[] args) {
-		int a = args[0].length();
+
+		int a = "asdf".length();
 
 		if (a > 0)
 			foo(a);
