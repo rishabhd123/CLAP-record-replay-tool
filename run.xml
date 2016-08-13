@@ -1,16 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!--
+@author Sridhar Gopinath		-		g.sridhar53@gmail.com
+
+Course project,
+Principles of Programming Course, Fall - 2016,
+Computer Science and Automation (CSA),
+Indian Institute of Science (IISc),
+Bangalore
+-->
+
 <project name="e0210" default="run">
 
+	<!-- To use the loop and if functionalities -->
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
 		<classpath>
 			<pathelement location="lib/ant-contrib-0.6.jar" />
 		</classpath>
 	</taskdef>
 
+	<!-- Classpath used to run SOOT -->
+	<path id="e0210.classpath">
+		<pathelement location="bin" />
+		<fileset dir="lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<!-- Validate the input arguments -->
 	<condition property="valid">
 		<and>
 			<matches pattern="^project-[1-4]$" string="${project}" />
 			<or>
+				<!-- Change the regex to add more testcases beyond test20 -->
+				<!-- TODO: This allows test0 as well -->
 				<matches pattern="^test([1]?\d|20)$" string="${testcase}" />
 				<matches pattern="^testall$" string="${testcase}" />
 			</or>
@@ -18,46 +41,51 @@
 	</condition>
 	<fail message="Arguments are not valid!" unless="valid" />
 
-	<path id="e0210.classpath">
-		<pathelement location="bin" />
-		<pathelement location="lib/soot-nightly-05082016.jar" />
-		<pathelement location="lib/jgrapht-core-0.9.2.jar" />
-	</path>
 
+
+	<!-- "run" MODE with "testall" -->
 	<target name="-runall">
+		<!-- Loop for all the test cases -->
+		<!-- Change the list to add more test cases -->
 		<for list="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20" param="num">
 			<sequential>
 
-				<java classname="e0210.Main">
+				<!-- Run SOOT for each test case -->
+				<java classname="e0210.Main" failonerror="true">
 					<classpath refid="e0210.classpath" />
 					<arg value="${project}" />
 					<arg value="test@{num}" />
 				</java>
 
-				<echo>
-				</echo>
-				<echo>Finished test@{num}</echo>
-				<echo>
-				</echo>
+				<echo />
+				<echo>[Completed test@{num}]</echo>
+				<echo />
+
 			</sequential>
 		</for>
 	</target>
 
+	<!-- "run" MODE for a single test case -->
 	<target name="-runsingle">
-		<java classname="e0210.Main">
+		<java classname="e0210.Main" failonerror="true">
 			<classpath refid="e0210.classpath" />
 			<arg value="${project}" />
 			<arg value="${testcase}" />
 		</java>
 	</target>
 
+	<!-- "run" MODE to run SOOT on the test case -->
 	<target name="run">
+
+		<!-- Execute the build.xml file to build the project -->
 		<ant antfile="build.xml">
 		</ant>
 
+		<!-- Create the JAR file for the project in the project directory -->
 		<ant antfile="run.xml" dir="Testcases/${project}">
 		</ant>
 
+		<!-- Call the target based on whether "testall" or not -->
 		<if>
 			<equals arg1="${testcase}" arg2="testall" />
 			<then>
@@ -69,81 +97,116 @@
 		</if>
 	</target>
 
-	<target name="-testall">
 
+
+	<!-- "test" MODE with "testall" -->
+	<target name="-testall">
+		<!-- Loop for all the test cases -->
+		<!-- Change the list to add more test cases -->
 		<for list="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20" param="num">
 			<sequential>
 
-				<java classname="e0210.Main">
+				<!-- Run SOOT -->
+				<java classname="e0210.Main" failonerror="true">
 					<classpath refid="e0210.classpath" />
 					<arg value="${project}" />
 					<arg value="test@{num}" />
 				</java>
 
-				<java classname="test@{num}.Main">
-					<redirector output="Testcases/${project}/output/test@{num}" alwayslog="true" />
+				<echo />
+				<echo>[Completed "run" mode for test@{num}]</echo>
+				<echo />
+
+				<!-- Remove old output file -->
+				<delete file="Testcases/${project}/output/test@{num}">
+				</delete>
+
+				<echo>[Executing test@{num}]</echo>
+
+				<!-- Execute the test case with the "input" file as the argument -->
+				<!-- Redirect the output to a output file -->
+				<loadfile property="input@{num}" srcFile="Testcases/${project}/input/test@{num}" />
+				<java classname="test@{num}.Main" failonerror="true">
+					<redirector output="Testcases/${project}/output/test@{num}" error="Testcases/${project}/output/${testcase}.error" alwayslog="true" />
 					<classpath>
 						<pathelement location="Testcases/${project}/sootBin/" />
 					</classpath>
+					<arg line="${input@{num}}" />
 				</java>
 
+				<echo />
+				<echo>[Checking the output of test@{num}]</echo>
+				<echo />
 
-
-				<echo>
-				</echo>
-				<echo>Checking the output</echo>
-				<echo>
-				</echo>
-
+				<!-- Run diff on the output files to verify the correctness -->
 				<exec executable="sh">
 					<arg value="-c" />
 					<arg value="diff Testcases/output/${project}/test@{num} Testcases/${project}/output/test@{num} ; if [ $? -eq 0 ]; then echo PASS; else echo FAIL; fi" />
 				</exec>
 
-				<echo>
-				</echo>
-				<echo>Finished test@{num}</echo>
-				<echo>
-				</echo>
+				<echo />
+				<echo>[Completed "test" mode for test@{num}]</echo>
+				<echo />
 			</sequential>
 		</for>
 	</target>
 
 	<target name="-testsingle">
-
-		<java classname="e0210.Main">
+		<!-- Run SOOT -->
+		<java classname="e0210.Main" failonerror="true">
 			<classpath refid="e0210.classpath" />
 			<arg value="${project}" />
 			<arg value="${testcase}" />
 		</java>
 
-		<java classname="${testcase}.Main">
-			<redirector output="Testcases/${project}/output/${testcase}" alwayslog="true" />
+		<echo />
+		<echo>[Completed "run" mode for ${testcase}]</echo>
+		<echo />
+
+		<!-- Remove old output file -->
+		<delete file="Testcases/${project}/output/${testcase}">
+		</delete>
+
+		<echo>[Executing ${testcase}]</echo>
+
+		<!-- Execute the test case with the "input" file as the argument -->
+		<!-- Redirect the output to a output file -->
+		<loadfile property="input" srcFile="Testcases/${project}/input/${testcase}" />
+		<java classname="${testcase}.Main" failonerror="true">
+			<redirector output="Testcases/${project}/output/${testcase}" error="Testcases/${project}/output/${testcase}.error" alwayslog="true" />
 			<classpath>
 				<pathelement location="Testcases/${project}/sootBin/" />
 			</classpath>
+			<arg line="${input}" />
 		</java>
 
-		<echo>
-		</echo>
-		<echo>Checking the output</echo>
-		<echo>
-		</echo>
+		<echo />
+		<echo>[Checking the output for ${testcase}]</echo>
+		<echo />
 
+		<!-- Run diff on the output files to verify the correctness -->
 		<exec executable="sh">
 			<arg value="-c" />
 			<arg value="diff Testcases/output/${project}/${testcase} Testcases/${project}/output/${testcase} ; if [ $? -eq 0 ]; then echo PASS; else echo FAIL; fi" />
 		</exec>
 
+		<echo />
+		<echo>[Completed "test" mode for ${testcase}]</echo>
+		<echo />
 	</target>
 
+	<!-- "test" MODE to verify the output for the test case -->
 	<target name="test">
+
+		<!-- Execute the build.xml file to build the project -->
 		<ant antfile="build.xml">
 		</ant>
 
+		<!-- Create the JAR file for the project in the project directory -->
 		<ant antfile="run.xml" dir="Testcases/${project}">
 		</ant>
 
+		<!-- Call the target based on whether "testall" or not -->
 		<if>
 			<equals arg1="${testcase}" arg2="testall" />
 			<then>
