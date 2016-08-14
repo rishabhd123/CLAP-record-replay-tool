@@ -26,7 +26,7 @@ public class Main {
 	public static void foo(int a) {
 
 		if (a % 2 == 0)
-			System.exit(1);
+			System.exit(0);
 
 		return;
 	}

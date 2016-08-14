@@ -101,6 +101,10 @@ Bangalore
 
 	<!-- "test" MODE with "testall" -->
 	<target name="-testall">
+
+		<!-- Create output directory -->
+		<mkdir dir="Testcases/${project}/output" />
+
 		<!-- Loop for all the test cases -->
 		<!-- Change the list to add more test cases -->
 		<for list="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20" param="num">
@@ -152,6 +156,10 @@ Bangalore
 	</target>
 
 	<target name="-testsingle">
+
+		<!-- Create output directory -->
+		<mkdir dir="Testcases/${project}/output" />
+
 		<!-- Run SOOT -->
 		<java classname="e0210.Main" failonerror="true">
 			<classpath refid="e0210.classpath" />

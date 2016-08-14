@@ -16,9 +16,9 @@ public class Main {
 
 		int a = args[0].length();
 
-		for (int i = 0; i < 10; i++) {
+		for (int i = 1; i < 10; i++) {
 			if (i % 5 == 0)
-				System.exit(1);
+				System.exit(0);
 			a++;
 		}
 

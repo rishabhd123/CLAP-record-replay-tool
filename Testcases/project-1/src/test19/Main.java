@@ -16,6 +16,13 @@ public class Main {
 
 		int a = args[0].length();
 
+		for (int i = 0; i < a; i++) {
+			if (i % 2 == 0)
+				continue;
+			if (i % 3 == 0)
+				break;
+		}
+
 		System.err.println(a);
 
 		return;

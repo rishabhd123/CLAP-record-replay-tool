@@ -14,9 +14,14 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		System.out.println("Hello world");
+		int a = args[0].length();
 
-		return;
+		if (a % 2 == 0)
+			return;
+		else {
+			System.err.println(a);
+			return;
+		}
 	}
 
 }

@@ -16,8 +16,23 @@ public class Main {
 
 		int a = args[0].length();
 
+		for (int i = 0; i < 3; i++)
+			foo(a);
+
 		System.err.println(a);
 
+		return;
+	}
+
+	public static void foo(int a) {
+		for (int i = 0; i < 3; i++)
+			bar(a);
+		return;
+	}
+
+	public static void bar(int a) {
+		for (int i = 0; i < 3; i++)
+			a++;
 		return;
 	}
 
