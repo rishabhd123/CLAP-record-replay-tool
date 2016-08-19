@@ -10,6 +10,15 @@ Indian Institute of Science (IISc),
 Bangalore
 -->
 
+<!--
+
+NOTE:
+"If odd things go wrong when you run this task, set fork="true" to use a new JVM."
+Odd things actually went wrong when running test10 in project-1.
+Hence added fork="true" for all the java task in the file.
+
+-->
+
 <project name="e0210" default="run">
 
 	<!-- To use the loop and if functionalities -->
@@ -51,7 +60,7 @@ Bangalore
 			<sequential>
 
 				<!-- Run SOOT for each test case -->
-				<java classname="e0210.Main" failonerror="true">
+				<java classname="e0210.Main" failonerror="true" fork="true">
 					<classpath refid="e0210.classpath" />
 					<arg value="${project}" />
 					<arg value="test@{num}" />
@@ -67,7 +76,7 @@ Bangalore
 
 	<!-- "run" MODE for a single test case -->
 	<target name="-runsingle">
-		<java classname="e0210.Main" failonerror="true">
+		<java classname="e0210.Main" failonerror="true" fork="true">
 			<classpath refid="e0210.classpath" />
 			<arg value="${project}" />
 			<arg value="${testcase}" />
@@ -111,7 +120,7 @@ Bangalore
 			<sequential>
 
 				<!-- Run SOOT -->
-				<java classname="e0210.Main" failonerror="true">
+				<java classname="e0210.Main" failonerror="true" fork="true">
 					<classpath refid="e0210.classpath" />
 					<arg value="${project}" />
 					<arg value="test@{num}" />
@@ -130,7 +139,7 @@ Bangalore
 				<!-- Execute the test case with the "input" file as the argument -->
 				<!-- Redirect the output to a output file -->
 				<loadfile property="input@{num}" srcFile="Testcases/${project}/input/test@{num}" />
-				<java classname="test@{num}.Main" failonerror="true">
+				<java classname="test@{num}.Main" failonerror="true" fork="true">
 					<redirector output="Testcases/${project}/output/test@{num}" error="Testcases/${project}/output/${testcase}.error" alwayslog="true" />
 					<classpath>
 						<pathelement location="Testcases/${project}/sootBin/" />
@@ -161,7 +170,7 @@ Bangalore
 		<mkdir dir="Testcases/${project}/output" />
 
 		<!-- Run SOOT -->
-		<java classname="e0210.Main" failonerror="true">
+		<java classname="e0210.Main" failonerror="true" fork="true">
 			<classpath refid="e0210.classpath" />
 			<arg value="${project}" />
 			<arg value="${testcase}" />
@@ -180,7 +189,7 @@ Bangalore
 		<!-- Execute the test case with the "input" file as the argument -->
 		<!-- Redirect the output to a output file -->
 		<loadfile property="input" srcFile="Testcases/${project}/input/${testcase}" />
-		<java classname="${testcase}.Main" failonerror="true">
+		<java classname="${testcase}.Main" failonerror="true" fork="true">
 			<redirector output="Testcases/${project}/output/${testcase}" error="Testcases/${project}/output/${testcase}.error" alwayslog="true" />
 			<classpath>
 				<pathelement location="Testcases/${project}/sootBin/" />
