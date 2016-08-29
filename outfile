@@ -1,0 +1,3557 @@
+Buildfile: /home/rishabh/workspace/e0210-project/run.xml
+
+test:
+
+build-subprojects:
+
+init:
+
+build-project:
+     [echo] e0210-project: /home/rishabh/workspace/e0210-project/build.xml
+
+build:
+
+jar:
+
+build-subprojects:
+
+init:
+
+build-project:
+     [echo] project-1: /home/rishabh/workspace/e0210-project/Testcases/project-1/build.xml
+
+build:
+
+-testall:
+     [java] Soot started on Mon Aug 29 19:44:04 IST 2016
+     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
+     [java] Transforming Transforming e0210.MyCounter... 
+     [java] test1.Main... 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test1.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test1.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         e0210.MyCounter r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: e0210.MyCounter;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void increment(long)
+     [java]     {
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $l1 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         $l2 = $l1 + l0;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = $l2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void main(java.lang.String[])
+     [java]     {
+     [java]         java.lang.String[] r0;
+     [java]         int i0;
+     [java]         java.lang.String $r1, $r4, $r8;
+     [java]         java.lang.StringBuilder $r2, $r5, $r6, $r7;
+     [java]         java.io.PrintStream $r3, disp;
+     [java]         long dynBranch;
+     [java] 
+     [java]         r0 := @parameter0: java.lang.String[];
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r1 = r0[0];
+     [java] 
+     [java]         i0 = virtualinvoke $r1.<java.lang.String: int length()>();
+     [java] 
+     [java]         $r3 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         $r2 = new java.lang.StringBuilder;
+     [java] 
+     [java]         specialinvoke $r2.<java.lang.StringBuilder: void <init>()>();
+     [java] 
+     [java]         $r4 = r0[0];
+     [java] 
+     [java]         $r5 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r4);
+     [java] 
+     [java]         $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" is of length ");
+     [java] 
+     [java]         $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(i0);
+     [java] 
+     [java]         $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+     [java] 
+     [java]         virtualinvoke $r3.<java.io.PrintStream: void print(java.lang.String)>($r8);
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void printG()
+     [java]     {
+     [java]         long $l0, dynBranch;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java] Writing to Testcases/project-1/sootBin/test1/Main.class
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Soot finished on Mon Aug 29 19:44:04 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
+     [echo] 
+     [echo] [Completed "run" mode for test1]
+     [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-1/output/test1
+     [echo] [Executing test1]
+     [java] 0
+     [java] 0
+     [java] asdf is of length 4
+     [echo] 
+     [echo] [Checking the output of test1]
+     [echo] 
+     [exec] PASS
+     [echo] 
+     [echo] [Completed "test" mode for test1]
+     [echo] 
+     [java] Soot started on Mon Aug 29 19:44:05 IST 2016
+     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
+     [java] Transforming Transforming test2.Main... 
+     [java] e0210.MyCounter... 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test2.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test2.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         e0210.MyCounter r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: e0210.MyCounter;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void increment(long)
+     [java]     {
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $l1 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         $l2 = $l1 + l0;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = $l2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void main(java.lang.String[])
+     [java]     {
+     [java]         java.lang.String[] r0;
+     [java]         java.lang.String $r1;
+     [java]         java.io.PrintStream $r2, disp;
+     [java]         int i0, i1;
+     [java]         long dynBranch;
+     [java] 
+     [java]         r0 := @parameter0: java.lang.String[];
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r1 = r0[0];
+     [java] 
+     [java]         i0 = virtualinvoke $r1.<java.lang.String: int length()>();
+     [java] 
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if i0 <= 5 goto label1;
+     [java] 
+     [java]         i1 = i0 + 1;
+     [java] 
+     [java]         goto label2;
+     [java] 
+     [java]      label1:
+     [java]         i1 = i0 + -1;
+     [java] 
+     [java]      label2:
+     [java]         $r2 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         virtualinvoke $r2.<java.io.PrintStream: void println(int)>(i1);
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void printG()
+     [java]     {
+     [java]         long $l0, dynBranch;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Writing to Testcases/project-1/sootBin/test2/Main.class
+     [java] Soot finished on Mon Aug 29 19:44:06 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
+     [echo] 
+     [echo] [Completed "run" mode for test2]
+     [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-1/output/test2
+     [echo] [Executing test2]
+     [java] 1
+     [java] 3
+     [java] 1
+     [echo] 
+     [echo] [Checking the output of test2]
+     [echo] 
+     [exec] PASS
+     [echo] 
+     [echo] [Completed "test" mode for test2]
+     [echo] 
+     [java] Soot started on Mon Aug 29 19:44:06 IST 2016
+     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
+     [java] Transforming Transforming test3.Main... 
+     [java] e0210.MyCounter... 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test3.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test3.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         e0210.MyCounter r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: e0210.MyCounter;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void increment(long)
+     [java]     {
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $l1 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         $l2 = $l1 + l0;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = $l2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void printG()
+     [java]     {
+     [java]         long $l0, dynBranch;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void main(java.lang.String[])
+     [java]     {
+     [java]         java.lang.String[] r0;
+     [java]         java.lang.String $r1;
+     [java]         int i0;
+     [java]         java.io.PrintStream $r2, disp;
+     [java]         long dynBranch;
+     [java] 
+     [java]         r0 := @parameter0: java.lang.String[];
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r1 = r0[0];
+     [java] 
+     [java]         i0 = virtualinvoke $r1.<java.lang.String: int length()>();
+     [java] 
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if i0 <= 5 goto label2;
+     [java] 
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if i0 <= 10 goto label1;
+     [java] 
+     [java]         i0 = i0 + 1;
+     [java] 
+     [java]         goto label3;
+     [java] 
+     [java]      label1:
+     [java]         i0 = i0 + -1;
+     [java] 
+     [java]         goto label3;
+     [java] 
+     [java]      label2:
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if i0 != 0 goto label3;
+     [java] 
+     [java]         i0 = i0 + -1;
+     [java] 
+     [java]      label3:
+     [java]         $r2 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         virtualinvoke $r2.<java.io.PrintStream: void println(int)>(i0);
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java] Writing to Testcases/project-1/sootBin/test3/Main.class
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Soot finished on Mon Aug 29 19:44:07 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
+     [echo] 
+     [echo] [Completed "run" mode for test3]
+     [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-1/output/test3
+     [echo] [Executing test3]
+     [java] 2
+     [java] 4
+     [java] 2
+     [echo] 
+     [echo] [Checking the output of test3]
+     [echo] 
+     [exec] PASS
+     [echo] 
+     [echo] [Completed "test" mode for test3]
+     [echo] 
+     [java] Soot started on Mon Aug 29 19:44:08 IST 2016
+     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
+     [java] Transforming Transforming test4.Main... 
+     [java] e0210.MyCounter... 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test4.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test4.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         e0210.MyCounter r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: e0210.MyCounter;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void increment(long)
+     [java]     {
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $l1 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         $l2 = $l1 + l0;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = $l2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void printG()
+     [java]     {
+     [java]         long $l0, dynBranch;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void main(java.lang.String[])
+     [java]     {
+     [java]         java.lang.String[] r0;
+     [java]         int i0, i1, i2;
+     [java]         java.lang.String $r1;
+     [java]         java.io.PrintStream $r2, disp;
+     [java]         long dynBranch;
+     [java] 
+     [java]         r0 := @parameter0: java.lang.String[];
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r1 = r0[0];
+     [java] 
+     [java]         i0 = virtualinvoke $r1.<java.lang.String: int length()>();
+     [java] 
+     [java]         i1 = 0;
+     [java] 
+     [java]      label1:
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if i1 >= i0 goto label2;
+     [java] 
+     [java]         i2 = i1 + 1;
+     [java] 
+     [java]         i1 = i2 + 1;
+     [java] 
+     [java]         goto label1;
+     [java] 
+     [java]      label2:
+     [java]         $r2 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         virtualinvoke $r2.<java.io.PrintStream: void println(int)>(i0);
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java] Writing to Testcases/project-1/sootBin/test4/Main.class
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Soot finished on Mon Aug 29 19:44:08 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
+     [echo] 
+     [echo] [Completed "run" mode for test4]
+     [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-1/output/test4
+     [echo] [Executing test4]
+     [java] 3
+     [java] 4
+     [java] 3
+     [echo] 
+     [echo] [Checking the output of test4]
+     [echo] 
+     [exec] PASS
+     [echo] 
+     [echo] [Completed "test" mode for test4]
+     [echo] 
+     [java] Soot started on Mon Aug 29 19:44:09 IST 2016
+     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
+     [java] Transforming Transforming test5.Main... 
+     [java] e0210.MyCounter... 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test5.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test5.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         e0210.MyCounter r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: e0210.MyCounter;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void increment(long)
+     [java]     {
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $l1 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         $l2 = $l1 + l0;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = $l2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void main(java.lang.String[])
+     [java]     {
+     [java]         java.lang.String[] r0;
+     [java]         java.lang.String $r1;
+     [java]         java.io.PrintStream $r2, disp;
+     [java]         int $i0, i1, i2;
+     [java]         long dynBranch;
+     [java] 
+     [java]         r0 := @parameter0: java.lang.String[];
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r1 = r0[0];
+     [java] 
+     [java]         i1 = virtualinvoke $r1.<java.lang.String: int length()>();
+     [java] 
+     [java]         i2 = 0;
+     [java] 
+     [java]      label1:
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if i2 >= i1 goto label4;
+     [java] 
+     [java]         $i0 = i2 % 2;
+     [java] 
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if $i0 != 0 goto label2;
+     [java] 
+     [java]         i2 = i2 + 1;
+     [java] 
+     [java]         goto label3;
+     [java] 
+     [java]      label2:
+     [java]         i1 = i1 + -1;
+     [java] 
+     [java]      label3:
+     [java]         i2 = i2 + 1;
+     [java] 
+     [java]         goto label1;
+     [java] 
+     [java]      label4:
+     [java]         $r2 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         virtualinvoke $r2.<java.io.PrintStream: void println(int)>(i1);
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void printG()
+     [java]     {
+     [java]         long $l0, dynBranch;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Writing to Testcases/project-1/sootBin/test5/Main.class
+     [java] Soot finished on Mon Aug 29 19:44:09 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
+     [echo] 
+     [echo] [Completed "run" mode for test5]
+     [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-1/output/test5
+     [echo] [Executing test5]
+     [java] 5
+     [java] 4
+     [java] 5
+     [echo] 
+     [echo] [Checking the output of test5]
+     [echo] 
+     [exec] PASS
+     [echo] 
+     [echo] [Completed "test" mode for test5]
+     [echo] 
+     [java] Soot started on Mon Aug 29 19:44:10 IST 2016
+     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
+     [java] Transforming test6.Main... 
+     [java] Transforming e0210.MyCounter... 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test6.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test6.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         e0210.MyCounter r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: e0210.MyCounter;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void increment(long)
+     [java]     {
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $l1 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         $l2 = $l1 + l0;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = $l2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void main(java.lang.String[])
+     [java]     {
+     [java]         java.lang.String[] r0;
+     [java]         java.lang.String $r1;
+     [java]         int $i0, $i1, i2, i3;
+     [java]         java.io.PrintStream $r2, disp;
+     [java]         long dynBranch;
+     [java] 
+     [java]         r0 := @parameter0: java.lang.String[];
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r1 = r0[0];
+     [java] 
+     [java]         i2 = virtualinvoke $r1.<java.lang.String: int length()>();
+     [java] 
+     [java]         i3 = 0;
+     [java] 
+     [java]      label1:
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if i2 >= 100 goto label2;
+     [java] 
+     [java]         i2 = i2 + 1;
+     [java] 
+     [java]         $i1 = i2 % 2;
+     [java] 
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if $i1 != 0 goto label1;
+     [java] 
+     [java]         i3 = i3 + 1;
+     [java] 
+     [java]         goto label1;
+     [java] 
+     [java]      label2:
+     [java]         $r2 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         $i0 = i2 + i3;
+     [java] 
+     [java]         virtualinvoke $r2.<java.io.PrintStream: void println(int)>($i0);
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void printG()
+     [java]     {
+     [java]         long $l0, dynBranch;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java] Writing to Testcases/project-1/sootBin/test6/Main.class
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Soot finished on Mon Aug 29 19:44:11 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
+     [echo] 
+     [echo] [Completed "run" mode for test6]
+     [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-1/output/test6
+     [echo] [Executing test6]
+     [java] 193
+     [java] 148
+     [java] 193
+     [echo] 
+     [echo] [Checking the output of test6]
+     [echo] 
+     [exec] PASS
+     [echo] 
+     [echo] [Completed "test" mode for test6]
+     [echo] 
+     [java] Soot started on Mon Aug 29 19:44:11 IST 2016
+     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
+     [java] Transforming Transforming test7.Main... 
+     [java] e0210.MyCounter... 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test7.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test7.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         e0210.MyCounter r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: e0210.MyCounter;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void increment(long)
+     [java]     {
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $l1 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         $l2 = $l1 + l0;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = $l2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void printG()
+     [java]     {
+     [java]         long $l0, dynBranch;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void main(java.lang.String[])
+     [java]     {
+     [java]         java.lang.String[] r0;
+     [java]         int i0;
+     [java]         java.lang.String $r1;
+     [java]         long $l1, $l4, $l5, l6, l7, dynBranch;
+     [java]         byte $b2, $b3;
+     [java]         java.io.PrintStream $r2, disp;
+     [java] 
+     [java]         r0 := @parameter0: java.lang.String[];
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r1 = r0[0];
+     [java] 
+     [java]         i0 = virtualinvoke $r1.<java.lang.String: int length()>();
+     [java] 
+     [java]         l6 = 0L;
+     [java] 
+     [java]         l7 = 0L;
+     [java] 
+     [java]      label1:
+     [java]         $l1 = l6 % 10L;
+     [java] 
+     [java]         $b2 = $l1 cmp 0L;
+     [java] 
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if $b2 != 0 goto label2;
+     [java] 
+     [java]         l7 = l7 + 1L;
+     [java] 
+     [java]      label2:
+     [java]         l6 = l6 + 1L;
+     [java] 
+     [java]         $b3 = l6 cmp 5000000000L;
+     [java] 
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if $b3 < 0 goto label1;
+     [java] 
+     [java]         $r2 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         $l4 = (long) i0;
+     [java] 
+     [java]         $l5 = $l4 + l7;
+     [java] 
+     [java]         virtualinvoke $r2.<java.io.PrintStream: void println(long)>($l5);
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java] Writing to Testcases/project-1/sootBin/test7/Main.class
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Soot finished on Mon Aug 29 19:44:12 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
+     [echo] 
+     [echo] [Completed "run" mode for test7]
+     [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-1/output/test7
+     [echo] [Executing test7]
+     [java] 10000000000
+     [java] 500000004
+     [java] 10000000000
+     [echo] 
+     [echo] [Checking the output of test7]
+     [echo] 
+     [exec] PASS
+     [echo] 
+     [echo] [Completed "test" mode for test7]
+     [echo] 
+     [java] Soot started on Mon Aug 29 19:47:56 IST 2016
+     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
+     [java] Transforming Transforming test8.Main... 
+     [java] e0210.MyCounter... 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test8.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test8.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         e0210.MyCounter r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: e0210.MyCounter;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void increment(long)
+     [java]     {
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $l1 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         $l2 = $l1 + l0;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = $l2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void printG()
+     [java]     {
+     [java]         long $l0, dynBranch;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void main(java.lang.String[])
+     [java]     {
+     [java]         java.lang.String[] r0;
+     [java]         int i0;
+     [java]         java.lang.String $r1, r2;
+     [java]         java.io.PrintStream $r3, disp;
+     [java]         long dynBranch;
+     [java] 
+     [java]         r0 := @parameter0: java.lang.String[];
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r1 = r0[0];
+     [java] 
+     [java]         i0 = virtualinvoke $r1.<java.lang.String: int length()>();
+     [java] 
+     [java]         tableswitch(i0)
+     [java]         {
+     [java]             case 1: goto label01;
+     [java]             case 2: goto label02;
+     [java]             case 3: goto label03;
+     [java]             case 4: goto label04;
+     [java]             case 5: goto label05;
+     [java]             case 6: goto label06;
+     [java]             case 7: goto label07;
+     [java]             case 8: goto label08;
+     [java]             case 9: goto label09;
+     [java]             case 10: goto label10;
+     [java]             case 11: goto label11;
+     [java]             case 12: goto label12;
+     [java]             default: goto label13;
+     [java]         };
+     [java] 
+     [java]      label01:
+     [java]         r2 = "January";
+     [java] 
+     [java]         goto label14;
+     [java] 
+     [java]      label02:
+     [java]         r2 = "February";
+     [java] 
+     [java]         goto label14;
+     [java] 
+     [java]      label03:
+     [java]         r2 = "March";
+     [java] 
+     [java]         goto label14;
+     [java] 
+     [java]      label04:
+     [java]         r2 = "April";
+     [java] 
+     [java]         goto label14;
+     [java] 
+     [java]      label05:
+     [java]         r2 = "May";
+     [java] 
+     [java]         goto label14;
+     [java] 
+     [java]      label06:
+     [java]         r2 = "June";
+     [java] 
+     [java]         goto label14;
+     [java] 
+     [java]      label07:
+     [java]         r2 = "July";
+     [java] 
+     [java]         goto label14;
+     [java] 
+     [java]      label08:
+     [java]         r2 = "August";
+     [java] 
+     [java]         goto label14;
+     [java] 
+     [java]      label09:
+     [java]         r2 = "September";
+     [java] 
+     [java]         goto label14;
+     [java] 
+     [java]      label10:
+     [java]         r2 = "October";
+     [java] 
+     [java]         goto label14;
+     [java] 
+     [java]      label11:
+     [java]         r2 = "November";
+     [java] 
+     [java]         goto label14;
+     [java] 
+     [java]      label12:
+     [java]         r2 = "December";
+     [java] 
+     [java]         goto label14;
+     [java] 
+     [java]      label13:
+     [java]         r2 = "Invalid month";
+     [java] 
+     [java]      label14:
+     [java]         $r3 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         virtualinvoke $r3.<java.io.PrintStream: void println(java.lang.String)>(r2);
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java] Writing to Testcases/project-1/sootBin/test8/Main.class
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Soot finished on Mon Aug 29 19:47:57 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
+     [echo] 
+     [echo] [Completed "run" mode for test8]
+     [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-1/output/test8
+     [echo] [Executing test8]
+     [java] 0
+     [java] April
+     [java] 0
+     [echo] 
+     [echo] [Checking the output of test8]
+     [echo] 
+     [exec] PASS
+     [echo] 
+     [echo] [Completed "test" mode for test8]
+     [echo] 
+     [java] Soot started on Mon Aug 29 19:47:58 IST 2016
+     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
+     [java] Transforming Transforming test9.Main... 
+     [java] e0210.MyCounter... 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test9.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test9.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         e0210.MyCounter r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: e0210.MyCounter;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void increment(long)
+     [java]     {
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $l1 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         $l2 = $l1 + l0;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = $l2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void printG()
+     [java]     {
+     [java]         long $l0, dynBranch;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void main(java.lang.String[])
+     [java]     {
+     [java]         java.lang.String[] r0;
+     [java]         int i0, $i1;
+     [java]         java.lang.String $r1;
+     [java]         java.io.PrintStream $r2, disp;
+     [java]         long dynBranch;
+     [java] 
+     [java]         r0 := @parameter0: java.lang.String[];
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r1 = r0[0];
+     [java] 
+     [java]         i0 = virtualinvoke $r1.<java.lang.String: int length()>();
+     [java] 
+     [java]         $i1 = i0 % 2;
+     [java] 
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if $i1 != 0 goto label1;
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java] 
+     [java]      label1:
+     [java]         $r2 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         virtualinvoke $r2.<java.io.PrintStream: void println(int)>(i0);
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Writing to Testcases/project-1/sootBin/test9/Main.class
+     [java] Soot finished on Mon Aug 29 19:47:58 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
+     [echo] 
+     [echo] [Completed "run" mode for test9]
+     [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-1/output/test9
+     [echo] [Executing test9]
+     [java] 1
+     [java] 1
+     [echo] 
+     [echo] [Checking the output of test9]
+     [echo] 
+     [exec] PASS
+     [echo] 
+     [echo] [Completed "test" mode for test9]
+     [echo] 
+     [java] Soot started on Mon Aug 29 19:47:59 IST 2016
+     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
+     [java] Transforming Transforming test10.Main... 
+     [java] e0210.MyCounter... 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test10.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test10.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         e0210.MyCounter r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: e0210.MyCounter;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void increment(long)
+     [java]     {
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $l1 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         $l2 = $l1 + l0;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = $l2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void main(java.lang.String[])
+     [java]     {
+     [java]         java.lang.String[] r0;
+     [java]         java.lang.String $r1;
+     [java]         java.io.PrintStream $r2, disp;
+     [java]         int $i0, i1, i2;
+     [java]         long dynBranch;
+     [java] 
+     [java]         r0 := @parameter0: java.lang.String[];
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r1 = r0[0];
+     [java] 
+     [java]         i1 = virtualinvoke $r1.<java.lang.String: int length()>();
+     [java] 
+     [java]         i2 = 1;
+     [java] 
+     [java]      label1:
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if i2 >= 10 goto label3;
+     [java] 
+     [java]         $i0 = i2 % 5;
+     [java] 
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if $i0 != 0 goto label2;
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         staticinvoke <java.lang.System: void exit(int)>(0);
+     [java] 
+     [java]      label2:
+     [java]         i1 = i1 + 1;
+     [java] 
+     [java]         i2 = i2 + 1;
+     [java] 
+     [java]         goto label1;
+     [java] 
+     [java]      label3:
+     [java]         $r2 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         virtualinvoke $r2.<java.io.PrintStream: void println(int)>(i1);
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void printG()
+     [java]     {
+     [java]         long $l0, dynBranch;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java] Writing to Testcases/project-1/sootBin/test10/Main.class
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Soot finished on Mon Aug 29 19:47:59 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
+     [echo] 
+     [echo] [Completed "run" mode for test10]
+     [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-1/output/test10
+     [echo] [Executing test10]
+     [java] 10
+     [java] 10
+     [echo] 
+     [echo] [Checking the output of test10]
+     [echo] 
+     [exec] PASS
+     [echo] 
+     [echo] [Completed "test" mode for test10]
+     [echo] 
+     [java] Soot started on Mon Aug 29 19:48:00 IST 2016
+     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
+     [java] Transforming Transforming test11.Main... 
+     [java] e0210.MyCounter... 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test11.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test11.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         e0210.MyCounter r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: e0210.MyCounter;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void main(java.lang.String[])
+     [java]     {
+     [java]         java.lang.String[] r0;
+     [java]         int i0;
+     [java]         java.lang.String $r1;
+     [java]         java.io.PrintStream $r2, disp;
+     [java]         long dynBranch;
+     [java] 
+     [java]         r0 := @parameter0: java.lang.String[];
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r1 = r0[0];
+     [java] 
+     [java]         i0 = virtualinvoke $r1.<java.lang.String: int length()>();
+     [java] 
+     [java]         staticinvoke <test11.Main: int foo(int)>(i0);
+     [java] 
+     [java]         staticinvoke <test11.Main: int bar(int)>(i0);
+     [java] 
+     [java]         $r2 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         virtualinvoke $r2.<java.io.PrintStream: void println(int)>(i0);
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void increment(long)
+     [java]     {
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $l1 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         $l2 = $l1 + l0;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = $l2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void printG()
+     [java]     {
+     [java]         long $l0, dynBranch;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static int foo(int)
+     [java]     {
+     [java]         int i0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         i0 := @parameter0: int;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return i0;
+     [java]     }
+     [java] 
+     [java]     public static int bar(int)
+     [java]     {
+     [java]         int i0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         i0 := @parameter0: int;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return i0;
+     [java]     }
+     [java] 
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Writing to Testcases/project-1/sootBin/test11/Main.class
+     [java] Soot finished on Mon Aug 29 19:48:00 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
+     [echo] 
+     [echo] [Completed "run" mode for test11]
+     [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-1/output/test11
+     [echo] [Executing test11]
+     [java] 0
+     [java] 0
+     [java] 0
+     [java] 4
+     [java] 0
+     [echo] 
+     [echo] [Checking the output of test11]
+     [echo] 
+     [exec] PASS
+     [echo] 
+     [echo] [Completed "test" mode for test11]
+     [echo] 
+     [java] Soot started on Mon Aug 29 19:48:01 IST 2016
+     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
+     [java] Transforming test12.Main... 
+     [java] Transforming e0210.MyCounter... 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test12.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test12.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         e0210.MyCounter r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: e0210.MyCounter;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void increment(long)
+     [java]     {
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $l1 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         $l2 = $l1 + l0;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = $l2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void main(java.lang.String[])
+     [java]     {
+     [java]         java.lang.String[] r0;
+     [java]         int i0;
+     [java]         java.lang.String $r1;
+     [java]         java.io.PrintStream $r2, disp;
+     [java]         long dynBranch;
+     [java] 
+     [java]         r0 := @parameter0: java.lang.String[];
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r1 = r0[0];
+     [java] 
+     [java]         i0 = virtualinvoke $r1.<java.lang.String: int length()>();
+     [java] 
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if i0 <= 5 goto label1;
+     [java] 
+     [java]         staticinvoke <test12.Main: int foo(int)>(i0);
+     [java] 
+     [java]         goto label2;
+     [java] 
+     [java]      label1:
+     [java]         staticinvoke <test12.Main: int bar(int)>(i0);
+     [java] 
+     [java]      label2:
+     [java]         $r2 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         virtualinvoke $r2.<java.io.PrintStream: void println(int)>(i0);
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void printG()
+     [java]     {
+     [java]         long $l0, dynBranch;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static int foo(int)
+     [java]     {
+     [java]         int i0, $i1;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         i0 := @parameter0: int;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if i0 <= 0 goto label1;
+     [java] 
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if i0 != 1 goto label1;
+     [java] 
+     [java]         $i1 = i0 + 1;
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return $i1;
+     [java] 
+     [java]      label1:
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return i0;
+     [java]     }
+     [java] 
+     [java]     public static int bar(int)
+     [java]     {
+     [java]         int i0, $i1;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         i0 := @parameter0: int;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if i0 <= 5 goto label1;
+     [java] 
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if i0 != 10 goto label1;
+     [java] 
+     [java]         $i1 = i0 + 1;
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return $i1;
+     [java] 
+     [java]      label1:
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return i0;
+     [java]     }
+     [java] 
+     [java] Writing to Testcases/project-1/sootBin/test12/Main.class
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Soot finished on Mon Aug 29 19:48:01 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
+     [echo] 
+     [echo] [Completed "run" mode for test12]
+     [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-1/output/test12
+     [echo] [Executing test12]
+     [java] 1
+     [java] 1
+     [java] 4
+     [java] 2
+     [echo] 
+     [echo] [Checking the output of test12]
+     [echo] 
+     [exec] PASS
+     [echo] 
+     [echo] [Completed "test" mode for test12]
+     [echo] 
+     [java] Soot started on Mon Aug 29 19:48:02 IST 2016
+     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
+     [java] Transforming test13.Main... 
+     [java] Transforming e0210.MyCounter... 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test13.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test13.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         e0210.MyCounter r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: e0210.MyCounter;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void main(java.lang.String[])
+     [java]     {
+     [java]         java.lang.String[] r0;
+     [java]         int i0;
+     [java]         java.lang.String $r1;
+     [java]         java.io.PrintStream $r2, disp;
+     [java]         long dynBranch;
+     [java] 
+     [java]         r0 := @parameter0: java.lang.String[];
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r1 = r0[0];
+     [java] 
+     [java]         i0 = virtualinvoke $r1.<java.lang.String: int length()>();
+     [java] 
+     [java]         staticinvoke <test13.Main: void foo(int)>(i0);
+     [java] 
+     [java]         $r2 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         virtualinvoke $r2.<java.io.PrintStream: void println(int)>(i0);
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void increment(long)
+     [java]     {
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $l1 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         $l2 = $l1 + l0;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = $l2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void printG()
+     [java]     {
+     [java]         long $l0, dynBranch;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void foo(int)
+     [java]     {
+     [java]         int i0, $i1;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         i0 := @parameter0: int;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if i0 >= 10 goto label1;
+     [java] 
+     [java]         $i1 = i0 + 1;
+     [java] 
+     [java]         staticinvoke <test13.Main: void foo(int)>($i1);
+     [java] 
+     [java]      label1:
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Writing to Testcases/project-1/sootBin/test13/Main.class
+     [java] Soot finished on Mon Aug 29 19:48:03 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
+     [echo] 
+     [echo] [Completed "run" mode for test13]
+     [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-1/output/test13
+     [echo] [Executing test13]
+     [java] 1
+     [java] 1
+     [java] 1
+     [java] 1
+     [java] 1
+     [java] 1
+     [java] 1
+     [java] 0
+     [java] 4
+     [java] 7
+     [echo] 
+     [echo] [Checking the output of test13]
+     [echo] 
+     [exec] PASS
+     [echo] 
+     [echo] [Completed "test" mode for test13]
+     [echo] 
+     [java] Soot started on Mon Aug 29 19:48:03 IST 2016
+     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
+     [java] Transforming Transforming test14.Main... 
+     [java] e0210.MyCounter... 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test14.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test14.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         e0210.MyCounter r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: e0210.MyCounter;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void main(java.lang.String[])
+     [java]     {
+     [java]         java.lang.String[] r0;
+     [java]         int i0;
+     [java]         java.lang.String $r1;
+     [java]         java.io.PrintStream $r2, disp;
+     [java]         long dynBranch;
+     [java] 
+     [java]         r0 := @parameter0: java.lang.String[];
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r1 = r0[0];
+     [java] 
+     [java]         i0 = virtualinvoke $r1.<java.lang.String: int length()>();
+     [java] 
+     [java]         staticinvoke <test14.Main: void foo(int)>(i0);
+     [java] 
+     [java]         $r2 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         virtualinvoke $r2.<java.io.PrintStream: void println(int)>(i0);
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void increment(long)
+     [java]     {
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $l1 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         $l2 = $l1 + l0;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = $l2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void printG()
+     [java]     {
+     [java]         long $l0, dynBranch;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void foo(int)
+     [java]     {
+     [java]         int i0, $i1;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         i0 := @parameter0: int;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $i1 = i0 % 2;
+     [java] 
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if $i1 != 0 goto label1;
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         staticinvoke <java.lang.System: void exit(int)>(0);
+     [java] 
+     [java]      label1:
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java] Writing to Testcases/project-1/sootBin/test14/Main.class
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Soot finished on Mon Aug 29 19:48:04 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
+     [echo] 
+     [echo] [Completed "run" mode for test14]
+     [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-1/output/test14
+     [echo] [Executing test14]
+     [java] 1
+     [java] 1
+     [echo] 
+     [echo] [Checking the output of test14]
+     [echo] 
+     [exec] PASS
+     [echo] 
+     [echo] [Completed "test" mode for test14]
+     [echo] 
+     [java] Soot started on Mon Aug 29 19:48:04 IST 2016
+     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
+     [java] Transforming Transforming test15.Main... 
+     [java] e0210.MyCounter... 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test15.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test15.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         e0210.MyCounter r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: e0210.MyCounter;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void main(java.lang.String[])
+     [java]     {
+     [java]         java.lang.String[] r0;
+     [java]         int i0;
+     [java]         java.lang.String $r2;
+     [java]         test15.Main $r3;
+     [java]         java.io.PrintStream $r4, disp;
+     [java]         long dynBranch;
+     [java] 
+     [java]         r0 := @parameter0: java.lang.String[];
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r2 = r0[0];
+     [java] 
+     [java]         i0 = virtualinvoke $r2.<java.lang.String: int length()>();
+     [java] 
+     [java]         $r3 = new test15.Main;
+     [java] 
+     [java]         specialinvoke $r3.<test15.Main: void <init>()>();
+     [java] 
+     [java]         virtualinvoke $r3.<test15.Main: void foo()>();
+     [java] 
+     [java]         $r4 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         virtualinvoke $r4.<java.io.PrintStream: void println(int)>(i0);
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void increment(long)
+     [java]     {
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $l1 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         $l2 = $l1 + l0;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = $l2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void printG()
+     [java]     {
+     [java]         long $l0, dynBranch;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void foo()
+     [java]     {
+     [java]         test15.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test15.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<test15.Main: void bar()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     private void bar()
+     [java]     {
+     [java]         test15.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test15.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Writing to Testcases/project-1/sootBin/test15/Main.class
+     [java] Soot finished on Mon Aug 29 19:48:05 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
+     [echo] 
+     [echo] [Completed "run" mode for test15]
+     [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-1/output/test15
+     [echo] [Executing test15]
+     [java] 0
+     [java] 0
+     [java] 0
+     [java] 0
+     [java] 4
+     [java] 0
+     [echo] 
+     [echo] [Checking the output of test15]
+     [echo] 
+     [exec] PASS
+     [echo] 
+     [echo] [Completed "test" mode for test15]
+     [echo] 
+     [java] Soot started on Mon Aug 29 19:48:05 IST 2016
+     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
+     [java] Transforming Transforming test16.Main... 
+     [java] e0210.MyCounter... 
+     [java] Transforming test16.Subclass... 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test16.Subclass r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test16.Subclass;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<test16.Main: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test16.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test16.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         e0210.MyCounter r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: e0210.MyCounter;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void main(java.lang.String[])
+     [java]     {
+     [java]         java.lang.String[] r0;
+     [java]         int i0;
+     [java]         java.lang.String $r2;
+     [java]         test16.Subclass $r3;
+     [java]         java.io.PrintStream $r4, disp;
+     [java]         long dynBranch;
+     [java] 
+     [java]         r0 := @parameter0: java.lang.String[];
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r2 = r0[0];
+     [java] 
+     [java]         i0 = virtualinvoke $r2.<java.lang.String: int length()>();
+     [java] 
+     [java]         $r3 = new test16.Subclass;
+     [java] 
+     [java]         specialinvoke $r3.<test16.Subclass: void <init>()>();
+     [java] 
+     [java]         virtualinvoke $r3.<test16.Subclass: void bar(int)>(i0);
+     [java] 
+     [java]         $r4 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         virtualinvoke $r4.<java.io.PrintStream: void println(int)>(i0);
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void increment(long)
+     [java]     {
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $l1 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         $l2 = $l1 + l0;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = $l2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void printG()
+     [java]     {
+     [java]         long $l0, dynBranch;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void foo(int)
+     [java]     {
+     [java]         test16.Main r0;
+     [java]         int i0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test16.Main;
+     [java] 
+     [java]         i0 := @parameter0: int;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if i0 != 2 goto label1;
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java] 
+     [java]      label1:
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void bar(int)
+     [java]     {
+     [java]         test16.Subclass r0;
+     [java]         int i0, $i1;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test16.Subclass;
+     [java] 
+     [java]         i0 := @parameter0: int;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $i1 = i0 % 2;
+     [java] 
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if $i1 != 0 goto label1;
+     [java] 
+     [java]         virtualinvoke r0.<test16.Subclass: void foo(int)>(i0);
+     [java] 
+     [java]      label1:
+     [java]         virtualinvoke r0.<test16.Subclass: void foo(int)>(i0);
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java] Writing to Testcases/project-1/sootBin/test16/Main.class
+     [java] Writing to Testcases/project-1/sootBin/test16/Subclass.class
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Soot finished on Mon Aug 29 19:48:06 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
+     [echo] 
+     [echo] [Completed "run" mode for test16]
+     [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-1/output/test16
+     [echo] [Executing test16]
+     [java] 0
+     [java] 0
+     [java] 1
+     [java] 1
+     [java] 1
+     [java] 0
+     [java] 4
+     [java] 3
+     [echo] 
+     [echo] [Checking the output of test16]
+     [echo] 
+     [exec] PASS
+     [echo] 
+     [echo] [Completed "test" mode for test16]
+     [echo] 
+     [java] Soot started on Mon Aug 29 19:48:07 IST 2016
+     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
+     [java] Transforming Transforming test17.Main... 
+     [java] e0210.MyCounter... 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test17.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test17.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         e0210.MyCounter r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: e0210.MyCounter;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void increment(long)
+     [java]     {
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $l1 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         $l2 = $l1 + l0;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = $l2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void printG()
+     [java]     {
+     [java]         long $l0, dynBranch;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void main(java.lang.String[])
+     [java]     {
+     [java]         java.lang.String[] r0;
+     [java]         int i0;
+     [java]         java.lang.String $r1, $r3;
+     [java]         java.io.PrintStream $r2, $r4, disp;
+     [java]         java.io.FileNotFoundException $r5;
+     [java]         long dynBranch;
+     [java] 
+     [java]         r0 := @parameter0: java.lang.String[];
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r1 = r0[0];
+     [java] 
+     [java]         i0 = virtualinvoke $r1.<java.lang.String: int length()>();
+     [java] 
+     [java]      label1:
+     [java]         $r2 = new java.io.PrintStream;
+     [java] 
+     [java]         $r3 = r0[0];
+     [java] 
+     [java]         specialinvoke $r2.<java.io.PrintStream: void <init>(java.lang.String)>($r3);
+     [java] 
+     [java]         virtualinvoke $r2.<java.io.PrintStream: void print(java.lang.String)>("hello world");
+     [java] 
+     [java]         virtualinvoke $r2.<java.io.PrintStream: void close()>();
+     [java] 
+     [java]      label2:
+     [java]         goto label4;
+     [java] 
+     [java]      label3:
+     [java]         $r5 := @caughtexception;
+     [java] 
+     [java]         virtualinvoke $r5.<java.io.FileNotFoundException: void printStackTrace()>();
+     [java] 
+     [java]      label4:
+     [java]         $r4 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         virtualinvoke $r4.<java.io.PrintStream: void println(int)>(i0);
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java] 
+     [java]         catch java.io.FileNotFoundException from label1 to label2 with label3;
+     [java]     }
+     [java] 
+     [java] Writing to Testcases/project-1/sootBin/test17/Main.class
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Soot finished on Mon Aug 29 19:48:07 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
+     [echo] 
+     [echo] [Completed "run" mode for test17]
+     [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-1/output/test17
+     [echo] [Executing test17]
+     [java] 0
+     [java] 4
+     [java] 0
+     [echo] 
+     [echo] [Checking the output of test17]
+     [echo] 
+     [exec] PASS
+     [echo] 
+     [echo] [Completed "test" mode for test17]
+     [echo] 
+     [java] Soot started on Mon Aug 29 19:48:08 IST 2016
+     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
+     [java] Transforming Transforming test18.Main... 
+     [java] e0210.MyCounter... 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test18.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test18.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         e0210.MyCounter r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: e0210.MyCounter;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void increment(long)
+     [java]     {
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $l1 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         $l2 = $l1 + l0;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = $l2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void printG()
+     [java]     {
+     [java]         long $l0, dynBranch;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void main(java.lang.String[])
+     [java]     {
+     [java]         java.lang.String[] r0;
+     [java]         int i0, i1;
+     [java]         java.lang.String $r1;
+     [java]         java.io.PrintStream $r2, disp;
+     [java]         long dynBranch;
+     [java] 
+     [java]         r0 := @parameter0: java.lang.String[];
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r1 = r0[0];
+     [java] 
+     [java]         i0 = virtualinvoke $r1.<java.lang.String: int length()>();
+     [java] 
+     [java]         i1 = 0;
+     [java] 
+     [java]      label1:
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if i1 >= 3 goto label2;
+     [java] 
+     [java]         staticinvoke <test18.Main: void foo(int)>(i0);
+     [java] 
+     [java]         i1 = i1 + 1;
+     [java] 
+     [java]         goto label1;
+     [java] 
+     [java]      label2:
+     [java]         $r2 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         virtualinvoke $r2.<java.io.PrintStream: void println(int)>(i0);
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void foo(int)
+     [java]     {
+     [java]         int i0, i1;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         i0 := @parameter0: int;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         i1 = 0;
+     [java] 
+     [java]      label1:
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if i1 >= 3 goto label2;
+     [java] 
+     [java]         staticinvoke <test18.Main: void bar(int)>(i0);
+     [java] 
+     [java]         i1 = i1 + 1;
+     [java] 
+     [java]         goto label1;
+     [java] 
+     [java]      label2:
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void bar(int)
+     [java]     {
+     [java]         int i0, i1;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         i0 := @parameter0: int;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         i1 = 0;
+     [java] 
+     [java]      label1:
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if i1 >= 3 goto label2;
+     [java] 
+     [java]         i1 = i1 + 1;
+     [java] 
+     [java]         goto label1;
+     [java] 
+     [java]      label2:
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Writing to Testcases/project-1/sootBin/test18/Main.class
+     [java] Soot finished on Mon Aug 29 19:48:09 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
+     [echo] 
+     [echo] [Completed "run" mode for test18]
+     [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-1/output/test18
+     [echo] [Executing test18]
+     [java] 4
+     [java] 4
+     [java] 4
+     [java] 4
+     [java] 4
+     [java] 4
+     [java] 4
+     [java] 4
+     [java] 4
+     [java] 4
+     [java] 4
+     [java] 4
+     [java] 4
+     [java] 4
+     [java] 52
+     [echo] 
+     [echo] [Checking the output of test18]
+     [echo] 
+     [exec] PASS
+     [echo] 
+     [echo] [Completed "test" mode for test18]
+     [echo] 
+     [java] Soot started on Mon Aug 29 19:48:09 IST 2016
+     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
+     [java] Transforming Transforming test19.Main... 
+     [java] e0210.MyCounter... 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test19.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test19.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         e0210.MyCounter r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: e0210.MyCounter;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void increment(long)
+     [java]     {
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $l1 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         $l2 = $l1 + l0;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = $l2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void printG()
+     [java]     {
+     [java]         long $l0, dynBranch;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void main(java.lang.String[])
+     [java]     {
+     [java]         java.lang.String[] r0;
+     [java]         int i0, $i1, $i2, i3;
+     [java]         java.lang.String $r1;
+     [java]         java.io.PrintStream $r2, disp;
+     [java]         long dynBranch;
+     [java] 
+     [java]         r0 := @parameter0: java.lang.String[];
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r1 = r0[0];
+     [java] 
+     [java]         i0 = virtualinvoke $r1.<java.lang.String: int length()>();
+     [java] 
+     [java]         i3 = 0;
+     [java] 
+     [java]      label1:
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if i3 >= i0 goto label4;
+     [java] 
+     [java]         $i1 = i3 % 2;
+     [java] 
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if $i1 != 0 goto label2;
+     [java] 
+     [java]         goto label3;
+     [java] 
+     [java]      label2:
+     [java]         $i2 = i3 % 3;
+     [java] 
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if $i2 != 0 goto label3;
+     [java] 
+     [java]         goto label4;
+     [java] 
+     [java]      label3:
+     [java]         i3 = i3 + 1;
+     [java] 
+     [java]         goto label1;
+     [java] 
+     [java]      label4:
+     [java]         $r2 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         virtualinvoke $r2.<java.io.PrintStream: void println(int)>(i0);
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java] Writing to Testcases/project-1/sootBin/test19/Main.class
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Soot finished on Mon Aug 29 19:48:10 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
+     [echo] 
+     [echo] [Completed "run" mode for test19]
+     [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-1/output/test19
+     [echo] [Executing test19]
+     [java] 10
+     [java] 4
+     [java] 10
+     [echo] 
+     [echo] [Checking the output of test19]
+     [echo] 
+     [exec] PASS
+     [echo] 
+     [echo] [Completed "test" mode for test19]
+     [echo] 
+     [java] Soot started on Mon Aug 29 19:48:10 IST 2016
+     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
+     [java] Transforming Transforming test20.Main... 
+     [java] e0210.MyCounter... 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test20.Main r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: test20.Main;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void <init>()
+     [java]     {
+     [java]         e0210.MyCounter r0;
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         r0 := @this: e0210.MyCounter;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void increment(long)
+     [java]     {
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $l1 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         $l2 = $l1 + l0;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = $l2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void printG()
+     [java]     {
+     [java]         long $l0, dynBranch;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void main(java.lang.String[])
+     [java]     {
+     [java]         java.lang.String[] r0;
+     [java]         int i0, $i1;
+     [java]         java.lang.String $r1;
+     [java]         java.io.PrintStream $r2, disp;
+     [java]         long dynBranch;
+     [java] 
+     [java]         r0 := @parameter0: java.lang.String[];
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $r1 = r0[0];
+     [java] 
+     [java]         i0 = virtualinvoke $r1.<java.lang.String: int length()>();
+     [java] 
+     [java]         $i1 = i0 % 2;
+     [java] 
+     [java]         dynBranch = dynBranch + 1L;
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void increment(long)>(1L);
+     [java] 
+     [java]         if $i1 != 0 goto label1;
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java] 
+     [java]      label1:
+     [java]         $r2 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         virtualinvoke $r2.<java.io.PrintStream: void println(int)>(i0);
+     [java] 
+     [java]         disp = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java] Writing to Testcases/project-1/sootBin/test20/Main.class
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Soot finished on Mon Aug 29 19:48:11 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
+     [echo] 
+     [echo] [Completed "run" mode for test20]
+     [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-1/output/test20
+     [echo] [Executing test20]
+     [java] 1
+     [java] 1
+     [echo] 
+     [echo] [Checking the output of test20]
+     [echo] 
+     [exec] PASS
+     [echo] 
+     [echo] [Completed "test" mode for test20]
+     [echo] 
+
+BUILD SUCCESSFUL
+Total time: 4 minutes 8 seconds

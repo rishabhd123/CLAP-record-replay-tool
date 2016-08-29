@@ -14,8 +14,17 @@ import java.util.ArrayList;
 
 import soot.PackManager;
 import soot.Transform;
+import soot.options.Options;
 
 public class Main {
+	
+	public static void configure(String classpath){
+		Options.v().set_verbose(false);
+		Options.v().set_keep_line_number(true);
+		Options.v().set_src_prec(Options.src_prec_class);
+		Options.v().set_soot_classpath(classpath);
+		Options.v().set_prepend_classpath(true);
+	}
 
 	public static void main(String[] args) {
 
@@ -45,10 +54,12 @@ public class Main {
 		base_args.add("class");
 
 		// Add the class path i.e. path to the JAR file
-		base_args.add("-soot-class-path");
-		base_args.add("Testcases/" + project + "/" + project + ".jar");
-
-		// The Main class for the application
+		
+				
+		
+		configure("Testcases/"+project+ "/"+project+".jar:bin/");
+		
+		// The Main classs for the application
 		base_args.add("-main-class");
 		base_args.add(testcase + ".Main");
 
@@ -57,13 +68,17 @@ public class Main {
 
 		base_args.add("-output-dir");
 		base_args.add("Testcases/" + project + "/sootBin/");
+		
 
 		Analysis obj = new Analysis();
+		
 
 		PackManager.v().getPack("jtp").add(new Transform("jtp.MyAnalysis", obj));
+		
 
 		soot.Main.main(base_args.toArray(new String[base_args.size()]));
 
 		return;
 	}
+	
 }

@@ -1,5 +1,4 @@
 package e0210;
-
 import java.util.*;
 
 /*
@@ -26,63 +25,51 @@ import soot.Unit;
 import soot.util.*;
 import soot.jimple.Jimple;
 import java.io.*;
-
+import soot.jimple.toolkits.typing.Util;
 
 public class Analysis extends BodyTransformer {
-
 	
-	SootField globalC;
-	boolean added=false;
+	static SootClass sootcountClass;
+	static SootMethod incrC, printC;
+	static{
+		sootcountClass=Scene.v().loadClassAndSupport("e0210.MyCounter");
+		incrC=sootcountClass.getMethod("void increment(long)");
+		printC=sootcountClass.getMethod("void printG()");
+	}
+	
 	@Override
 	protected void internalTransform(Body b, String phaseName, Map<String, String> options) {
-		
-		if (added)
-            globalC = Scene.v().getMainClass().getFieldByName("globalC");
-        else
-        {
-            // Add gotoCounter field
-        	globalC = new SootField("globalC", LongType.v(),Modifier.STATIC);
-            Scene.v().getMainClass().addField(globalC);
-            added=true;
-        }
-		
-		
+			
 		PatchingChain<Unit> byteU=b.getUnits();
-		Local dynBranch,disp,gL;
-		
-		
-		
-		gL=Jimple.v().newLocal("gL", LongType.v());			//local, that will hold global value in each method
-		b.getLocals().add(gL);
-		
+		Local dynBranch,disp;
+				
 		dynBranch=Jimple.v().newLocal("dynBranch", LongType.v());		//local variable
 		b.getLocals().add(dynBranch);
 		
 		disp=Jimple.v().newLocal("disp", RefType.v("java.io.PrintStream"));	// for printing
 		b.getLocals().add(disp);
 		
-		byteU.insertAfter(Jimple.v().newAssignStmt(dynBranch, LongConstant.v(0)), byteU.getFirst());
-		
-		byteU.insertAfter(Jimple.v().newAssignStmt(gL, Jimple.v().newStaticFieldRef(globalC.makeRef())), byteU.getFirst());  
-		
+		byteU.insertBefore(Jimple.v().newAssignStmt(dynBranch, LongConstant.v(0)), Util.findFirstNonIdentityUnit(b, (Stmt)byteU.getFirst()));
+				
 		Iterator iter=byteU.snapshotIterator();				
 			
 			while(iter.hasNext()){
 				Stmt s=(Stmt)iter.next();
 				if(s instanceof IfStmt){
 					byteU.insertBefore(Jimple.v().newAssignStmt(dynBranch, Jimple.v().newAddExpr(dynBranch, LongConstant.v(1))), s);
-					byteU.insertBefore(Jimple.v().newAssignStmt(gL, Jimple.v().newAddExpr(gL, LongConstant.v(1))), s);
+					byteU.insertBefore( Jimple.v().newInvokeStmt(Jimple.v().newStaticInvokeExpr(incrC.makeRef(),LongConstant.v(1))),s);
 					// Here i have to insert increment statement to count Dyn branching
 				}
-				else if(s instanceof ReturnVoidStmt || s instanceof ReturnStmt ){		
-					byteU.insertBefore(Jimple.v().newAssignStmt(disp, Jimple.v().newStaticFieldRef(Scene.v().getField("<java.lang.System: java.io.PrintStream out>").makeRef())),s);
-							
-		            byteU.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void println(long)>").makeRef(), dynBranch)),s);
-		            
-		            byteU.insertBefore(Jimple.v().newAssignStmt(Jimple.v().newStaticFieldRef(globalC.makeRef()),gL), s); //on return assign the value of gL to globalC
+				else if(s instanceof ReturnVoidStmt || s instanceof ReturnStmt ){
+					if(!(b.getMethod().getSubSignature().equals("void increment(long)") || b.getMethod().getSubSignature().equals("void printG()") || b.getMethod().getSubSignature().equals("void <clinit>()") )  ){
+						byteU.insertBefore(Jimple.v().newAssignStmt(disp, Jimple.v().newStaticFieldRef(Scene.v().getField("<java.lang.System: java.io.PrintStream out>").makeRef())),s);
+						
+			            byteU.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void println(long)>").makeRef(), dynBranch)),s);
+					}
+					
 		            
 		            if(b.getMethod().getSubSignature().equals("void main(java.lang.String[])"))            	
-		            	byteU.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void print(long)>").makeRef(),gL )),s);
+		            	byteU.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newStaticInvokeExpr(printC.makeRef())),s);
 		           				
 				}	// handled all types of returns
 				
@@ -95,22 +82,16 @@ public class Analysis extends BodyTransformer {
 						
 						byteU.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void println(long)>").makeRef(), dynBranch)),s);
 			            
-			            byteU.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void print(long)>").makeRef(), gL)),s);
-					}    	//handled exit(0) and
+						byteU.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newStaticInvokeExpr(printC.makeRef())),s);
+					}    	//handled exit(0)
 					
-					else if(str.contains("staticinvoke <")){
-						byteU.insertBefore(Jimple.v().newAssignStmt(Jimple.v().newStaticFieldRef(globalC.makeRef()),gL), s);
-						byteU.insertAfter(Jimple.v().newAssignStmt(gL,Jimple.v().newStaticFieldRef(globalC.makeRef())), s);
-											
-					}	//handled static function calls					
-						
+										
 				}
 				
 			}	//instrumentation done
 			
 			System.out.println(b.toString());
-			
-		
+					
 		return;
 	}
 }
