@@ -12,19 +12,12 @@ import java.util.*;
  */
 
 import java.util.Map;
-
-import javax.management.BadBinaryOpValueExpException;
-
-import java.util.*;
 import soot.*;
 import soot.jimple.*;
-import soot.options.Options;
 import soot.Body;
 import soot.BodyTransformer;
 import soot.Unit;
-import soot.util.*;
 import soot.jimple.Jimple;
-import java.io.*;
 import soot.jimple.toolkits.typing.Util;
 
 public class Analysis extends BodyTransformer {
@@ -51,7 +44,7 @@ public class Analysis extends BodyTransformer {
 		
 		byteU.insertBefore(Jimple.v().newAssignStmt(dynBranch, LongConstant.v(0)), Util.findFirstNonIdentityUnit(b, (Stmt)byteU.getFirst()));
 				
-		Iterator iter=byteU.snapshotIterator();				
+		Iterator<Unit> iter=byteU.snapshotIterator();				
 			
 			while(iter.hasNext()){
 				Stmt s=(Stmt)iter.next();
