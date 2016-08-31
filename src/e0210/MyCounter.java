@@ -9,7 +9,8 @@ public class MyCounter {
     c =c+ x;
   }
 
-    public static synchronized void printG() {
-    System.out.print(c);
+    public static synchronized void printG(long p) {
+    if(p==0)
+    	System.out.print(c);
   }
 }

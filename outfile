@@ -23,10 +23,10 @@ build-project:
 build:
 
 -testall:
-     [java] Soot started on Mon Aug 29 19:44:04 IST 2016
+     [java] Soot started on Wed Aug 31 16:06:05 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming Transforming e0210.MyCounter... 
-     [java] test1.Main... 
+     [java] Transforming Transforming test1.Main... 
+     [java] e0210.MyCounter... 
      [java]     static void <clinit>()
      [java]     {
      [java]         long dynBranch;
@@ -77,24 +77,6 @@ build:
      [java]         return;
      [java]     }
      [java] 
-     [java]     public static synchronized void increment(long)
-     [java]     {
-     [java]         long l0, $l1, $l2, dynBranch;
-     [java]         java.io.PrintStream disp;
-     [java] 
-     [java]         l0 := @parameter0: long;
-     [java] 
-     [java]         dynBranch = 0L;
-     [java] 
-     [java]         $l1 = <e0210.MyCounter: long c>;
-     [java] 
-     [java]         $l2 = $l1 + l0;
-     [java] 
-     [java]         <e0210.MyCounter: long c> = $l2;
-     [java] 
-     [java]         return;
-     [java]     }
-     [java] 
      [java]     public static void main(java.lang.String[])
      [java]     {
      [java]         java.lang.String[] r0;
@@ -102,11 +84,13 @@ build:
      [java]         java.lang.String $r1, $r4, $r8;
      [java]         java.lang.StringBuilder $r2, $r5, $r6, $r7;
      [java]         java.io.PrintStream $r3, disp;
-     [java]         long dynBranch;
+     [java]         long globe, dynBranch;
      [java] 
      [java]         r0 := @parameter0: java.lang.String[];
      [java] 
      [java]         dynBranch = 0L;
+     [java] 
+     [java]         globe = <test1.Main: long gl>;
      [java] 
      [java]         $r1 = r0[0];
      [java] 
@@ -134,30 +118,56 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
      [java]         return;
      [java]     }
      [java] 
-     [java]     public static synchronized void printG()
+     [java]     public static synchronized void increment(long)
      [java]     {
-     [java]         long $l0, dynBranch;
-     [java]         java.io.PrintStream $r0, disp;
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
      [java] 
      [java]         dynBranch = 0L;
      [java] 
-     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java]         $l1 = <e0210.MyCounter: long c>;
      [java] 
-     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java]         $l2 = $l1 + l0;
      [java] 
-     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java]         <e0210.MyCounter: long c> = $l2;
      [java] 
      [java]         return;
      [java]     }
      [java] 
-     [java] Writing to Testcases/project-1/sootBin/test1/Main.class
+     [java]     public static synchronized void printG(long)
+     [java]     {
+     [java]         long l0, $l2, dynBranch;
+     [java]         byte $b1;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $b1 = l0 cmp 0L;
+     [java] 
+     [java]         if $b1 != 0 goto label1;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l2 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l2);
+     [java] 
+     [java]      label1:
+     [java]         return;
+     [java]     }
+     [java] 
      [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
-     [java] Soot finished on Mon Aug 29 19:44:04 IST 2016
+     [java] Writing to Testcases/project-1/sootBin/test1/Main.class
+     [java] Soot finished on Wed Aug 31 16:06:06 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test1]
@@ -174,10 +184,22 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test1]
      [echo] 
-     [java] Soot started on Mon Aug 29 19:44:05 IST 2016
+     [java] Soot started on Wed Aug 31 16:06:07 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming Transforming test2.Main... 
      [java] e0210.MyCounter... 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
      [java]     public void <init>()
      [java]     {
      [java]         test2.Main r0;
@@ -193,18 +215,6 @@ build:
      [java]         disp = <java.lang.System: java.io.PrintStream out>;
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
-     [java] 
-     [java]         return;
-     [java]     }
-     [java] 
-     [java]     static void <clinit>()
-     [java]     {
-     [java]         long dynBranch;
-     [java]         java.io.PrintStream disp;
-     [java] 
-     [java]         dynBranch = 0L;
-     [java] 
-     [java]         <e0210.MyCounter: long c> = 0L;
      [java] 
      [java]         return;
      [java]     }
@@ -246,17 +256,43 @@ build:
      [java]         return;
      [java]     }
      [java] 
+     [java]     public static synchronized void printG(long)
+     [java]     {
+     [java]         long l0, $l2, dynBranch;
+     [java]         byte $b1;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $b1 = l0 cmp 0L;
+     [java] 
+     [java]         if $b1 != 0 goto label1;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l2 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l2);
+     [java] 
+     [java]      label1:
+     [java]         return;
+     [java]     }
+     [java] 
      [java]     public static void main(java.lang.String[])
      [java]     {
      [java]         java.lang.String[] r0;
      [java]         java.lang.String $r1;
      [java]         java.io.PrintStream $r2, disp;
      [java]         int i0, i1;
-     [java]         long dynBranch;
+     [java]         long globe, dynBranch;
      [java] 
      [java]         r0 := @parameter0: java.lang.String[];
      [java] 
      [java]         dynBranch = 0L;
+     [java] 
+     [java]         globe = <test2.Main: long gl>;
      [java] 
      [java]         $r1 = r0[0];
      [java] 
@@ -284,30 +320,14 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
      [java]         return;
      [java]     }
      [java] 
-     [java]     public static synchronized void printG()
-     [java]     {
-     [java]         long $l0, dynBranch;
-     [java]         java.io.PrintStream $r0, disp;
-     [java] 
-     [java]         dynBranch = 0L;
-     [java] 
-     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
-     [java] 
-     [java]         $l0 = <e0210.MyCounter: long c>;
-     [java] 
-     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
-     [java] 
-     [java]         return;
-     [java]     }
-     [java] 
-     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
      [java] Writing to Testcases/project-1/sootBin/test2/Main.class
-     [java] Soot finished on Mon Aug 29 19:44:06 IST 2016
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Soot finished on Wed Aug 31 16:06:07 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test2]
@@ -324,22 +344,10 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test2]
      [echo] 
-     [java] Soot started on Mon Aug 29 19:44:06 IST 2016
+     [java] Soot started on Wed Aug 31 16:06:08 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming Transforming test3.Main... 
-     [java] e0210.MyCounter... 
-     [java]     static void <clinit>()
-     [java]     {
-     [java]         long dynBranch;
-     [java]         java.io.PrintStream disp;
-     [java] 
-     [java]         dynBranch = 0L;
-     [java] 
-     [java]         <e0210.MyCounter: long c> = 0L;
-     [java] 
-     [java]         return;
-     [java]     }
-     [java] 
+     [java] Transforming test3.Main... 
+     [java] Transforming e0210.MyCounter... 
      [java]     public void <init>()
      [java]     {
      [java]         test3.Main r0;
@@ -355,6 +363,18 @@ build:
      [java]         disp = <java.lang.System: java.io.PrintStream out>;
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
      [java] 
      [java]         return;
      [java]     }
@@ -396,19 +416,27 @@ build:
      [java]         return;
      [java]     }
      [java] 
-     [java]     public static synchronized void printG()
+     [java]     public static synchronized void printG(long)
      [java]     {
-     [java]         long $l0, dynBranch;
+     [java]         long l0, $l2, dynBranch;
+     [java]         byte $b1;
      [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
      [java] 
      [java]         dynBranch = 0L;
      [java] 
+     [java]         $b1 = l0 cmp 0L;
+     [java] 
+     [java]         if $b1 != 0 goto label1;
+     [java] 
      [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
      [java] 
-     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java]         $l2 = <e0210.MyCounter: long c>;
      [java] 
-     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l2);
      [java] 
+     [java]      label1:
      [java]         return;
      [java]     }
      [java] 
@@ -418,11 +446,13 @@ build:
      [java]         java.lang.String $r1;
      [java]         int i0;
      [java]         java.io.PrintStream $r2, disp;
-     [java]         long dynBranch;
+     [java]         long globe, dynBranch;
      [java] 
      [java]         r0 := @parameter0: java.lang.String[];
      [java] 
      [java]         dynBranch = 0L;
+     [java] 
+     [java]         globe = <test3.Main: long gl>;
      [java] 
      [java]         $r1 = r0[0];
      [java] 
@@ -467,14 +497,14 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
      [java]         return;
      [java]     }
      [java] 
      [java] Writing to Testcases/project-1/sootBin/test3/Main.class
      [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
-     [java] Soot finished on Mon Aug 29 19:44:07 IST 2016
+     [java] Soot finished on Wed Aug 31 16:06:09 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test3]
@@ -491,7 +521,7 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test3]
      [echo] 
-     [java] Soot started on Mon Aug 29 19:44:08 IST 2016
+     [java] Soot started on Wed Aug 31 16:06:09 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming Transforming test4.Main... 
      [java] e0210.MyCounter... 
@@ -563,19 +593,27 @@ build:
      [java]         return;
      [java]     }
      [java] 
-     [java]     public static synchronized void printG()
+     [java]     public static synchronized void printG(long)
      [java]     {
-     [java]         long $l0, dynBranch;
+     [java]         long l0, $l2, dynBranch;
+     [java]         byte $b1;
      [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
      [java] 
      [java]         dynBranch = 0L;
      [java] 
+     [java]         $b1 = l0 cmp 0L;
+     [java] 
+     [java]         if $b1 != 0 goto label1;
+     [java] 
      [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
      [java] 
-     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java]         $l2 = <e0210.MyCounter: long c>;
      [java] 
-     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l2);
      [java] 
+     [java]      label1:
      [java]         return;
      [java]     }
      [java] 
@@ -585,11 +623,13 @@ build:
      [java]         int i0, i1, i2;
      [java]         java.lang.String $r1;
      [java]         java.io.PrintStream $r2, disp;
-     [java]         long dynBranch;
+     [java]         long globe, dynBranch;
      [java] 
      [java]         r0 := @parameter0: java.lang.String[];
      [java] 
      [java]         dynBranch = 0L;
+     [java] 
+     [java]         globe = <test4.Main: long gl>;
      [java] 
      [java]         $r1 = r0[0];
      [java] 
@@ -619,14 +659,14 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
      [java]         return;
      [java]     }
      [java] 
      [java] Writing to Testcases/project-1/sootBin/test4/Main.class
      [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
-     [java] Soot finished on Mon Aug 29 19:44:08 IST 2016
+     [java] Soot finished on Wed Aug 31 16:06:10 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test4]
@@ -643,7 +683,7 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test4]
      [echo] 
-     [java] Soot started on Mon Aug 29 19:44:09 IST 2016
+     [java] Soot started on Wed Aug 31 16:06:10 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming Transforming test5.Main... 
      [java] e0210.MyCounter... 
@@ -715,17 +755,43 @@ build:
      [java]         return;
      [java]     }
      [java] 
+     [java]     public static synchronized void printG(long)
+     [java]     {
+     [java]         long l0, $l2, dynBranch;
+     [java]         byte $b1;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $b1 = l0 cmp 0L;
+     [java] 
+     [java]         if $b1 != 0 goto label1;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l2 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l2);
+     [java] 
+     [java]      label1:
+     [java]         return;
+     [java]     }
+     [java] 
      [java]     public static void main(java.lang.String[])
      [java]     {
      [java]         java.lang.String[] r0;
      [java]         java.lang.String $r1;
      [java]         java.io.PrintStream $r2, disp;
      [java]         int $i0, i1, i2;
-     [java]         long dynBranch;
+     [java]         long globe, dynBranch;
      [java] 
      [java]         r0 := @parameter0: java.lang.String[];
      [java] 
      [java]         dynBranch = 0L;
+     [java] 
+     [java]         globe = <test5.Main: long gl>;
      [java] 
      [java]         $r1 = r0[0];
      [java] 
@@ -769,30 +835,14 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
-     [java] 
-     [java]         return;
-     [java]     }
-     [java] 
-     [java]     public static synchronized void printG()
-     [java]     {
-     [java]         long $l0, dynBranch;
-     [java]         java.io.PrintStream $r0, disp;
-     [java] 
-     [java]         dynBranch = 0L;
-     [java] 
-     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
-     [java] 
-     [java]         $l0 = <e0210.MyCounter: long c>;
-     [java] 
-     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
      [java]         return;
      [java]     }
      [java] 
      [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
      [java] Writing to Testcases/project-1/sootBin/test5/Main.class
-     [java] Soot finished on Mon Aug 29 19:44:09 IST 2016
+     [java] Soot finished on Wed Aug 31 16:06:11 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test5]
@@ -809,10 +859,10 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test5]
      [echo] 
-     [java] Soot started on Mon Aug 29 19:44:10 IST 2016
+     [java] Soot started on Wed Aug 31 16:06:12 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test6.Main... 
-     [java] Transforming e0210.MyCounter... 
+     [java] Transforming Transforming test6.Main... 
+     [java] e0210.MyCounter... 
      [java]     static void <clinit>()
      [java]     {
      [java]         long dynBranch;
@@ -881,17 +931,43 @@ build:
      [java]         return;
      [java]     }
      [java] 
+     [java]     public static synchronized void printG(long)
+     [java]     {
+     [java]         long l0, $l2, dynBranch;
+     [java]         byte $b1;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $b1 = l0 cmp 0L;
+     [java] 
+     [java]         if $b1 != 0 goto label1;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l2 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l2);
+     [java] 
+     [java]      label1:
+     [java]         return;
+     [java]     }
+     [java] 
      [java]     public static void main(java.lang.String[])
      [java]     {
      [java]         java.lang.String[] r0;
      [java]         java.lang.String $r1;
      [java]         int $i0, $i1, i2, i3;
      [java]         java.io.PrintStream $r2, disp;
-     [java]         long dynBranch;
+     [java]         long globe, dynBranch;
      [java] 
      [java]         r0 := @parameter0: java.lang.String[];
      [java] 
      [java]         dynBranch = 0L;
+     [java] 
+     [java]         globe = <test6.Main: long gl>;
      [java] 
      [java]         $r1 = r0[0];
      [java] 
@@ -931,30 +1007,14 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
-     [java] 
-     [java]         return;
-     [java]     }
-     [java] 
-     [java]     public static synchronized void printG()
-     [java]     {
-     [java]         long $l0, dynBranch;
-     [java]         java.io.PrintStream $r0, disp;
-     [java] 
-     [java]         dynBranch = 0L;
-     [java] 
-     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
-     [java] 
-     [java]         $l0 = <e0210.MyCounter: long c>;
-     [java] 
-     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
      [java]         return;
      [java]     }
      [java] 
      [java] Writing to Testcases/project-1/sootBin/test6/Main.class
      [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
-     [java] Soot finished on Mon Aug 29 19:44:11 IST 2016
+     [java] Soot finished on Wed Aug 31 16:06:12 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test6]
@@ -971,7 +1031,7 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test6]
      [echo] 
-     [java] Soot started on Mon Aug 29 19:44:11 IST 2016
+     [java] Soot started on Wed Aug 31 16:06:13 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming Transforming test7.Main... 
      [java] e0210.MyCounter... 
@@ -1043,34 +1103,20 @@ build:
      [java]         return;
      [java]     }
      [java] 
-     [java]     public static synchronized void printG()
-     [java]     {
-     [java]         long $l0, dynBranch;
-     [java]         java.io.PrintStream $r0, disp;
-     [java] 
-     [java]         dynBranch = 0L;
-     [java] 
-     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
-     [java] 
-     [java]         $l0 = <e0210.MyCounter: long c>;
-     [java] 
-     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
-     [java] 
-     [java]         return;
-     [java]     }
-     [java] 
      [java]     public static void main(java.lang.String[])
      [java]     {
      [java]         java.lang.String[] r0;
      [java]         int i0;
      [java]         java.lang.String $r1;
-     [java]         long $l1, $l4, $l5, l6, l7, dynBranch;
+     [java]         long $l1, $l4, $l5, l6, l7, globe, dynBranch;
      [java]         byte $b2, $b3;
      [java]         java.io.PrintStream $r2, disp;
      [java] 
      [java]         r0 := @parameter0: java.lang.String[];
      [java] 
      [java]         dynBranch = 0L;
+     [java] 
+     [java]         globe = <test7.Main: long gl>;
      [java] 
      [java]         $r1 = r0[0];
      [java] 
@@ -1116,14 +1162,38 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
      [java]         return;
      [java]     }
      [java] 
-     [java] Writing to Testcases/project-1/sootBin/test7/Main.class
+     [java]     public static synchronized void printG(long)
+     [java]     {
+     [java]         long l0, $l2, dynBranch;
+     [java]         byte $b1;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $b1 = l0 cmp 0L;
+     [java] 
+     [java]         if $b1 != 0 goto label1;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l2 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l2);
+     [java] 
+     [java]      label1:
+     [java]         return;
+     [java]     }
+     [java] 
      [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
-     [java] Soot finished on Mon Aug 29 19:44:12 IST 2016
+     [java] Writing to Testcases/project-1/sootBin/test7/Main.class
+     [java] Soot finished on Wed Aug 31 16:06:13 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test7]
@@ -1140,7 +1210,7 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test7]
      [echo] 
-     [java] Soot started on Mon Aug 29 19:47:56 IST 2016
+     [java] Soot started on Wed Aug 31 16:09:59 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming Transforming test8.Main... 
      [java] e0210.MyCounter... 
@@ -1212,19 +1282,27 @@ build:
      [java]         return;
      [java]     }
      [java] 
-     [java]     public static synchronized void printG()
+     [java]     public static synchronized void printG(long)
      [java]     {
-     [java]         long $l0, dynBranch;
+     [java]         long l0, $l2, dynBranch;
+     [java]         byte $b1;
      [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
      [java] 
      [java]         dynBranch = 0L;
      [java] 
+     [java]         $b1 = l0 cmp 0L;
+     [java] 
+     [java]         if $b1 != 0 goto label1;
+     [java] 
      [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
      [java] 
-     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java]         $l2 = <e0210.MyCounter: long c>;
      [java] 
-     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l2);
      [java] 
+     [java]      label1:
      [java]         return;
      [java]     }
      [java] 
@@ -1234,11 +1312,13 @@ build:
      [java]         int i0;
      [java]         java.lang.String $r1, r2;
      [java]         java.io.PrintStream $r3, disp;
-     [java]         long dynBranch;
+     [java]         long globe, dynBranch;
      [java] 
      [java]         r0 := @parameter0: java.lang.String[];
      [java] 
      [java]         dynBranch = 0L;
+     [java] 
+     [java]         globe = <test8.Main: long gl>;
      [java] 
      [java]         $r1 = r0[0];
      [java] 
@@ -1333,14 +1413,14 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
      [java]         return;
      [java]     }
      [java] 
      [java] Writing to Testcases/project-1/sootBin/test8/Main.class
      [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
-     [java] Soot finished on Mon Aug 29 19:47:57 IST 2016
+     [java] Soot finished on Wed Aug 31 16:09:59 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test8]
@@ -1357,10 +1437,10 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test8]
      [echo] 
-     [java] Soot started on Mon Aug 29 19:47:58 IST 2016
+     [java] Soot started on Wed Aug 31 16:10:00 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming Transforming test9.Main... 
-     [java] e0210.MyCounter... 
+     [java] Transforming test9.Main... 
+     [java] Transforming e0210.MyCounter... 
      [java]     static void <clinit>()
      [java]     {
      [java]         long dynBranch;
@@ -1429,19 +1509,27 @@ build:
      [java]         return;
      [java]     }
      [java] 
-     [java]     public static synchronized void printG()
+     [java]     public static synchronized void printG(long)
      [java]     {
-     [java]         long $l0, dynBranch;
+     [java]         long l0, $l2, dynBranch;
+     [java]         byte $b1;
      [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
      [java] 
      [java]         dynBranch = 0L;
      [java] 
+     [java]         $b1 = l0 cmp 0L;
+     [java] 
+     [java]         if $b1 != 0 goto label1;
+     [java] 
      [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
      [java] 
-     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java]         $l2 = <e0210.MyCounter: long c>;
      [java] 
-     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l2);
      [java] 
+     [java]      label1:
      [java]         return;
      [java]     }
      [java] 
@@ -1451,11 +1539,13 @@ build:
      [java]         int i0, $i1;
      [java]         java.lang.String $r1;
      [java]         java.io.PrintStream $r2, disp;
-     [java]         long dynBranch;
+     [java]         long globe, dynBranch;
      [java] 
      [java]         r0 := @parameter0: java.lang.String[];
      [java] 
      [java]         dynBranch = 0L;
+     [java] 
+     [java]         globe = <test9.Main: long gl>;
      [java] 
      [java]         $r1 = r0[0];
      [java] 
@@ -1473,7 +1563,7 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
      [java]         return;
      [java] 
@@ -1486,14 +1576,14 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
      [java]         return;
      [java]     }
      [java] 
-     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
      [java] Writing to Testcases/project-1/sootBin/test9/Main.class
-     [java] Soot finished on Mon Aug 29 19:47:58 IST 2016
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Soot finished on Wed Aug 31 16:10:01 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test9]
@@ -1509,7 +1599,7 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test9]
      [echo] 
-     [java] Soot started on Mon Aug 29 19:47:59 IST 2016
+     [java] Soot started on Wed Aug 31 16:10:01 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming Transforming test10.Main... 
      [java] e0210.MyCounter... 
@@ -1581,17 +1671,43 @@ build:
      [java]         return;
      [java]     }
      [java] 
+     [java]     public static synchronized void printG(long)
+     [java]     {
+     [java]         long l0, $l2, dynBranch;
+     [java]         byte $b1;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $b1 = l0 cmp 0L;
+     [java] 
+     [java]         if $b1 != 0 goto label1;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l2 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l2);
+     [java] 
+     [java]      label1:
+     [java]         return;
+     [java]     }
+     [java] 
      [java]     public static void main(java.lang.String[])
      [java]     {
      [java]         java.lang.String[] r0;
      [java]         java.lang.String $r1;
      [java]         java.io.PrintStream $r2, disp;
      [java]         int $i0, i1, i2;
-     [java]         long dynBranch;
+     [java]         long globe, dynBranch;
      [java] 
      [java]         r0 := @parameter0: java.lang.String[];
      [java] 
      [java]         dynBranch = 0L;
+     [java] 
+     [java]         globe = <test10.Main: long gl>;
      [java] 
      [java]         $r1 = r0[0];
      [java] 
@@ -1618,7 +1734,7 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(0L);
      [java] 
      [java]         staticinvoke <java.lang.System: void exit(int)>(0);
      [java] 
@@ -1638,30 +1754,14 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
-     [java] 
-     [java]         return;
-     [java]     }
-     [java] 
-     [java]     public static synchronized void printG()
-     [java]     {
-     [java]         long $l0, dynBranch;
-     [java]         java.io.PrintStream $r0, disp;
-     [java] 
-     [java]         dynBranch = 0L;
-     [java] 
-     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
-     [java] 
-     [java]         $l0 = <e0210.MyCounter: long c>;
-     [java] 
-     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
      [java]         return;
      [java]     }
      [java] 
      [java] Writing to Testcases/project-1/sootBin/test10/Main.class
      [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
-     [java] Soot finished on Mon Aug 29 19:47:59 IST 2016
+     [java] Soot finished on Wed Aug 31 16:10:02 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test10]
@@ -1677,7 +1777,7 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test10]
      [echo] 
-     [java] Soot started on Mon Aug 29 19:48:00 IST 2016
+     [java] Soot started on Wed Aug 31 16:10:02 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming Transforming test11.Main... 
      [java] e0210.MyCounter... 
@@ -1737,11 +1837,13 @@ build:
      [java]         int i0;
      [java]         java.lang.String $r1;
      [java]         java.io.PrintStream $r2, disp;
-     [java]         long dynBranch;
+     [java]         long globe, dynBranch;
      [java] 
      [java]         r0 := @parameter0: java.lang.String[];
      [java] 
      [java]         dynBranch = 0L;
+     [java] 
+     [java]         globe = <test11.Main: long gl>;
      [java] 
      [java]         $r1 = r0[0];
      [java] 
@@ -1759,7 +1861,7 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
      [java]         return;
      [java]     }
@@ -1778,22 +1880,6 @@ build:
      [java]         $l2 = $l1 + l0;
      [java] 
      [java]         <e0210.MyCounter: long c> = $l2;
-     [java] 
-     [java]         return;
-     [java]     }
-     [java] 
-     [java]     public static synchronized void printG()
-     [java]     {
-     [java]         long $l0, dynBranch;
-     [java]         java.io.PrintStream $r0, disp;
-     [java] 
-     [java]         dynBranch = 0L;
-     [java] 
-     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
-     [java] 
-     [java]         $l0 = <e0210.MyCounter: long c>;
-     [java] 
-     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
      [java] 
      [java]         return;
      [java]     }
@@ -1832,9 +1918,33 @@ build:
      [java]         return i0;
      [java]     }
      [java] 
+     [java]     public static synchronized void printG(long)
+     [java]     {
+     [java]         long l0, $l2, dynBranch;
+     [java]         byte $b1;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $b1 = l0 cmp 0L;
+     [java] 
+     [java]         if $b1 != 0 goto label1;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l2 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l2);
+     [java] 
+     [java]      label1:
+     [java]         return;
+     [java]     }
+     [java] 
      [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
      [java] Writing to Testcases/project-1/sootBin/test11/Main.class
-     [java] Soot finished on Mon Aug 29 19:48:00 IST 2016
+     [java] Soot finished on Wed Aug 31 16:10:03 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test11]
@@ -1853,22 +1963,10 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test11]
      [echo] 
-     [java] Soot started on Mon Aug 29 19:48:01 IST 2016
+     [java] Soot started on Wed Aug 31 16:10:04 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test12.Main... 
-     [java] Transforming e0210.MyCounter... 
-     [java]     static void <clinit>()
-     [java]     {
-     [java]         long dynBranch;
-     [java]         java.io.PrintStream disp;
-     [java] 
-     [java]         dynBranch = 0L;
-     [java] 
-     [java]         <e0210.MyCounter: long c> = 0L;
-     [java] 
-     [java]         return;
-     [java]     }
-     [java] 
+     [java] Transforming Transforming e0210.MyCounter... 
+     [java] test12.Main... 
      [java]     public void <init>()
      [java]     {
      [java]         test12.Main r0;
@@ -1884,6 +1982,18 @@ build:
      [java]         disp = <java.lang.System: java.io.PrintStream out>;
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
      [java] 
      [java]         return;
      [java]     }
@@ -1931,11 +2041,13 @@ build:
      [java]         int i0;
      [java]         java.lang.String $r1;
      [java]         java.io.PrintStream $r2, disp;
-     [java]         long dynBranch;
+     [java]         long globe, dynBranch;
      [java] 
      [java]         r0 := @parameter0: java.lang.String[];
      [java] 
      [java]         dynBranch = 0L;
+     [java] 
+     [java]         globe = <test12.Main: long gl>;
      [java] 
      [java]         $r1 = r0[0];
      [java] 
@@ -1963,24 +2075,32 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
      [java]         return;
      [java]     }
      [java] 
-     [java]     public static synchronized void printG()
+     [java]     public static synchronized void printG(long)
      [java]     {
-     [java]         long $l0, dynBranch;
+     [java]         long l0, $l2, dynBranch;
+     [java]         byte $b1;
      [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
      [java] 
      [java]         dynBranch = 0L;
      [java] 
+     [java]         $b1 = l0 cmp 0L;
+     [java] 
+     [java]         if $b1 != 0 goto label1;
+     [java] 
      [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
      [java] 
-     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java]         $l2 = <e0210.MyCounter: long c>;
      [java] 
-     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l2);
      [java] 
+     [java]      label1:
      [java]         return;
      [java]     }
      [java] 
@@ -2062,7 +2182,7 @@ build:
      [java] 
      [java] Writing to Testcases/project-1/sootBin/test12/Main.class
      [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
-     [java] Soot finished on Mon Aug 29 19:48:01 IST 2016
+     [java] Soot finished on Wed Aug 31 16:10:04 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test12]
@@ -2080,22 +2200,10 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test12]
      [echo] 
-     [java] Soot started on Mon Aug 29 19:48:02 IST 2016
+     [java] Soot started on Wed Aug 31 16:10:05 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test13.Main... 
      [java] Transforming e0210.MyCounter... 
-     [java]     static void <clinit>()
-     [java]     {
-     [java]         long dynBranch;
-     [java]         java.io.PrintStream disp;
-     [java] 
-     [java]         dynBranch = 0L;
-     [java] 
-     [java]         <e0210.MyCounter: long c> = 0L;
-     [java] 
-     [java]         return;
-     [java]     }
-     [java] 
      [java]     public void <init>()
      [java]     {
      [java]         test13.Main r0;
@@ -2111,6 +2219,18 @@ build:
      [java]         disp = <java.lang.System: java.io.PrintStream out>;
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
      [java] 
      [java]         return;
      [java]     }
@@ -2140,11 +2260,13 @@ build:
      [java]         int i0;
      [java]         java.lang.String $r1;
      [java]         java.io.PrintStream $r2, disp;
-     [java]         long dynBranch;
+     [java]         long globe, dynBranch;
      [java] 
      [java]         r0 := @parameter0: java.lang.String[];
      [java] 
      [java]         dynBranch = 0L;
+     [java] 
+     [java]         globe = <test13.Main: long gl>;
      [java] 
      [java]         $r1 = r0[0];
      [java] 
@@ -2160,7 +2282,7 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
      [java]         return;
      [java]     }
@@ -2183,19 +2305,27 @@ build:
      [java]         return;
      [java]     }
      [java] 
-     [java]     public static synchronized void printG()
+     [java]     public static synchronized void printG(long)
      [java]     {
-     [java]         long $l0, dynBranch;
+     [java]         long l0, $l2, dynBranch;
+     [java]         byte $b1;
      [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
      [java] 
      [java]         dynBranch = 0L;
      [java] 
+     [java]         $b1 = l0 cmp 0L;
+     [java] 
+     [java]         if $b1 != 0 goto label1;
+     [java] 
      [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
      [java] 
-     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java]         $l2 = <e0210.MyCounter: long c>;
      [java] 
-     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l2);
      [java] 
+     [java]      label1:
      [java]         return;
      [java]     }
      [java] 
@@ -2229,7 +2359,7 @@ build:
      [java] 
      [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
      [java] Writing to Testcases/project-1/sootBin/test13/Main.class
-     [java] Soot finished on Mon Aug 29 19:48:03 IST 2016
+     [java] Soot finished on Wed Aug 31 16:10:05 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test13]
@@ -2253,10 +2383,22 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test13]
      [echo] 
-     [java] Soot started on Mon Aug 29 19:48:03 IST 2016
+     [java] Soot started on Wed Aug 31 16:10:06 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming Transforming test14.Main... 
      [java] e0210.MyCounter... 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         long dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = 0L;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
      [java]     public void <init>()
      [java]     {
      [java]         test14.Main r0;
@@ -2272,18 +2414,6 @@ build:
      [java]         disp = <java.lang.System: java.io.PrintStream out>;
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
-     [java] 
-     [java]         return;
-     [java]     }
-     [java] 
-     [java]     static void <clinit>()
-     [java]     {
-     [java]         long dynBranch;
-     [java]         java.io.PrintStream disp;
-     [java] 
-     [java]         dynBranch = 0L;
-     [java] 
-     [java]         <e0210.MyCounter: long c> = 0L;
      [java] 
      [java]         return;
      [java]     }
@@ -2313,11 +2443,13 @@ build:
      [java]         int i0;
      [java]         java.lang.String $r1;
      [java]         java.io.PrintStream $r2, disp;
-     [java]         long dynBranch;
+     [java]         long globe, dynBranch;
      [java] 
      [java]         r0 := @parameter0: java.lang.String[];
      [java] 
      [java]         dynBranch = 0L;
+     [java] 
+     [java]         globe = <test14.Main: long gl>;
      [java] 
      [java]         $r1 = r0[0];
      [java] 
@@ -2333,7 +2465,7 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
      [java]         return;
      [java]     }
@@ -2356,19 +2488,27 @@ build:
      [java]         return;
      [java]     }
      [java] 
-     [java]     public static synchronized void printG()
+     [java]     public static synchronized void printG(long)
      [java]     {
-     [java]         long $l0, dynBranch;
+     [java]         long l0, $l2, dynBranch;
+     [java]         byte $b1;
      [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
      [java] 
      [java]         dynBranch = 0L;
      [java] 
+     [java]         $b1 = l0 cmp 0L;
+     [java] 
+     [java]         if $b1 != 0 goto label1;
+     [java] 
      [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
      [java] 
-     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java]         $l2 = <e0210.MyCounter: long c>;
      [java] 
-     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l2);
      [java] 
+     [java]      label1:
      [java]         return;
      [java]     }
      [java] 
@@ -2394,7 +2534,7 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(0L);
      [java] 
      [java]         staticinvoke <java.lang.System: void exit(int)>(0);
      [java] 
@@ -2408,7 +2548,7 @@ build:
      [java] 
      [java] Writing to Testcases/project-1/sootBin/test14/Main.class
      [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
-     [java] Soot finished on Mon Aug 29 19:48:04 IST 2016
+     [java] Soot finished on Wed Aug 31 16:10:07 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test14]
@@ -2424,7 +2564,7 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test14]
      [echo] 
-     [java] Soot started on Mon Aug 29 19:48:04 IST 2016
+     [java] Soot started on Wed Aug 31 16:10:07 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming Transforming test15.Main... 
      [java] e0210.MyCounter... 
@@ -2478,6 +2618,24 @@ build:
      [java]         return;
      [java]     }
      [java] 
+     [java]     public static synchronized void increment(long)
+     [java]     {
+     [java]         long l0, $l1, $l2, dynBranch;
+     [java]         java.io.PrintStream disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $l1 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         $l2 = $l1 + l0;
+     [java] 
+     [java]         <e0210.MyCounter: long c> = $l2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
      [java]     public static void main(java.lang.String[])
      [java]     {
      [java]         java.lang.String[] r0;
@@ -2485,11 +2643,13 @@ build:
      [java]         java.lang.String $r2;
      [java]         test15.Main $r3;
      [java]         java.io.PrintStream $r4, disp;
-     [java]         long dynBranch;
+     [java]         long globe, dynBranch;
      [java] 
      [java]         r0 := @parameter0: java.lang.String[];
      [java] 
      [java]         dynBranch = 0L;
+     [java] 
+     [java]         globe = <test15.Main: long gl>;
      [java] 
      [java]         $r2 = r0[0];
      [java] 
@@ -2509,41 +2669,7 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
-     [java] 
-     [java]         return;
-     [java]     }
-     [java] 
-     [java]     public static synchronized void increment(long)
-     [java]     {
-     [java]         long l0, $l1, $l2, dynBranch;
-     [java]         java.io.PrintStream disp;
-     [java] 
-     [java]         l0 := @parameter0: long;
-     [java] 
-     [java]         dynBranch = 0L;
-     [java] 
-     [java]         $l1 = <e0210.MyCounter: long c>;
-     [java] 
-     [java]         $l2 = $l1 + l0;
-     [java] 
-     [java]         <e0210.MyCounter: long c> = $l2;
-     [java] 
-     [java]         return;
-     [java]     }
-     [java] 
-     [java]     public static synchronized void printG()
-     [java]     {
-     [java]         long $l0, dynBranch;
-     [java]         java.io.PrintStream $r0, disp;
-     [java] 
-     [java]         dynBranch = 0L;
-     [java] 
-     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
-     [java] 
-     [java]         $l0 = <e0210.MyCounter: long c>;
-     [java] 
-     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
      [java]         return;
      [java]     }
@@ -2584,9 +2710,33 @@ build:
      [java]         return;
      [java]     }
      [java] 
-     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java]     public static synchronized void printG(long)
+     [java]     {
+     [java]         long l0, $l2, dynBranch;
+     [java]         byte $b1;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $b1 = l0 cmp 0L;
+     [java] 
+     [java]         if $b1 != 0 goto label1;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l2 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l2);
+     [java] 
+     [java]      label1:
+     [java]         return;
+     [java]     }
+     [java] 
      [java] Writing to Testcases/project-1/sootBin/test15/Main.class
-     [java] Soot finished on Mon Aug 29 19:48:05 IST 2016
+     [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
+     [java] Soot finished on Wed Aug 31 16:10:08 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test15]
@@ -2606,7 +2756,7 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test15]
      [echo] 
-     [java] Soot started on Mon Aug 29 19:48:05 IST 2016
+     [java] Soot started on Wed Aug 31 16:10:08 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming Transforming test16.Main... 
      [java] e0210.MyCounter... 
@@ -2625,15 +2775,15 @@ build:
      [java] 
      [java]     public void <init>()
      [java]     {
-     [java]         test16.Subclass r0;
+     [java]         test16.Main r0;
      [java]         long dynBranch;
      [java]         java.io.PrintStream disp;
      [java] 
-     [java]         r0 := @this: test16.Subclass;
+     [java]         r0 := @this: test16.Main;
      [java] 
      [java]         dynBranch = 0L;
      [java] 
-     [java]         specialinvoke r0.<test16.Main: void <init>()>();
+     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
      [java] 
      [java]         disp = <java.lang.System: java.io.PrintStream out>;
      [java] 
@@ -2644,15 +2794,15 @@ build:
      [java] 
      [java]     public void <init>()
      [java]     {
-     [java]         test16.Main r0;
+     [java]         test16.Subclass r0;
      [java]         long dynBranch;
      [java]         java.io.PrintStream disp;
      [java] 
-     [java]         r0 := @this: test16.Main;
+     [java]         r0 := @this: test16.Subclass;
      [java] 
      [java]         dynBranch = 0L;
      [java] 
-     [java]         specialinvoke r0.<java.lang.Object: void <init>()>();
+     [java]         specialinvoke r0.<test16.Main: void <init>()>();
      [java] 
      [java]         disp = <java.lang.System: java.io.PrintStream out>;
      [java] 
@@ -2687,11 +2837,13 @@ build:
      [java]         java.lang.String $r2;
      [java]         test16.Subclass $r3;
      [java]         java.io.PrintStream $r4, disp;
-     [java]         long dynBranch;
+     [java]         long globe, dynBranch;
      [java] 
      [java]         r0 := @parameter0: java.lang.String[];
      [java] 
      [java]         dynBranch = 0L;
+     [java] 
+     [java]         globe = <test16.Main: long gl>;
      [java] 
      [java]         $r2 = r0[0];
      [java] 
@@ -2711,7 +2863,7 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
      [java]         return;
      [java]     }
@@ -2734,19 +2886,27 @@ build:
      [java]         return;
      [java]     }
      [java] 
-     [java]     public static synchronized void printG()
+     [java]     public static synchronized void printG(long)
      [java]     {
-     [java]         long $l0, dynBranch;
+     [java]         long l0, $l2, dynBranch;
+     [java]         byte $b1;
      [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
      [java] 
      [java]         dynBranch = 0L;
      [java] 
+     [java]         $b1 = l0 cmp 0L;
+     [java] 
+     [java]         if $b1 != 0 goto label1;
+     [java] 
      [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
      [java] 
-     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java]         $l2 = <e0210.MyCounter: long c>;
      [java] 
-     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l2);
      [java] 
+     [java]      label1:
      [java]         return;
      [java]     }
      [java] 
@@ -2817,9 +2977,9 @@ build:
      [java]     }
      [java] 
      [java] Writing to Testcases/project-1/sootBin/test16/Main.class
-     [java] Writing to Testcases/project-1/sootBin/test16/Subclass.class
      [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
-     [java] Soot finished on Mon Aug 29 19:48:06 IST 2016
+     [java] Writing to Testcases/project-1/sootBin/test16/Subclass.class
+     [java] Soot finished on Wed Aug 31 16:10:09 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test16]
@@ -2841,7 +3001,7 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test16]
      [echo] 
-     [java] Soot started on Mon Aug 29 19:48:07 IST 2016
+     [java] Soot started on Wed Aug 31 16:10:10 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming Transforming test17.Main... 
      [java] e0210.MyCounter... 
@@ -2913,19 +3073,27 @@ build:
      [java]         return;
      [java]     }
      [java] 
-     [java]     public static synchronized void printG()
+     [java]     public static synchronized void printG(long)
      [java]     {
-     [java]         long $l0, dynBranch;
+     [java]         long l0, $l2, dynBranch;
+     [java]         byte $b1;
      [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
      [java] 
      [java]         dynBranch = 0L;
      [java] 
+     [java]         $b1 = l0 cmp 0L;
+     [java] 
+     [java]         if $b1 != 0 goto label1;
+     [java] 
      [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
      [java] 
-     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java]         $l2 = <e0210.MyCounter: long c>;
      [java] 
-     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l2);
      [java] 
+     [java]      label1:
      [java]         return;
      [java]     }
      [java] 
@@ -2936,11 +3104,13 @@ build:
      [java]         java.lang.String $r1, $r3;
      [java]         java.io.PrintStream $r2, $r4, disp;
      [java]         java.io.FileNotFoundException $r5;
-     [java]         long dynBranch;
+     [java]         long globe, dynBranch;
      [java] 
      [java]         r0 := @parameter0: java.lang.String[];
      [java] 
      [java]         dynBranch = 0L;
+     [java] 
+     [java]         globe = <test17.Main: long gl>;
      [java] 
      [java]         $r1 = r0[0];
      [java] 
@@ -2974,16 +3144,16 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
      [java]         return;
      [java] 
      [java]         catch java.io.FileNotFoundException from label1 to label2 with label3;
      [java]     }
      [java] 
-     [java] Writing to Testcases/project-1/sootBin/test17/Main.class
      [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
-     [java] Soot finished on Mon Aug 29 19:48:07 IST 2016
+     [java] Writing to Testcases/project-1/sootBin/test17/Main.class
+     [java] Soot finished on Wed Aug 31 16:10:10 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test17]
@@ -3000,7 +3170,7 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test17]
      [echo] 
-     [java] Soot started on Mon Aug 29 19:48:08 IST 2016
+     [java] Soot started on Wed Aug 31 16:10:11 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming Transforming test18.Main... 
      [java] e0210.MyCounter... 
@@ -3072,33 +3242,19 @@ build:
      [java]         return;
      [java]     }
      [java] 
-     [java]     public static synchronized void printG()
-     [java]     {
-     [java]         long $l0, dynBranch;
-     [java]         java.io.PrintStream $r0, disp;
-     [java] 
-     [java]         dynBranch = 0L;
-     [java] 
-     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
-     [java] 
-     [java]         $l0 = <e0210.MyCounter: long c>;
-     [java] 
-     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
-     [java] 
-     [java]         return;
-     [java]     }
-     [java] 
      [java]     public static void main(java.lang.String[])
      [java]     {
      [java]         java.lang.String[] r0;
      [java]         int i0, i1;
      [java]         java.lang.String $r1;
      [java]         java.io.PrintStream $r2, disp;
-     [java]         long dynBranch;
+     [java]         long globe, dynBranch;
      [java] 
      [java]         r0 := @parameter0: java.lang.String[];
      [java] 
      [java]         dynBranch = 0L;
+     [java] 
+     [java]         globe = <test18.Main: long gl>;
      [java] 
      [java]         $r1 = r0[0];
      [java] 
@@ -3128,8 +3284,32 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static synchronized void printG(long)
+     [java]     {
+     [java]         long l0, $l2, dynBranch;
+     [java]         byte $b1;
+     [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
+     [java] 
+     [java]         dynBranch = 0L;
+     [java] 
+     [java]         $b1 = l0 cmp 0L;
+     [java] 
+     [java]         if $b1 != 0 goto label1;
+     [java] 
+     [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
+     [java] 
+     [java]         $l2 = <e0210.MyCounter: long c>;
+     [java] 
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l2);
+     [java] 
+     [java]      label1:
      [java]         return;
      [java]     }
      [java] 
@@ -3199,7 +3379,7 @@ build:
      [java] 
      [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
      [java] Writing to Testcases/project-1/sootBin/test18/Main.class
-     [java] Soot finished on Mon Aug 29 19:48:09 IST 2016
+     [java] Soot finished on Wed Aug 31 16:10:11 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test18]
@@ -3228,7 +3408,7 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test18]
      [echo] 
-     [java] Soot started on Mon Aug 29 19:48:09 IST 2016
+     [java] Soot started on Wed Aug 31 16:10:12 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming Transforming test19.Main... 
      [java] e0210.MyCounter... 
@@ -3300,19 +3480,27 @@ build:
      [java]         return;
      [java]     }
      [java] 
-     [java]     public static synchronized void printG()
+     [java]     public static synchronized void printG(long)
      [java]     {
-     [java]         long $l0, dynBranch;
+     [java]         long l0, $l2, dynBranch;
+     [java]         byte $b1;
      [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
      [java] 
      [java]         dynBranch = 0L;
      [java] 
+     [java]         $b1 = l0 cmp 0L;
+     [java] 
+     [java]         if $b1 != 0 goto label1;
+     [java] 
      [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
      [java] 
-     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java]         $l2 = <e0210.MyCounter: long c>;
      [java] 
-     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l2);
      [java] 
+     [java]      label1:
      [java]         return;
      [java]     }
      [java] 
@@ -3322,11 +3510,13 @@ build:
      [java]         int i0, $i1, $i2, i3;
      [java]         java.lang.String $r1;
      [java]         java.io.PrintStream $r2, disp;
-     [java]         long dynBranch;
+     [java]         long globe, dynBranch;
      [java] 
      [java]         r0 := @parameter0: java.lang.String[];
      [java] 
      [java]         dynBranch = 0L;
+     [java] 
+     [java]         globe = <test19.Main: long gl>;
      [java] 
      [java]         $r1 = r0[0];
      [java] 
@@ -3376,14 +3566,14 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
      [java]         return;
      [java]     }
      [java] 
-     [java] Writing to Testcases/project-1/sootBin/test19/Main.class
      [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
-     [java] Soot finished on Mon Aug 29 19:48:10 IST 2016
+     [java] Writing to Testcases/project-1/sootBin/test19/Main.class
+     [java] Soot finished on Wed Aug 31 16:10:12 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test19]
@@ -3400,7 +3590,7 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test19]
      [echo] 
-     [java] Soot started on Mon Aug 29 19:48:10 IST 2016
+     [java] Soot started on Wed Aug 31 16:10:13 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming Transforming test20.Main... 
      [java] e0210.MyCounter... 
@@ -3472,19 +3662,27 @@ build:
      [java]         return;
      [java]     }
      [java] 
-     [java]     public static synchronized void printG()
+     [java]     public static synchronized void printG(long)
      [java]     {
-     [java]         long $l0, dynBranch;
+     [java]         long l0, $l2, dynBranch;
+     [java]         byte $b1;
      [java]         java.io.PrintStream $r0, disp;
+     [java] 
+     [java]         l0 := @parameter0: long;
      [java] 
      [java]         dynBranch = 0L;
      [java] 
+     [java]         $b1 = l0 cmp 0L;
+     [java] 
+     [java]         if $b1 != 0 goto label1;
+     [java] 
      [java]         $r0 = <java.lang.System: java.io.PrintStream out>;
      [java] 
-     [java]         $l0 = <e0210.MyCounter: long c>;
+     [java]         $l2 = <e0210.MyCounter: long c>;
      [java] 
-     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l0);
+     [java]         virtualinvoke $r0.<java.io.PrintStream: void print(long)>($l2);
      [java] 
+     [java]      label1:
      [java]         return;
      [java]     }
      [java] 
@@ -3494,11 +3692,13 @@ build:
      [java]         int i0, $i1;
      [java]         java.lang.String $r1;
      [java]         java.io.PrintStream $r2, disp;
-     [java]         long dynBranch;
+     [java]         long globe, dynBranch;
      [java] 
      [java]         r0 := @parameter0: java.lang.String[];
      [java] 
      [java]         dynBranch = 0L;
+     [java] 
+     [java]         globe = <test20.Main: long gl>;
      [java] 
      [java]         $r1 = r0[0];
      [java] 
@@ -3516,7 +3716,7 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
      [java]         return;
      [java] 
@@ -3529,14 +3729,14 @@ build:
      [java] 
      [java]         virtualinvoke disp.<java.io.PrintStream: void println(long)>(dynBranch);
      [java] 
-     [java]         staticinvoke <e0210.MyCounter: void printG()>();
+     [java]         staticinvoke <e0210.MyCounter: void printG(long)>(globe);
      [java] 
      [java]         return;
      [java]     }
      [java] 
-     [java] Writing to Testcases/project-1/sootBin/test20/Main.class
      [java] Writing to Testcases/project-1/sootBin/e0210/MyCounter.class
-     [java] Soot finished on Mon Aug 29 19:48:11 IST 2016
+     [java] Writing to Testcases/project-1/sootBin/test20/Main.class
+     [java] Soot finished on Wed Aug 31 16:10:14 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test20]
@@ -3554,4 +3754,4 @@ build:
      [echo] 
 
 BUILD SUCCESSFUL
-Total time: 4 minutes 8 seconds
+Total time: 4 minutes 9 seconds
