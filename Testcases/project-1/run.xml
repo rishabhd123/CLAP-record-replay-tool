@@ -1,14 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!--
+@author Sridhar Gopinath		-		g.sridhar53@gmail.com
+
+Course project,
+Principles of Programming Course, Fall - 2016,
+Computer Science and Automation (CSA),
+Indian Institute of Science (IISc),
+Bangalore
+-->
+
 <project name="Testcases.project-1" default="jar">
 
+	<!-- Clean the project directories before creating JAR -->
+	<target name="clean">
+
+		<ant antfile="build.xml" target="clean">
+		</ant>
+
+		<delete dir="sootBin" />
+		<delete dir="output" />
+		<delete file="project-1.jar" />
+
+	</target>
+
 	<target name="jar">
+
+		<!-- Compile the testcases -->
 		<ant antfile="build.xml">
 		</ant>
 
+		<!-- Create JAR file of the testcases -->
 		<jar destfile="project-1.jar">
 			<fileset dir="bin" />
 			<fileset dir="src" includes="**/*.java" />
 		</jar>
+
 	</target>
 
 </project>
