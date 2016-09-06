@@ -156,7 +156,7 @@ Hence added fork="true" for all the java task in the file.
 				<!-- Redirect the output to a output file -->
 				<loadfile property="input@{num}" srcFile="Testcases/${project}/input/test@{num}" />
 				<java classname="test@{num}.Main" fork="true">
-					<redirector output="Testcases/${project}/output/test@{num}" error="Testcases/${project}/output/${testcase}.error" alwayslog="true" />
+					<redirector output="Testcases/${project}/output/test@{num}" error="Testcases/${project}/output/test@{num}.error" alwayslog="true" />
 					<classpath>
 						<pathelement location="Testcases/${project}/sootBin/" />
 					</classpath>
