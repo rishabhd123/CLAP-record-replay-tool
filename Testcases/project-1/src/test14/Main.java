@@ -10,6 +10,10 @@ package test14;
  * Bangalore
  */
 
+/*
+ * Test 14: System.exit() in the inter-procedural context
+ */
+
 public class Main {
 
 	public static void main(String[] args) {

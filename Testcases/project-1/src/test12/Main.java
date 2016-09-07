@@ -10,6 +10,10 @@ package test12;
  * Bangalore
  */
 
+/*
+ * Test 12: If-else constructs in multiple methods
+ */
+
 public class Main {
 
 	public static void main(String[] args) {

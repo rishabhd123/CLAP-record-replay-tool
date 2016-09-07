@@ -10,6 +10,10 @@ package test11;
  * Bangalore
  */
 
+/*
+ * Test 11: Simple inter-procedural program
+ */
+
 public class Main {
 
 	public static void main(String[] args) {

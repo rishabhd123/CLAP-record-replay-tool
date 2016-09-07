@@ -10,6 +10,10 @@ package test18;
  * Bangalore
  */
 
+/*
+ * Test 18: Loops in multiple methods of the program
+ */
+
 public class Main {
 
 	public static void main(String[] args) {

@@ -10,6 +10,10 @@ package test8;
  * Bangalore
  */
 
+/*
+ * Test 8: Switch-case
+ */
+
 public class Main {
 
 	public static void main(String[] args) {

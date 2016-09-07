@@ -11,7 +11,7 @@ package test25;
  */
 
 /*
- * Hidden test 5: Anonymous classes
+ * Test 25 (Hidden test 5): Anonymous classes
  * 
  * Command line args:
  * 4 5

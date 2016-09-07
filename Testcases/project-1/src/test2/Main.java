@@ -10,6 +10,10 @@ package test2;
  * Bangalore
  */
 
+/*
+ * Test 2: Single if-else
+ */
+
 public class Main {
 
 	public static void main(String[] args) {

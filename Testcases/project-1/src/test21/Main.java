@@ -11,7 +11,7 @@ package test21;
  */
 
 /*
- * Hidden test 1: Inner classes 
+ * Test 21 (Hidden test 1): Inner classes 
  * Checks whether all classes are being instrumented
  * Checks whether overloaded functions are printed 
  * Checks whether overridden functions are printed

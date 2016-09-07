@@ -10,6 +10,10 @@ package test9;
  * Bangalore
  */
 
+/*
+ * Test 9: Return statement in the middle of the program
+ */
+
 public class Main {
 
 	public static void main(String[] args) {

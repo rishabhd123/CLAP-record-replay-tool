@@ -11,7 +11,7 @@ package test22;
  */
 
 /*
- * Hidden test 2: If-else-if ladder 
+ * Test 22 (Hidden test 2): If-else-if ladder 
  *
  * Command Line args: 
  * 3

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!--
+@author Sridhar Gopinath		-		g.sridhar53@gmail.com
+
+Course project,
+Principles of Programming Course, Fall - 2016,
+Computer Science and Automation (CSA),
+Indian Institute of Science (IISc),
+Bangalore
+-->
+
+<project name="Testcases" default="clean">
+
+	<!-- Clean the sub-project directories -->
+	<target name="clean">
+
+		<ant antfile="run.xml" target="clean" dir="project-1/">
+		</ant>
+
+		<ant antfile="run.xml" target="clean" dir="project-2/">
+		</ant>
+
+		<ant antfile="run.xml" target="clean" dir="project-3/">
+		</ant>
+
+		<ant antfile="run.xml" target="clean" dir="project-4/">
+		</ant>
+
+	</target>
+
+</project>

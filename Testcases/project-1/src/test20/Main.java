@@ -10,6 +10,10 @@ package test20;
  * Bangalore
  */
 
+/*
+ * Test 20: Return statements inside if-else
+ */
+
 public class Main {
 
 	public static void main(String[] args) {

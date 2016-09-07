@@ -10,6 +10,10 @@ package test3;
  * Bangalore
  */
 
+/*
+ * Test 3: Nested if-else
+ */
+
 public class Main {
 
 	public static void main(String[] args) {
