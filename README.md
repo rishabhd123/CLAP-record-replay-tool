@@ -40,5 +40,6 @@
 *   [Background](https://bitbucket.org/e0210-csa/e0210-project/wiki/Background)
 *   [In-depth explanation about the ANT scripts](https://bitbucket.org/e0210-csa/e0210-project/wiki/Ant%20Script)
 *   [Project-1: Counting dynamic branch instructions](https://bitbucket.org/e0210-csa/e0210-project/wiki/Project-1)
+* [Project 2: Intra-procedural path tracing](https://bitbucket.org/e0210-csa/e0210-project/wiki/Project-2)
 
 * * *
