@@ -43,7 +43,7 @@ Hence added fork="true" for all the java task in the file.
 			<or>
 				<!-- Change the regex to add more testcases beyond test20 -->
 				<!-- TODO: This allows test0 as well -->
-				<matches pattern="^test([1]?\d|20)$" string="${testcase}" />
+				<matches pattern="^test([1]?\d|2[012345])$" string="${testcase}" />
 				<matches pattern="^testall$" string="${testcase}" />
 			</or>
 		</and>
@@ -51,16 +51,32 @@ Hence added fork="true" for all the java task in the file.
 	<fail message="Arguments are not valid!" unless="valid" />
 
 
+	<target name="clean-build">
+		<!-- Clean the project directory -->
+		<ant antfile="build.xml" target="clean">
+		</ant>
+	</target>
+
+	<target name="clean-testcases">
+		<!-- Clean the test case directory -->
+		<ant antfile="run.xml" target="clean" dir="Testcases/${project}">
+		</ant>
+	</target>
+
+	<target name="clean-all" depends="clean-build,clean-testcases">
+	</target>
+
+
 
 	<!-- "run" MODE with "testall" -->
 	<target name="-runall">
 		<!-- Loop for all the test cases -->
 		<!-- Change the list to add more test cases -->
-		<for list="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20" param="num">
+		<for list="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25" param="num">
 			<sequential>
 
 				<!-- Run SOOT for each test case -->
-				<java classname="e0210.Main" failonerror="true" fork="true">
+				<java classname="e0210.Main" fork="true">
 					<classpath refid="e0210.classpath" />
 					<arg value="${project}" />
 					<arg value="test@{num}" />
@@ -116,11 +132,11 @@ Hence added fork="true" for all the java task in the file.
 
 		<!-- Loop for all the test cases -->
 		<!-- Change the list to add more test cases -->
-		<for list="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20" param="num">
+		<for list="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25" param="num">
 			<sequential>
 
 				<!-- Run SOOT -->
-				<java classname="e0210.Main" failonerror="true" fork="true">
+				<java classname="e0210.Main" fork="true">
 					<classpath refid="e0210.classpath" />
 					<arg value="${project}" />
 					<arg value="test@{num}" />
@@ -139,7 +155,7 @@ Hence added fork="true" for all the java task in the file.
 				<!-- Execute the test case with the "input" file as the argument -->
 				<!-- Redirect the output to a output file -->
 				<loadfile property="input@{num}" srcFile="Testcases/${project}/input/test@{num}" />
-				<java classname="test@{num}.Main" failonerror="true" fork="true">
+				<java classname="test@{num}.Main" fork="true">
 					<redirector output="Testcases/${project}/output/test@{num}" error="Testcases/${project}/output/${testcase}.error" alwayslog="true" />
 					<classpath>
 						<pathelement location="Testcases/${project}/sootBin/" />
