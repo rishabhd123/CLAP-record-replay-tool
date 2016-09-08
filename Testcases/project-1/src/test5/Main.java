@@ -10,6 +10,10 @@ package test5;
  * Bangalore
  */
 
+/*
+ * Test 5: If-else inside a loop
+ */
+
 public class Main {
 
 	public static void main(String[] args) {

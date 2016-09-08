@@ -10,6 +10,10 @@ package test10;
  * Bangalore
  */
 
+/*
+ * Test 10: System.exit() inside for loop
+ */
+
 public class Main {
 
 	public static void main(String[] args) {

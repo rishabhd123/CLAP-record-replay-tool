@@ -10,37 +10,10 @@ package test2;
  * Bangalore
  */
 
-/*public class Main {
 
-	public static void main(String[] args) {
-
-		int a = args[0].length();
-
-		if (a > 5)
-			a++;
-		else
-			a--;
-
-		System.err.println(a);
-
-		f1();
-
-		return;
-	}
-
-	public void f1(){
-	System.out.println("Rishabh");	
-	}
-
-} */
-
-
-
-
-
-
-
-
+/*
+ * Test 2: Single if-else
+ */
 public class Main {
 
 	public static void main(String[] args) {

@@ -20,6 +20,7 @@ Bangalore
 
 		<delete dir="sootBin" />
 		<delete dir="output" />
+		<delete dir="processed-output" />
 		<delete file="project-1.jar" />
 
 	</target>

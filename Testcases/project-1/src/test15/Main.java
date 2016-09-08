@@ -10,6 +10,10 @@ package test15;
  * Bangalore
  */
 
+/*
+ * Test 5: Creating objects (should take care of constructors)
+ */
+
 public class Main {
 
 	public static void main(String[] args) {

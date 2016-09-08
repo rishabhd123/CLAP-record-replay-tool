@@ -31,9 +31,9 @@ Hence added fork="true" for all the java task in the file.
 	<!-- Classpath used to run SOOT -->
 	<path id="e0210.classpath">
 		<pathelement location="bin" />
-		<fileset dir="lib">
-			<include name="**/*.jar" />
-		</fileset>
+		<pathelement location="lib/soot-nightly-05082016.jar" />
+		<pathelement location="lib/jgrapht-core-0.9.2.jar" />
+		<pathelement location="lib/jgrapht-ext-0.9.2.jar" />
 	</path>
 
 	<!-- Validate the input arguments -->
@@ -59,7 +59,7 @@ Hence added fork="true" for all the java task in the file.
 
 	<target name="clean-testcases">
 		<!-- Clean the test case directory -->
-		<ant antfile="run.xml" target="clean" dir="Testcases/${project}">
+		<ant antfile="run.xml" target="clean" dir="Testcases/">
 		</ant>
 	</target>
 
@@ -129,6 +129,7 @@ Hence added fork="true" for all the java task in the file.
 
 		<!-- Create output directory -->
 		<mkdir dir="Testcases/${project}/output" />
+		<mkdir dir="Testcases/${project}/processed-output" />
 
 		<!-- Loop for all the test cases -->
 		<!-- Change the list to add more test cases -->
@@ -156,12 +157,31 @@ Hence added fork="true" for all the java task in the file.
 				<!-- Redirect the output to a output file -->
 				<loadfile property="input@{num}" srcFile="Testcases/${project}/input/test@{num}" />
 				<java classname="test@{num}.Main" fork="true">
-					<redirector output="Testcases/${project}/output/test@{num}" error="Testcases/${project}/output/${testcase}.error" alwayslog="true" />
+					<redirector output="Testcases/${project}/output/test@{num}" error="Testcases/${project}/output/test@{num}.error" alwayslog="true" />
 					<classpath>
 						<pathelement location="Testcases/${project}/sootBin/" />
 					</classpath>
 					<arg line="${input@{num}}" />
 				</java>
+
+				<!-- Remove old processed-output file -->
+				<delete file="Testcases/${project}/processed-output/test@{num}">
+				</delete>
+
+				<echo />
+				<echo>[Post-processing for test@{num}]</echo>
+				<echo />
+
+				<!-- Run the program which does post-processing -->
+				<java classname="e0210.ProcessOutput" fork="true">
+					<classpath refid="e0210.classpath" />
+					<arg value="${project}" />
+					<arg value="test@{num}" />
+				</java>
+
+				<echo />
+				<echo>[Completed post-processing for test@{num}]</echo>
+				<echo />
 
 				<echo />
 				<echo>[Checking the output of test@{num}]</echo>
@@ -170,7 +190,7 @@ Hence added fork="true" for all the java task in the file.
 				<!-- Run diff on the output files to verify the correctness -->
 				<exec executable="sh">
 					<arg value="-c" />
-					<arg value="diff Testcases/output/${project}/test@{num} Testcases/${project}/output/test@{num} ; if [ $? -eq 0 ]; then echo PASS; else echo FAIL; fi" />
+					<arg value="diff Testcases/output/${project}/test@{num} Testcases/${project}/processed-output/test@{num} ; if [ $? -eq 0 ]; then echo PASS; else echo FAIL; fi" />
 				</exec>
 
 				<echo />
@@ -184,6 +204,7 @@ Hence added fork="true" for all the java task in the file.
 
 		<!-- Create output directory -->
 		<mkdir dir="Testcases/${project}/output" />
+		<mkdir dir="Testcases/${project}/processed-output" />
 
 		<!-- Run SOOT -->
 		<java classname="e0210.Main" failonerror="true" fork="true">
@@ -213,6 +234,25 @@ Hence added fork="true" for all the java task in the file.
 			<arg line="${input}" />
 		</java>
 
+		<!-- Remove old processed-output file -->
+		<delete file="Testcases/${project}/processed-output/${testcase}">
+		</delete>
+
+		<echo />
+		<echo>[Post-processing for ${testcase}]</echo>
+		<echo />
+
+		<!-- Run the program which does post-processing -->
+		<java classname="e0210.ProcessOutput" failonerror="true" fork="true">
+			<classpath refid="e0210.classpath" />
+			<arg value="${project}" />
+			<arg value="${testcase}" />
+		</java>
+
+		<echo />
+		<echo>[Completed post-processing for ${testcase}]</echo>
+		<echo />
+
 		<echo />
 		<echo>[Checking the output for ${testcase}]</echo>
 		<echo />
@@ -220,7 +260,7 @@ Hence added fork="true" for all the java task in the file.
 		<!-- Run diff on the output files to verify the correctness -->
 		<exec executable="sh">
 			<arg value="-c" />
-			<arg value="diff Testcases/output/${project}/${testcase} Testcases/${project}/output/${testcase} ; if [ $? -eq 0 ]; then echo PASS; else echo FAIL; fi" />
+			<arg value="diff Testcases/output/${project}/${testcase} Testcases/${project}/processed-output/${testcase} ; if [ $? -eq 0 ]; then echo PASS; else echo FAIL; fi" />
 		</exec>
 
 		<echo />

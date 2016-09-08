@@ -10,6 +10,10 @@ package test1;
  * Bangalore
  */
 
+/*
+ * Test 1: Straight line code
+ */
+
 public class Main {
 
 	public static void main(String[] args) {

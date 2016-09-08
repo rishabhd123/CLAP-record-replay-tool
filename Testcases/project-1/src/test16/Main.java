@@ -10,6 +10,10 @@ package test16;
  * Bangalore
  */
 
+/*
+ * Test 6: Inheritance
+ */
+
 public class Main {
 
 	public static void main(String[] args) {

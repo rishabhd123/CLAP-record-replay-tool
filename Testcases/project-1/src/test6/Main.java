@@ -10,6 +10,10 @@ package test6;
  * Bangalore
  */
 
+/*
+ * Test 6: While loop with a conditional
+ */
+
 public class Main {
 
 	public static void main(String[] args) {
