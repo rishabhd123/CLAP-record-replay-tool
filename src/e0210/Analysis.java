@@ -25,7 +25,7 @@ public class Analysis extends BodyTransformer {
 	static SootClass sootcountClass;
 	static SootMethod incrC, printC;
 	static{
-		sootcountClass=Scene.v().loadClassAndSupport("e0210.MyCounter");
+		sootcountClass=Scene.v().loadClassAndSupport("e0210.MyCounter");		
 		incrC=sootcountClass.getMethod("void increment(long)");
 		printC=sootcountClass.getMethod("void printG(long)");
 	}
@@ -56,9 +56,7 @@ public class Analysis extends BodyTransformer {
 		
 		
 		dynBranch=Jimple.v().newLocal("dynBranch", LongType.v());		//local variable
-		b.getLocals().add(dynBranch);
-		
-		
+		b.getLocals().add(dynBranch); 		//get all the locals of current method i.e to which 'b' is refering
 		
 		disp=Jimple.v().newLocal("disp", RefType.v("java.io.PrintStream"));	// for printing
 		b.getLocals().add(disp);
@@ -89,7 +87,7 @@ public class Analysis extends BodyTransformer {
 				}	// handled all types of returns
 				
 				else if (s.containsInvokeExpr()){
-					InvokeExpr exp=(InvokeExpr)s.getInvokeExpr();
+					InvokeExpr exp=(InvokeExpr)s.getInvokeExpr();		//  (InvokeExpr)s.getInvokeExpr();
 					String str=exp.toString();
 					if(str.contains("staticinvoke <java.lang.System: void exit(")){			//In this implementation there cant be any conflict in matching func. name
 						
