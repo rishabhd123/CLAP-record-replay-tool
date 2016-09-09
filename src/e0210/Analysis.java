@@ -70,19 +70,24 @@ public class Analysis extends BodyTransformer {
 				Stmt s=(Stmt)iter.next();
 				if(s instanceof IfStmt && !(b.getMethod().getSubSignature().equals("void printG(long)"))){
 					byteU.insertBefore(Jimple.v().newAssignStmt(dynBranch, Jimple.v().newAddExpr(dynBranch, LongConstant.v(1))), s);
-					byteU.insertBefore( Jimple.v().newInvokeStmt(Jimple.v().newStaticInvokeExpr(incrC.makeRef(),LongConstant.v(1))),s);
+					//byteU.insertBefore( Jimple.v().newInvokeStmt(Jimple.v().newStaticInvokeExpr(incrC.makeRef(),LongConstant.v(1))),s);
 					// Here i have to insert increment statement to count Dyn branching
 				}
 				else if(s instanceof ReturnVoidStmt || s instanceof ReturnStmt ){
+					//byteU.insertBefore( Jimple.v().newInvokeStmt(Jimple.v().newStaticInvokeExpr(incrC.makeRef(),dynBranch)),s);
 					if(!(b.getMethod().getSubSignature().equals("void increment(long)") || b.getMethod().getSubSignature().equals("void printG(long)") || b.getMethod().getSubSignature().equals("void <clinit>()") )  ){
+						byteU.insertBefore( Jimple.v().newInvokeStmt(Jimple.v().newStaticInvokeExpr(incrC.makeRef(),dynBranch)),s);
 						byteU.insertBefore(Jimple.v().newAssignStmt(disp, Jimple.v().newStaticFieldRef(Scene.v().getField("<java.lang.System: java.io.PrintStream out>").makeRef())),s);
 						
 			            byteU.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void println(long)>").makeRef(), dynBranch)),s);
 					}
 					
 		            
-		            if(b.getMethod().getSubSignature().equals("void main(java.lang.String[])"))            	
+		            if(b.getMethod().getSubSignature().equals("void main(java.lang.String[])"))
+		            {
+		            	
 		            	byteU.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newStaticInvokeExpr(printC.makeRef(),globe)),s);// we need to modify
+		            }
 		           				
 				}	// handled all types of returns
 				
@@ -94,7 +99,7 @@ public class Analysis extends BodyTransformer {
 						byteU.insertBefore(Jimple.v().newAssignStmt(disp, Jimple.v().newStaticFieldRef(Scene.v().getField("<java.lang.System: java.io.PrintStream out>").makeRef())),s);
 						
 						byteU.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void println(long)>").makeRef(), dynBranch)),s);
-			            
+						byteU.insertBefore( Jimple.v().newInvokeStmt(Jimple.v().newStaticInvokeExpr(incrC.makeRef(),dynBranch)),s);
 						byteU.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newStaticInvokeExpr(printC.makeRef(),LongConstant.v(0))),s);
 					}    	//handled exit(0)
 					else if(str.contains("void main(java.lang.String[])>(")){
