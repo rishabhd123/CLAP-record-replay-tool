@@ -50,11 +50,15 @@ Hence added fork="true" for all the java task in the file.
 	</condition>
 	<fail message="Arguments are not valid!" unless="valid" />
 
+	<property name="summary" value="Summary of the execution:${line.separator}" />
+
 
 	<target name="clean-build">
 		<!-- Clean the project directory -->
 		<ant antfile="build.xml" target="clean">
 		</ant>
+
+		<delete dir="sootOutput" />
 	</target>
 
 	<target name="clean-testcases">
@@ -136,6 +140,9 @@ Hence added fork="true" for all the java task in the file.
 		<for list="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25" param="num">
 			<sequential>
 
+				<!-- Remove old sootBin folder -->
+				<delete dir="Testcases/${project}/sootBin/test@{num}" />
+
 				<!-- Run SOOT -->
 				<java classname="e0210.Main" fork="true">
 					<classpath refid="e0210.classpath" />
@@ -188,16 +195,34 @@ Hence added fork="true" for all the java task in the file.
 				<echo />
 
 				<!-- Run diff on the output files to verify the correctness -->
-				<exec executable="sh">
+				<exec executable="sh" resultproperty="exit-code-@{num}">
+					<redirector output="Testcases/${project}/output/test@{num}.result" alwayslog="true" />
 					<arg value="-c" />
-					<arg value="diff Testcases/output/${project}/test@{num} Testcases/${project}/processed-output/test@{num} ; if [ $? -eq 0 ]; then echo PASS; else echo FAIL; fi" />
+					<arg value="diff Testcases/output/${project}/test@{num} Testcases/${project}/processed-output/test@{num} ; if [ $? -eq 0 ]; then echo PASS; else echo FAIL; return 1; fi" />
 				</exec>
+
+				<if>
+					<equals arg1="${exit-code-@{num}}" arg2="1" />
+					<then>
+						<var name="temp" value="${summary}Test @{num} - FAIL${line.separator}" />
+						<var name="summary" value="${temp}" />
+					</then>
+					<else>
+						<var name="temp" value="${summary}Test @{num} - Pass${line.separator}" />
+						<var name="summary" value="${temp}" />
+					</else>
+				</if>
 
 				<echo />
 				<echo>[Completed "test" mode for test@{num}]</echo>
 				<echo />
 			</sequential>
 		</for>
+
+		<echo />
+		<echo>${summary}</echo>
+		<echo />
+
 	</target>
 
 	<target name="-testsingle">
@@ -205,6 +230,9 @@ Hence added fork="true" for all the java task in the file.
 		<!-- Create output directory -->
 		<mkdir dir="Testcases/${project}/output" />
 		<mkdir dir="Testcases/${project}/processed-output" />
+
+		<!-- Remove old sootBin folder -->
+		<delete dir="Testcases/${project}/sootBin/${testcase}" />
 
 		<!-- Run SOOT -->
 		<java classname="e0210.Main" failonerror="true" fork="true">
@@ -258,9 +286,10 @@ Hence added fork="true" for all the java task in the file.
 		<echo />
 
 		<!-- Run diff on the output files to verify the correctness -->
-		<exec executable="sh">
+		<exec executable="sh" resultproperty="exit-code">
+			<redirector output="Testcases/${project}/output/${testcase}.result" alwayslog="true" />
 			<arg value="-c" />
-			<arg value="diff Testcases/output/${project}/${testcase} Testcases/${project}/processed-output/${testcase} ; if [ $? -eq 0 ]; then echo PASS; else echo FAIL; fi" />
+			<arg value="diff Testcases/output/${project}/${testcase} Testcases/${project}/processed-output/${testcase} ; if [ $? -eq 0 ]; then echo PASS; else echo FAIL; return 1; fi" />
 		</exec>
 
 		<echo />
