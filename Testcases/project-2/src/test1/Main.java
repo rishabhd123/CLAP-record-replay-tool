@@ -17,7 +17,7 @@ public class Main {
 	public static void main(String[] args) {
 		int a=args[0].length();
 		boolean b=true;
-		System.err.println("Hello world");
+		System.out.println("Hello world");
 		if(a<4){
 			if(a<4)
 			System.out.println("Inside IF IF");
@@ -25,7 +25,7 @@ public class Main {
 
 		System.out.println("Inside IF");
 		}
-		else if(a>4){
+		else if(a==4){
 		System.out.println("Inside Else If");
 		}
 		else{

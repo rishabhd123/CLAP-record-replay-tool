@@ -10,54 +10,37 @@ package e0210;
  * Bangalore
  */
 import java.util.*;
-
-import soot.*;
-import soot.jimple.*;
 import soot.Body;
 import soot.BodyTransformer;
-import soot.Unit;
-import soot.jimple.Jimple;
-import soot.jimple.toolkits.typing.Util;
 import org.jgrapht.graph.*;
 import org.jgrapht.traverse.TopologicalOrderIterator;
-import org.jgrapht.*;
+
 
 import soot.toolkits.graph.*;
 
 public class Analysis extends BodyTransformer {
-	/*
-	ExceptionalBlockGraph graph;
-	List<Block> gBlocks;
-	SimpleDirectedWeightedGraph<Integer, DefaultEdge> mjGraph;
-	Map<Integer, Block> gMap;
-	Map<DefaultEdge, Integer> edgeVal;
-	Map<Integer, Integer> numPaths;
-	List<Integer> rTopologicalOrder;
-	*/
+	
 	@Override
 	protected void internalTransform(Body b, String phaseName, Map<String, String> options) {
 		
-		//Declaration
+		//1.Declaration-S
 		ExceptionalBlockGraph graph;
-		List<Block> gBlocks;
 		SimpleDirectedWeightedGraph<Integer, DefaultWeightedEdge> mjGraph;
 		Map<Integer, Block> vertexMap;
 		Map<Integer, Integer> numPaths;
 		List<Integer> rTopologicalOrder;	
+		//1.Declaration-E
 		
+		graph=new ExceptionalBlockGraph(b);		//soot graph
+		mjGraph=new SimpleDirectedWeightedGraph<>(DefaultWeightedEdge.class);	//jGraph
+		numPaths =new HashMap<Integer,Integer>();		//This MAP contains total number of possible paths from each vertex
 		
-		graph=new ExceptionalBlockGraph(b);
-		//System.out.println(graph.toString()); //Print the whole graph
-		gBlocks= graph.getBlocks();
-		//System.out.println(gBlocks); // Print the list of node(Blocks)
-		mjGraph=new SimpleDirectedWeightedGraph<>(DefaultWeightedEdge.class);
-		
-		
+		//2.Populating jGraph-S
 		Iterator<Block> gIterator=graph.iterator();
 		vertexMap=new HashMap<Integer, Block>();
 		while(gIterator.hasNext()){
 			Block block = gIterator.next();
-			//mjGraph.addVertex(block);
+			//mjGra//4.Instrumentation-Sph.addVertex(block);
 			vertexMap.put(block.getIndexInMethod(), block);
 			mjGraph.addVertex(block.getIndexInMethod());
 		}//Directed graph created but doesn't contain any edges
@@ -76,27 +59,20 @@ public class Analysis extends BodyTransformer {
 				
 			}
 		}
+		//2.Populating jGraph-E
 		
-		
+		//3.Generating Reverse Topological order-S
 		TopologicalOrderIterator<Integer, DefaultWeightedEdge> tIterator=new TopologicalOrderIterator<>(mjGraph);
 		rTopologicalOrder=new ArrayList<Integer>();
 		while(tIterator.hasNext()){rTopologicalOrder.add(tIterator.next());}
-		
 		Collections.reverse(rTopologicalOrder);
+		//3.Generating Reverse Topological order-E
 		
-		
-		numPaths =new HashMap<Integer,Integer>();		//This MAP contains total number of possible paths from each vertex
 		Essentials obj=new Essentials();
+		//obj.removeCycles(mjGraph);					//Remove Cycles
 		obj.BL(mjGraph, rTopologicalOrder, numPaths);	//apply Ball-Larus algorithm
-		
-		Iterator<DefaultWeightedEdge> edIt=mjGraph.edgeSet().iterator();
-		while (edIt.hasNext()) {
-			DefaultWeightedEdge e1=edIt.next();
-			System.out.println(e1+"--"+mjGraph.getEdgeWeight(e1));
-			
-		}
-		//System.out.println(numPaths.toString());
-		
+		obj.instrumentation(b, mjGraph, vertexMap);		//apply instrumentation
+				
 		/*	
 		//Print Edges and Edge-Weights
 		 
@@ -120,7 +96,7 @@ public class Analysis extends BodyTransformer {
 		
 		
 		//System.out.println(graph.toString());
-		//System.out.println(b.toString()); //prints soot ByteCode
+		System.out.println(b.toString()); //prints soot ByteCode
 		return;
 	}
 	
