@@ -7,6 +7,11 @@ import soot.*;
 import soot.jimple.*;
 import soot.jimple.toolkits.typing.Util;
 import soot.toolkits.graph.Block;
+import soot.jimple.Jimple;
+import java.util.Map;
+import soot.Body;
+import soot.Unit;
+
 
 public class Essentials {
 	
@@ -32,31 +37,27 @@ public class Essentials {
 	
 	public synchronized void removeCycles(SimpleDirectedWeightedGraph<Integer, DefaultWeightedEdge> mjGraph){
 		
-		int sour=0,dest=0,temp,bs,bd;
-		Iterator<Integer> vertIt=mjGraph.vertexSet().iterator();
-		while(vertIt.hasNext()){
-			temp=vertIt.next();
-			if(mjGraph.outDegreeOf(temp)==0){
-				dest=temp;
-				break;
+		List<DefaultWeightedEdge> delEdge=new ArrayList<DefaultWeightedEdge>();
+		//List<DefaultWeightedEdge> addEddge=new ArrayList<DefaultWeightedEdge>();
+		Iterator<DefaultWeightedEdge> edgeIt=mjGraph.edgeSet().iterator();
+		while(edgeIt.hasNext()){					//Recording which edges to delete
+			DefaultWeightedEdge e1=edgeIt.next();
+			if((mjGraph.getEdgeSource(e1)>mjGraph.getEdgeTarget(e1)) && mjGraph.getEdgeTarget(e1)!=-2){
+				delEdge.add(e1);
 			}
 		}
-				
-		List<DefaultWeightedEdge> delEdge=new ArrayList<>();	//to handle deletion of edges
-		
-		Set<DefaultWeightedEdge> edges= mjGraph.edgeSet();
-		Iterator<DefaultWeightedEdge> edgesIt=edges.iterator();
-		while(edgesIt.hasNext()){
-			DefaultWeightedEdge e=edgesIt.next();
-			bs=mjGraph.getEdgeSource(e);
-			bd=mjGraph.getEdgeTarget(e);
-			if( bs> bd){
-				delEdge.add(e);
-				mjGraph.addEdge(sour, bd);
-				mjGraph.addEdge(bs, dest);
-			}
+		//Deleting back-edges and adding dummy edges
+		edgeIt=delEdge.iterator();
+		while(edgeIt.hasNext()){
+			DefaultWeightedEdge e1=edgeIt.next();
 			
+			mjGraph.addEdge(-1, mjGraph.getEdgeTarget(e1));
+			mjGraph.addEdge(mjGraph.getEdgeSource(e1), -2);
+			mjGraph.removeEdge(e1);
 		}
+		
+		
+		
 		
 	}
 	public synchronized void instrumentation(Body b,SimpleDirectedWeightedGraph<Integer, DefaultWeightedEdge> mjGraph,Map<Integer, Block> vertexMap)
@@ -75,17 +76,28 @@ public class Essentials {
 		Double d;
 		while(vertIt.hasNext()){
 			v=vertIt.next();
-			Block sb=vertexMap.get(v); //source block
-			Iterator<Block> succ=sb.getSuccs().iterator();
-			while(succ.hasNext()){
-				Block db=succ.next();	//destination block
-				d=new Double(mjGraph.getEdgeWeight(mjGraph.getEdge(v, db.getIndexInMethod())));
-				weight=d.intValue();
-				bUnits.insertOnEdge(Jimple.v().newAssignStmt(pathSum, Jimple.v().newAddExpr(pathSum, LongConstant.v(weight))), sb.getTail(), db.getHead());
+			if(v!=-1 && v!=-2){
+				Block sb=vertexMap.get(v); //source block
+				Iterator<Block> succ=sb.getSuccs().iterator();
+				while(succ.hasNext()){
+					Block db=succ.next();	//destination block
+					d=new Double(mjGraph.getEdgeWeight(mjGraph.getEdge(v, db.getIndexInMethod())));
+					weight=d.intValue();
+					bUnits.insertOnEdge(Jimple.v().newAssignStmt(pathSum, Jimple.v().newAddExpr(pathSum, LongConstant.v(weight))), sb.getTail(), db.getHead());
+				}
 			}
+			
 		}
-		bUnits.insertBefore(Jimple.v().newAssignStmt(disp, Jimple.v().newStaticFieldRef(Scene.v().getField("<java.lang.System: java.io.PrintStream out>").makeRef())),bUnits.getLast());
-		bUnits.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void println(long)>").makeRef(), pathSum)),bUnits.getLast());
+		Iterator<Unit> unitIt=bUnits.snapshotIterator();
+		while(unitIt.hasNext()){
+			Stmt s=(Stmt)unitIt.next();
+			if(s instanceof ReturnVoidStmt || s instanceof ReturnStmt){
+				
+				bUnits.insertBefore(Jimple.v().newAssignStmt(disp, Jimple.v().newStaticFieldRef(Scene.v().getField("<java.lang.System: java.io.PrintStream out>").makeRef())),s);
+				bUnits.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void println(long)>").makeRef(), pathSum)),s);
+				}
+		}
+		
 		
 	}
 

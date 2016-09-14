@@ -13,6 +13,8 @@ package e0210;
 import java.util.ArrayList;
 
 import soot.PackManager;
+import soot.Scene;
+import soot.SootClass;
 import soot.Transform;
 import soot.options.Options;
 
@@ -76,6 +78,9 @@ public class Main {
 		PackManager.v().getPack("jtp").add(new Transform("jtp.MyAnalysis", obj));
 		
 
+
+		Scene.v().addBasicClass("java.io.PrintStream",SootClass.SIGNATURES);
+	    Scene.v().addBasicClass("java.lang.System",SootClass.SIGNATURES);
 		soot.Main.main(base_args.toArray(new String[base_args.size()]));
 
 		return;

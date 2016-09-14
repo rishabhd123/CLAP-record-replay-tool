@@ -12,10 +12,10 @@ package e0210;
 import java.util.*;
 import soot.Body;
 import soot.BodyTransformer;
+
+import org.jgrapht.alg.CycleDetector;
 import org.jgrapht.graph.*;
 import org.jgrapht.traverse.TopologicalOrderIterator;
-
-
 import soot.toolkits.graph.*;
 
 public class Analysis extends BodyTransformer {
@@ -38,6 +38,8 @@ public class Analysis extends BodyTransformer {
 		//2.Populating jGraph-S
 		Iterator<Block> gIterator=graph.iterator();
 		vertexMap=new HashMap<Integer, Block>();
+		
+			
 		while(gIterator.hasNext()){
 			Block block = gIterator.next();
 			//mjGra//4.Instrumentation-Sph.addVertex(block);
@@ -50,16 +52,33 @@ public class Analysis extends BodyTransformer {
 			Block block = gIterator.next();
 			List<Block> succL=block.getSuccs();
 			Iterator<Block> sIterator=succL.iterator();
-			//System.out.println(block.getIndexInMethod());
-			//System.out.println(block.getTail());
-			//System.out.println("Rishabh");
 			while(sIterator.hasNext()){
 				Block succ=sIterator.next();
 				mjGraph.addEdge(block.getIndexInMethod(), succ.getIndexInMethod());
 				
 			}
 		}
-		//2.Populating jGraph-E
+		
+		Essentials obj=new Essentials();
+		
+		CycleDetector<Integer, DefaultWeightedEdge> cDetect=new CycleDetector<>(mjGraph);
+		if(cDetect.detectCycles())
+		{
+			mjGraph.addVertex(-1);
+			mjGraph.addVertex(-2);
+			mjGraph.addEdge(-1, 0);
+			Iterator<Integer> vertIt=mjGraph.vertexSet().iterator();
+			while(vertIt.hasNext()){
+				Integer v=vertIt.next();
+				if(mjGraph.outDegreeOf(v)==0 && v!=-2) mjGraph.addEdge(v, -2);
+			}
+			obj.removeCycles(mjGraph);				//Remove Cycles
+		}
+		
+		
+		
+		
+		
 		
 		//3.Generating Reverse Topological order-S
 		TopologicalOrderIterator<Integer, DefaultWeightedEdge> tIterator=new TopologicalOrderIterator<>(mjGraph);
@@ -67,22 +86,21 @@ public class Analysis extends BodyTransformer {
 		while(tIterator.hasNext()){rTopologicalOrder.add(tIterator.next());}
 		Collections.reverse(rTopologicalOrder);
 		//3.Generating Reverse Topological order-E
+	
 		
-		Essentials obj=new Essentials();
-		//obj.removeCycles(mjGraph);					//Remove Cycles
 		obj.BL(mjGraph, rTopologicalOrder, numPaths);	//apply Ball-Larus algorithm
-		obj.instrumentation(b, mjGraph, vertexMap);		//apply instrumentation
-				
-		/*	
+		//obj.instrumentation(b, mjGraph, vertexMap);		//apply instrumentation
+		
+		/*
 		//Print Edges and Edge-Weights
-		 
-		 Set<DefaultWeightedEdge>edges=mjGraph.edgeSet();
+		
+		Set<DefaultWeightedEdge>edges=mjGraph.edgeSet();
 		Iterator<DefaultWeightedEdge> edgeIt=edges.iterator();
 		while(edgeIt.hasNext()){
 			DefaultWeightedEdge e1=edgeIt.next();
 			System.out.println(e1+"--"+mjGraph.getEdgeWeight(e1));
 			}
-		
+			
 		// Print Vertices
 		Set<Integer>vert=mjGraph.vertexSet();
 		Iterator<Integer> vertIt=vert.iterator();
@@ -96,7 +114,7 @@ public class Analysis extends BodyTransformer {
 		
 		
 		//System.out.println(graph.toString());
-		System.out.println(b.toString()); //prints soot ByteCode
+		//System.out.println(b.toString()); //prints soot ByteCode
 		return;
 	}
 	

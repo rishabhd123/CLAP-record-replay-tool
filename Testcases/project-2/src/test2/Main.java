@@ -15,25 +15,14 @@ public class Main {
 
         public static void main(String[] args) {
 
-                int i, j;
-                i = args[0].length();
-                j = args[1].length();
-                if(i>10){
-                        i++;
-                        if(j>4){
-                                j++;
-                        }else{
-                                j--;
-                        }
-                }else{
-                        i--;
-                }
-                if(i!=10){
-                        if(j!=4){
-                                System.out.println("abcd");
-                        }
-                }
-                i = 1000;
+               for(int i=0;i<args[0].length();i++)
+       	       {	
+		for(int j=0;i<args[0].length();j++)
+       	       	   System.out.println(j);
+	       
+		   System.out.println(i);
+	       }
+		
                 return;
         }
 
