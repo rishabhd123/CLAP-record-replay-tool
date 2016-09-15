@@ -17,11 +17,11 @@ public class Main {
 
                for(int i=0;i<args[0].length();i++)
        	       {	
-		for(int j=0;i<args[0].length();j++)
-       	       	   System.out.println(j);
-	       
-		   System.out.println(i);
+		  System.err.println(i);
 	       }
+		System.err.println("Rishabh");
+		
+		
 		
                 return;
         }

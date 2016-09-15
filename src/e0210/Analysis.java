@@ -15,7 +15,6 @@ import soot.BodyTransformer;
 
 import org.jgrapht.alg.CycleDetector;
 import org.jgrapht.graph.*;
-import org.jgrapht.traverse.TopologicalOrderIterator;
 import soot.toolkits.graph.*;
 
 public class Analysis extends BodyTransformer {
@@ -28,7 +27,7 @@ public class Analysis extends BodyTransformer {
 		SimpleDirectedWeightedGraph<Integer, DefaultWeightedEdge> mjGraph;
 		Map<Integer, Block> vertexMap;
 		Map<Integer, Integer> numPaths;
-		List<Integer> rTopologicalOrder;	
+		List<DefaultWeightedEdge> delEdge=null;
 		//1.Declaration-E
 		
 		graph=new ExceptionalBlockGraph(b);		//soot graph
@@ -58,7 +57,6 @@ public class Analysis extends BodyTransformer {
 				
 			}
 		}
-		
 		Essentials obj=new Essentials();
 		
 		CycleDetector<Integer, DefaultWeightedEdge> cDetect=new CycleDetector<>(mjGraph);
@@ -72,24 +70,13 @@ public class Analysis extends BodyTransformer {
 				Integer v=vertIt.next();
 				if(mjGraph.outDegreeOf(v)==0 && v!=-2) mjGraph.addEdge(v, -2);
 			}
-			obj.removeCycles(mjGraph);				//Remove Cycles
+			obj.removeCycles(mjGraph,delEdge);				//Remove Cycles
 		}
 		
+			obj.BL(mjGraph,numPaths);	//apply Ball-Larus algorithm
+				
 		
-		
-		
-		
-		
-		//3.Generating Reverse Topological order-S
-		TopologicalOrderIterator<Integer, DefaultWeightedEdge> tIterator=new TopologicalOrderIterator<>(mjGraph);
-		rTopologicalOrder=new ArrayList<Integer>();
-		while(tIterator.hasNext()){rTopologicalOrder.add(tIterator.next());}
-		Collections.reverse(rTopologicalOrder);
-		//3.Generating Reverse Topological order-E
-	
-		
-		obj.BL(mjGraph, rTopologicalOrder, numPaths);	//apply Ball-Larus algorithm
-		//obj.instrumentation(b, mjGraph, vertexMap);		//apply instrumentation
+		obj.instrumentation(b, mjGraph, vertexMap);		//apply instrumentation
 		
 		/*
 		//Print Edges and Edge-Weights
@@ -100,7 +87,8 @@ public class Analysis extends BodyTransformer {
 			DefaultWeightedEdge e1=edgeIt.next();
 			System.out.println(e1+"--"+mjGraph.getEdgeWeight(e1));
 			}
-			
+		
+		System.out.println("-----------------------------------------------------------------------------------");	
 		// Print Vertices
 		Set<Integer>vert=mjGraph.vertexSet();
 		Iterator<Integer> vertIt=vert.iterator();
@@ -112,55 +100,10 @@ public class Analysis extends BodyTransformer {
 		
 		
 		
-		
+		//System.out.println(mjGraph.toString());
 		//System.out.println(graph.toString());
 		//System.out.println(b.toString()); //prints soot ByteCode
 		return;
 	}
-	
-	
-	
-	/*
-	 * EdgeValue Alternative-------Use MAP Instead of Edge Weights
-	 * Map<DefaultEdge, Integer> edgeVal;
-	 * 
-	 * 0.SimpleDirectedWeightedGraph<Integer, DefaultEdge> mjGraph;
-	 * 	 mjGraph=new SimpleDirectedWeightedGraph<>(DefaultEdge.class);
-	 * 	
-	 * 1.edgeVal=new HashMap<DefaultEdge, Integer>();	//This MAP contains edge-value assignments
-	 * 
-	 * 2.BL(mjGraph,rTopologicalOrder,numPaths,edgeVal);		//apply Ball-Larus algorithm
-	 * 
-	 * 3.public synchronized void BL(SimpleDirectedWeightedGraph<Integer, DefaultEdge> mjGraph,List<Integer> rTopologicalOrder,Map<Integer, Integer> numPaths,Map<DefaultEdge, Integer> edgeVal ){
-			for(int i:rTopologicalOrder){
-				if((mjGraph.outDegreeOf(i))==0){
-				numPaths.put(i, 1);
-				}
-				else{
-				numPaths.put(i,0);
-				Set<DefaultEdge> adjE= mjGraph.outgoingEdgesOf(i);
-				Iterator<DefaultEdge> edgeIt=adjE.iterator();
-				while(edgeIt.hasNext()) {
-					DefaultEdge t=edgeIt.next();
-					edgeVal.put(t, numPaths.get(i));		//Assign edge Value into MAP
-					numPaths.put(i,numPaths.get(i)+numPaths.get(mjGraph.getEdgeTarget(t)));
-					
-					}
-				}
-			
-			}
-		}
-		
-	*
-	* 4.// Print Edge-value pairs
-		Set<DefaultEdge> de=edgeVal.keySet();
-		Iterator<DefaultEdge> edgeIt= de.iterator();
-		while(edgeIt.hasNext()){
-			DefaultEdge e1=edgeIt.next();
-			System.out.println(e1+"--"+edgeVal.get(e1));
-	* */
-	
-	
-	
-	
+				
 }
