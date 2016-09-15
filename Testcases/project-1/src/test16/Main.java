@@ -11,7 +11,7 @@ package test16;
  */
 
 /*
- * Test 6: Inheritance
+ * Test 16: Inheritance
  */
 
 public class Main {
