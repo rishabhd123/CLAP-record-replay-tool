@@ -1,27 +1,27 @@
 #Description of the test cases
 
 - **test1:** Straight line code
-- **test2:** Single if-else
-- **test3:** Nested if-else
-- **test4:** For loop
-- **test5:** If-else inside a loop
-- **test6:** While loop with a conditional
-- **test7:** Do-while loop with a **very large** input
-- **test8:** Switch-case
-- **test9:** Return statement in the middle of the program
-- **test10:** System.exit() inside for loop
-- **test11:** Simple inter-procedural program
-- **test12:** If-else constructs in multiple methods
-- **test13:** Recursive program
-- **test14:** System.exit() in the inter-procedural context
-- **test15:** Creating objects (should take care of constructors)
-- **test16:** Inheritance
-- **test17:** Exception handling
-- **test18:** Loops in multiple methods of the program
-- **test19:** Break and Continue inside a loop
-- **test20:** Return statements inside if-else
-- **test21:** Inner classes, method overloading and overriding methods
-- **test22:** If-else-if ladder
-- **test23:** Multiple recursive statements
-- **test24:** Nested loops
-- **test25:** Anonymous classes
+- **test2:** Complex if-else conditionals
+- **test3:** Switch-case
+- **test4:** Multiple exit points
+- **test5:** Single block, multiple exits
+- **test6:** while loop
+- **test7:** do-while loop
+- **test8:** Multiple while loop
+- **test9:** Nested while loops
+- **test10:** Complicated loops and conditionals
+- **test11:** Simple function call
+- **test12:** Multiple function calls
+- **test13:** Function call inside loop
+- **test14:** Multiple function calls inside loop. Example taken from Casper paper.
+- **test15:** Function overloading
+- **test16:** Direct recursion
+- **test17:** Indirect recursion
+- **test18:** Exceptions
+- **test19:** Anonymous classes
+- **test20:** Multiple constructors
+- **test21:** 
+- **test22:** 
+- **test23:** 
+- **test24:** 
+- **test25:** 
