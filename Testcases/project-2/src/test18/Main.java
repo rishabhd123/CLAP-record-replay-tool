@@ -11,7 +11,7 @@ package test18;
  */
 
 /*
- * Test 18: Exception
+ * Test 18: Exceptions
  */
 
 public class Main {

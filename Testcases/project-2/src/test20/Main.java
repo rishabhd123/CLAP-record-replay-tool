@@ -11,7 +11,7 @@ package test20;
  */
 
 /*
- * Test 20: Multiple constructors 
+ * Test 20: Multiple constructors
  */
 
 public class Main {
