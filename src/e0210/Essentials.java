@@ -1,6 +1,8 @@
 package e0210;
 
 import java.util.*;
+
+import org.jgrapht.alg.DirectedNeighborIndex;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 import org.jgrapht.traverse.TopologicalOrderIterator;
@@ -125,10 +127,35 @@ public class Essentials {
 		while(unitIt.hasNext()){
 			Stmt s=(Stmt)unitIt.next();
 			if(s instanceof ReturnVoidStmt || s instanceof ReturnStmt){
-				bUnits.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void println(long)>").makeRef(), pathSum)),s);
+				bUnits.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void print(long)>").makeRef(), pathSum)),s);
 				}
 		}
 				
+	}
+	
+	public synchronized String regeneratePath(SimpleDirectedWeightedGraph<Integer, DefaultWeightedEdge> mjGraph,int bl){//only for acyclic graph and single method
+			DirectedNeighborIndex<Integer, DefaultWeightedEdge> dNI=new DirectedNeighborIndex<>(mjGraph);
+			int entry=0,weight,next,w,chosenV=0;	//w-weight of temp chosen edge.chosenV-edge which is chosen temporarily
+			String in="0";							//weight-weight of final chosen edge
+			while(mjGraph.outDegreeOf(entry)!=0){
+				Iterator<Integer> vIt=dNI.successorsOf(entry).iterator();
+				weight=0;
+				while(vIt.hasNext()){
+					next=vIt.next();
+					w=(new Double(mjGraph.getEdgeWeight(mjGraph.getEdge(entry, next)))).intValue();
+					if(w>=weight &&  w<=bl){
+						weight=w;
+						chosenV=next;						
+					}
+					
+				}
+				bl-=weight;
+				in=in+"\n"+chosenV;
+				entry=chosenV;
+				
+			}
+		
+	return in;
 	}
 
 }

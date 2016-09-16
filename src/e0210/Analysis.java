@@ -1,5 +1,9 @@
 package e0210;
 
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 /*
  * @author Sridhar Gopinath		-		g.sridhar53@gmail.com
  * 
@@ -12,8 +16,10 @@ package e0210;
 import java.util.*;
 import soot.Body;
 import soot.BodyTransformer;
-
 import org.jgrapht.alg.CycleDetector;
+import org.jgrapht.ext.DOTExporter;
+import org.jgrapht.ext.GmlExporter;
+import org.jgrapht.ext.GraphMLExporter;
 import org.jgrapht.graph.*;
 import soot.toolkits.graph.*;
 
@@ -41,7 +47,6 @@ public class Analysis extends BodyTransformer {
 			
 		while(gIterator.hasNext()){
 			Block block = gIterator.next();
-			//mjGra//4.Instrumentation-Sph.addVertex(block);
 			vertexMap.put(block.getIndexInMethod(), block);
 			mjGraph.addVertex(block.getIndexInMethod());
 		}//Directed graph created but doesn't contain any edges
@@ -56,7 +61,9 @@ public class Analysis extends BodyTransformer {
 				mjGraph.addEdge(block.getIndexInMethod(), succ.getIndexInMethod());
 				
 			}
-		}
+		}	//Edges added to mjGraph
+		//2.Populating jGraph-E
+		
 		Essentials obj=new Essentials();
 		
 		CycleDetector<Integer, DefaultWeightedEdge> cDetect=new CycleDetector<>(mjGraph);
@@ -76,7 +83,18 @@ public class Analysis extends BodyTransformer {
 			obj.BL(mjGraph,numPaths);	//apply Ball-Larus algorithm
 				
 		
-		obj.instrumentation(b, mjGraph, vertexMap);		//apply instrumentation
+			obj.instrumentation(b, mjGraph, vertexMap);		//apply instrumentation
+		
+		//Graph Exporter
+			try{
+			FileOutputStream fo=new FileOutputStream("/home/rishabh/workspace/e0210-project/Testcases/project-2/sootOutput/gr.ser");
+			ObjectOutputStream objout=new ObjectOutputStream(fo);
+			objout.writeObject(mjGraph);
+			objout.close();
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
 		
 		/*
 		//Print Edges and Edge-Weights

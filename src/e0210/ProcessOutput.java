@@ -1,5 +1,7 @@
 package e0210;
 
+
+
 /*
  * @author Sridhar Gopinath		-		g.sridhar53@gmail.com
  * 
@@ -9,11 +11,14 @@ package e0210;
  * Indian Institute of Science (IISc),
  * Bangalore
  */
-
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import org.jgrapht.graph.DefaultWeightedEdge;
+import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
 public class ProcessOutput {
 
@@ -29,17 +34,27 @@ public class ProcessOutput {
 
 		// Read the contents of the output file into a string
 		String in = new String(Files.readAllBytes(Paths.get(inPath)));
-
-		/*
-		 * 
-		 * Write your algorithm which does the post-processing of the output
-		 * 
-		 */
+		Essentials obj1=new Essentials();
+		SimpleDirectedWeightedGraph<Integer, DefaultWeightedEdge> mjGraph=null;
+		try{
+			FileInputStream fi=new FileInputStream("/home/rishabh/workspace/e0210-project/Testcases/project-2/sootOutput/gr.ser");
+			ObjectInputStream objin=new ObjectInputStream(fi);
+			mjGraph=(SimpleDirectedWeightedGraph<Integer, DefaultWeightedEdge>) objin.readObject();
+			objin.close();
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+		
+		int bl=Integer.parseInt(in);	//applicable only when there is exactly one method
+		
+		in=obj1.regeneratePath(mjGraph, bl);
+		//System.out.println(mjGraph.toString());
 
 		// Write the contents of the string to the output file
 		PrintWriter out = new PrintWriter(outPath);
 		out.print(in);
-
+		
 		out.close();
 
 		return;
