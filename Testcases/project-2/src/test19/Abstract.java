@@ -1,4 +1,4 @@
-package test24;
+package test19;
 
 /*
  * @author Sridhar Gopinath		-		g.sridhar53@gmail.com
@@ -11,16 +11,18 @@ package test24;
  */
 
 /*
- * Test 1: Straight line code
+ * Test 19: Anonymous classes
  */
 
-public class Main {
+public abstract class Abstract {
 
-	public static void main(String[] args) {
+	public abstract void foo(int x);
 
-		System.out.println("Hello world");
-
-		return;
+	public void bar(int x) {
+		if (x == 5)
+			return;
+		else
+			return;
 	}
 
 }

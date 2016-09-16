@@ -1,36 +1,27 @@
 package test1;
 
-/*public class Main {
+/*
+ * @author Sridhar Gopinath		-		g.sridhar53@gmail.com
+ * 
+ * Course project,
+ * Principles of Programming Course, Fall - 2016,
+ * Computer Science and Automation (CSA),
+ * Indian Institute of Science (IISc),
+ * Bangalore
+ */
 
-	public static void main(String[] args) {
-
-		System.err.println("Hello world");
-
-		return;
-	}
-
-}*/
-
+/*
+ * Test 1: Straight line code
+ */
 
 public class Main {
 
 	public static void main(String[] args) {
-		int a=args[0].length();
-		boolean b=true;
-		System.err.println("Hello world");
-		if(a<4){
-			if(a<4)
-			System.err.println("Inside IF IF");
-			else System.err.println("Inside IF Else");
 
-		System.out.println("Inside IF");
-		}
-		else if(a==4){
-		System.err.println("Inside Else If");
-		}
-		else{
-		System.err.println("Inside Else");		
-		}
+		int x = args[0].length();
+
+		System.err.println("Argument length is " + x);
+
 		return;
 	}
 

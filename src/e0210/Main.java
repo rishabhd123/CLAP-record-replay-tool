@@ -51,6 +51,11 @@ public class Main {
 		base_args.add("java.lang");
 		base_args.add("-no-bodies-for-excluded");
 
+		// Retain variable names from the bytecode
+		base_args.add("-p");
+		base_args.add("jb");
+		base_args.add("use-original-names:true");
+
 		// Output the file as .class (Java Bytecode)
 		base_args.add("-f");
 		base_args.add("class");
