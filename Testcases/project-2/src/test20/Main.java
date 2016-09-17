@@ -21,9 +21,9 @@ public class Main {
 		int x = args[0].length();
 
 		Main obj = null;
-		if (x < 5)
+		if (x < 4)
 			obj = new Main();
-		else if (x > 5)
+		else if (x > 4)
 			obj = new Main(x);
 		else
 			obj = new Main(x, 10);
@@ -49,7 +49,7 @@ public class Main {
 	}
 
 	public Main(int x, int y) {
-		for (int i = 0; i < y; i++) {
+		for (int i = x; i < y; i++) {
 			a += x;
 			b += x;
 		}
