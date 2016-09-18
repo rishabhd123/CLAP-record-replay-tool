@@ -1,8 +1,5 @@
 package test17;
 
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
-
 /*
  * @author Sridhar Gopinath		-		g.sridhar53@gmail.com
  * 
@@ -16,6 +13,9 @@ import java.io.PrintStream;
 /*
  * Test 17: Exception handling
  */
+
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 
 public class Main {
 

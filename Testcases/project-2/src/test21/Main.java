@@ -11,7 +11,7 @@ package test21;
  */
 
 /*
- * Test 1: Straight line code
+ * Test 21:
  */
 
 public class Main {

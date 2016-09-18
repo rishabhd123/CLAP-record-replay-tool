@@ -21,7 +21,7 @@
 
 ### Teaching Assistants:
 
-*   [Sridhar Gopinath](mailto:sridhar.g@csa.iisc.ernet.in)
+*   [Sridhar Gopinath](mailto:g.sridhar53@gmail.com)
 *   [Abhinav Anil Sharma](mailto:abhinav.sharma@csa.iisc.ernet.in)
 *   [Arpith K](mailto:arpith.k@csa.iisc.ernet.in)
 

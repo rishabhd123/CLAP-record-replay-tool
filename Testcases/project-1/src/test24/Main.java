@@ -11,7 +11,7 @@ package test24;
  */
 
 /*
- * Test 24 (Hidden test 4): Nested loop
+ * Test 24 (Hidden test 4): Nested loops
  * 
  * Command line args:
  * 3
