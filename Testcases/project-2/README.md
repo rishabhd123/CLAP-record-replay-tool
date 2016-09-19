@@ -20,8 +20,8 @@
 - **test18:** Exceptions
 - **test19:** Anonymous classes
 - **test20:** Multiple constructors
-- **test21:** 
-- **test22:** 
-- **test23:** 
-- **test24:** 
-- **test25:** 
+- **test21:** Local variable names
+- **test22:** Inner classes, method overloading and overriding methods
+- **test23:** Explicit throw statement
+- **test24:** **Large** loop
+- **test25:** Static class initialization block
