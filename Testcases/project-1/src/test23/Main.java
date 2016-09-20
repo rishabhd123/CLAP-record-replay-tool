@@ -11,7 +11,7 @@ package test23;
  */
 
 /*
- * Test 23 (Hidden test 3): Recursion
+ * Test 23 (Hidden test 3): Multiple recursive statements
  * 
  * Command line args:
  * 0 5
