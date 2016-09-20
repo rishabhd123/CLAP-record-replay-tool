@@ -1,9 +1,6 @@
 package e0210;
 
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
+
 /*
  * @author Sridhar Gopinath		-		g.sridhar53@gmail.com
  * 
@@ -13,13 +10,12 @@ import java.io.PrintWriter;
  * Indian Institute of Science (IISc),
  * Bangalore
  */
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.*;
 import soot.Body;
 import soot.BodyTransformer;
 import org.jgrapht.alg.CycleDetector;
-import org.jgrapht.ext.DOTExporter;
-import org.jgrapht.ext.GmlExporter;
-import org.jgrapht.ext.GraphMLExporter;
 import org.jgrapht.graph.*;
 import soot.toolkits.graph.*;
 
@@ -30,27 +26,37 @@ public class Analysis extends BodyTransformer {
 		
 		//1.Declaration-S
 		ExceptionalBlockGraph graph;
-		SimpleDirectedWeightedGraph<Integer, DefaultWeightedEdge> mjGraph;
+		DirectedWeightedPseudograph<Integer, DefaultWeightedEdge> mjGraph;
 		Map<Integer, Block> vertexMap;
+		Map<Integer, Boolean> exit_Map;
 		Map<Integer, Integer> numPaths;
 		List<DefaultWeightedEdge> delEdge=null;
 		//1.Declaration-E
 		
 		graph=new ExceptionalBlockGraph(b);		//soot graph
-		mjGraph=new SimpleDirectedWeightedGraph<>(DefaultWeightedEdge.class);	//jGraph
+		mjGraph=new DirectedWeightedPseudograph<>(DefaultWeightedEdge.class);	//jGraph
+		
 		numPaths =new HashMap<Integer,Integer>();		//This MAP contains total number of possible paths from each vertex
 		
 		//2.Populating jGraph-S
 		Iterator<Block> gIterator=graph.iterator();
 		vertexMap=new HashMap<Integer, Block>();
+		exit_Map=new HashMap<Integer, Boolean>();
 		
+		Essentials obj=new Essentials();
 			
 		while(gIterator.hasNext()){
 			Block block = gIterator.next();
-			vertexMap.put(block.getIndexInMethod(), block);
-			mjGraph.addVertex(block.getIndexInMethod());
+			int block_index=block.getIndexInMethod();
+			
+			exit_Map.put(block_index,obj.isExit(block));
+			
+			vertexMap.put(block_index, block);
+			mjGraph.addVertex(block_index);
 		}//Directed graph created but doesn't contain any edges
-				
+		
+		System.out.println(graph.toString());
+		
 		gIterator=graph.iterator();
 		while(gIterator.hasNext()){
 			Block block = gIterator.next();
@@ -64,7 +70,7 @@ public class Analysis extends BodyTransformer {
 		}	//Edges added to mjGraph
 		//2.Populating jGraph-E
 		
-		Essentials obj=new Essentials();
+		
 		
 		CycleDetector<Integer, DefaultWeightedEdge> cDetect=new CycleDetector<>(mjGraph);
 		if(cDetect.detectCycles())
@@ -87,10 +93,18 @@ public class Analysis extends BodyTransformer {
 		
 		//Graph Exporter
 			try{
-			FileOutputStream fo=new FileOutputStream("/home/rishabh/workspace/e0210-project/Testcases/project-2/sootOutput/gr.ser");
-			ObjectOutputStream objout=new ObjectOutputStream(fo);
-			objout.writeObject(mjGraph);
-			objout.close();
+			//Write Object of Graph
+			FileOutputStream f_g=new FileOutputStream("/home/rishabh/workspace/e0210-project/Testcases/project-2/sootOutput/gr.ser");
+			ObjectOutputStream ob_g=new ObjectOutputStream(f_g);
+			ob_g.writeObject(mjGraph);
+			ob_g.close();
+			
+			//Write Object of exit_Map
+			FileOutputStream f_vm=new FileOutputStream("/home/rishabh/workspace/e0210-project/Testcases/project-2/sootOutput/vm.ser");
+			ObjectOutputStream ob_vm=new ObjectOutputStream(f_vm);
+			ob_vm.writeObject(exit_Map);
+			ob_vm.close();
+			
 			}
 			catch(Exception e){
 				e.printStackTrace();
@@ -98,7 +112,7 @@ public class Analysis extends BodyTransformer {
 		
 		
 		//Print Edges and Edge-Weights
-			/*
+		/*	
 		Set<DefaultWeightedEdge>edges=mjGraph.edgeSet();
 		Iterator<DefaultWeightedEdge> edgeIt=edges.iterator();
 		while(edgeIt.hasNext()){

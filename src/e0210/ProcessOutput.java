@@ -1,7 +1,6 @@
 package e0210;
 
 
-
 /*
  * @author Sridhar Gopinath		-		g.sridhar53@gmail.com
  * 
@@ -17,8 +16,10 @@ import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Map;
 import org.jgrapht.graph.DefaultWeightedEdge;
-import org.jgrapht.graph.SimpleDirectedWeightedGraph;
+import org.jgrapht.graph.DirectedWeightedPseudograph;
+import soot.toolkits.graph.Block;
 
 public class ProcessOutput {
 
@@ -35,25 +36,34 @@ public class ProcessOutput {
 		// Read the contents of the output file into a string
 		String in = new String(Files.readAllBytes(Paths.get(inPath)));
 		Essentials obj1=new Essentials();
-		SimpleDirectedWeightedGraph<Integer, DefaultWeightedEdge> mjGraph=null;
+		
+		String path;
+		DirectedWeightedPseudograph<Integer, DefaultWeightedEdge> mjGraph=null;
+		Map<Integer, Boolean> exit_Map=null;
+		
 		try{
-			FileInputStream fi=new FileInputStream("/home/rishabh/workspace/e0210-project/Testcases/project-2/sootOutput/gr.ser");
-			ObjectInputStream objin=new ObjectInputStream(fi);
-			mjGraph=(SimpleDirectedWeightedGraph<Integer, DefaultWeightedEdge>) objin.readObject();
-			objin.close();
+			FileInputStream f_g=new FileInputStream("/home/rishabh/workspace/e0210-project/Testcases/project-2/sootOutput/gr.ser");
+			ObjectInputStream ob_g=new ObjectInputStream(f_g);
+			mjGraph=(DirectedWeightedPseudograph<Integer, DefaultWeightedEdge>) ob_g.readObject();
+			ob_g.close();
+			
+			FileInputStream f_vm=new FileInputStream("/home/rishabh/workspace/e0210-project/Testcases/project-2/sootOutput/vm.ser");
+			ObjectInputStream ob_vm=new ObjectInputStream(f_vm);
+			exit_Map=(Map<Integer, Boolean>) ob_vm.readObject();
+			ob_vm.close();
+			
 			}
 			catch(Exception e){
 				e.printStackTrace();
 			}
 		
-		int bl=Integer.parseInt(in);	//applicable only when there is exactly one method
-		
-		in=obj1.regeneratePath(mjGraph, bl);
+		path=obj1.regeneratePath(mjGraph, in,exit_Map);
 		//System.out.println(mjGraph.toString());
 
 		// Write the contents of the string to the output file
 		PrintWriter out = new PrintWriter(outPath);
-		out.print(in);
+		out.print(path);
+		//out.print(in);
 		
 		out.close();
 
