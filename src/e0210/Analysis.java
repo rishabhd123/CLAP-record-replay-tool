@@ -96,9 +96,9 @@ public class Analysis extends BodyTransformer {
 				e.printStackTrace();
 			}
 		
-		/*
-		//Print Edges and Edge-Weights
 		
+		//Print Edges and Edge-Weights
+			/*
 		Set<DefaultWeightedEdge>edges=mjGraph.edgeSet();
 		Iterator<DefaultWeightedEdge> edgeIt=edges.iterator();
 		while(edgeIt.hasNext()){

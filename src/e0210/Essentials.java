@@ -127,8 +127,13 @@ public class Essentials {
 		while(unitIt.hasNext()){
 			Stmt s=(Stmt)unitIt.next();
 			if(s instanceof ReturnVoidStmt || s instanceof ReturnStmt){
-				bUnits.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void print(long)>").makeRef(), pathSum)),s);
+				bUnits.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void print(long)>").makeRef(), pathSum)),s);		//println
 				}
+			else if(s.containsInvokeExpr()){
+				String exp=s.getInvokeExpr().toString();
+				if(exp.contains("staticinvoke <java.lang.System: void exit("))
+					bUnits.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void print(long)>").makeRef(), pathSum)),s);
+			}
 		}
 				
 	}
