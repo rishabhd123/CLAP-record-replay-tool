@@ -21,7 +21,7 @@ public class Main {
 		int x = args[0].length();
 
 		for (int i = x; i < 10; i++) {
-			if (x % 2 == 0)
+			if (i % 2 == 0)
 				foo();
 			else
 				System.err.println(x);

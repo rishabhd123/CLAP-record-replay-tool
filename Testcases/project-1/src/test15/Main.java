@@ -11,7 +11,7 @@ package test15;
  */
 
 /*
- * Test 5: Creating objects (should take care of constructors)
+ * Test 15: Creating objects (should take care of constructors)
  */
 
 public class Main {
