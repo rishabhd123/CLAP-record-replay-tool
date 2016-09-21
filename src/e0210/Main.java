@@ -1,5 +1,7 @@
 package e0210;
 
+import java.io.File;
+
 /*
  * @author Sridhar Gopinath		-		g.sridhar53@gmail.com
  * 
@@ -32,6 +34,16 @@ public class Main {
 
 		String project = args[0];
 		String testcase = args[1];
+		File f=null;
+		try {
+			f=new File("/home/rishabh/workspace/e0210-project/Testcases/project-2/sootOutput/gr.ser");
+			if(f.exists()) f.delete();
+			
+			f.createNewFile();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		ArrayList<String> base_args = new ArrayList<String>();
 
