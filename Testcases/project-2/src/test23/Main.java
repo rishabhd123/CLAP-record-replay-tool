@@ -11,14 +11,19 @@ package test23;
  */
 
 /*
- * Test 23:
+ * Test 23: Explicit throw statement
  */
 
 public class Main {
 
 	public static void main(String[] args) {
 
-		System.out.println("Hello world");
+		int x = args[0].length();
+
+		if (x < 5)
+			throw new RuntimeException("throw");
+
+		System.err.println(x);
 
 		return;
 	}

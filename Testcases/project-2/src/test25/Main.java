@@ -11,14 +11,35 @@ package test25;
  */
 
 /*
- * Test 25:
+ * Test 25: Static class initialization block
  */
 
 public class Main {
 
+	static int a, b;
+
+	static {
+		a = 10;
+		if (b < 10)
+			b++;
+		else
+			b--;
+		System.exit(0);
+	}
+
 	public static void main(String[] args) {
 
-		System.out.println("Hello world");
+		int x = args[0].length();
+
+		try {
+			x++;
+		} catch (RuntimeException e) {
+			x--;
+		} finally {
+			x += 10;
+		}
+
+		System.err.println(x);
 
 		return;
 	}
