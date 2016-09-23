@@ -24,33 +24,11 @@ build:
 
 -testall:
    [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test1
-     [java] Soot started on Fri Sep 23 18:52:56 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:17 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test1.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test1.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = args[0];
-     [java] x = virtualinvoke $r0.<java.lang.String: int length()>();
-     [java] $r2 = <java.lang.System: java.io.PrintStream err>;
-     [java] $r1 = new java.lang.StringBuilder;
-     [java] specialinvoke $r1.<java.lang.StringBuilder: void <init>()>();
-     [java] $r3 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Argument length is ");
-     [java] $r4 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(x);
-     [java] $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
-     [java] virtualinvoke $r2.<java.io.PrintStream: void println(java.lang.String)>($r5);
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test1/Main.class
-     [java] Soot finished on Fri Sep 23 18:52:57 IST 2016
+     [java] Soot finished on Fri Sep 23 19:23:18 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test1]
@@ -75,79 +53,12 @@ build:
      [echo] [Completed "test" mode for test1]
      [echo] 
    [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test2
-     [java] Soot started on Fri Sep 23 18:52:58 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:18 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test2.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test2.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 5 ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = args[0];
-     [java] x = virtualinvoke $r0.<java.lang.String: int length()>();
-     [java] y = 0;
-     [java] if x <= 3 goto y = 0 + 1;
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 ] [succs: 2 3 ]
-     [java] if x <= 5 goto (branch);
-     [java] 
-     [java] Block 2:
-     [java] [preds: 1 ] [succs: 6 ]
-     [java] y = 0 + 1;
-     [java] goto [?= y = y + 3];
-     [java] 
-     [java] Block 3:
-     [java] [preds: 1 ] [succs: 4 6 ]
-     [java] if x != 4 goto y = y + 3;
-     [java] 
-     [java] Block 4:
-     [java] [preds: 3 ] [succs: 6 ]
-     [java] y = 0 + 2;
-     [java] goto [?= y = y + 3];
-     [java] 
-     [java] Block 5:
-     [java] [preds: 0 ] [succs: 6 ]
-     [java] y = 0 + 1;
-     [java] 
-     [java] Block 6:
-     [java] [preds: 2 3 4 5 ] [succs: 7 8 ]
-     [java] y = y + 3;
-     [java] if x != 3 goto (branch);
-     [java] 
-     [java] Block 7:
-     [java] [preds: 6 ] [succs: 8 ]
-     [java] y = y + 4;
-     [java] 
-     [java] Block 8:
-     [java] [preds: 6 7 ] [succs: 9 10 ]
-     [java] if x != 4 goto y = y + 3;
-     [java] 
-     [java] Block 9:
-     [java] [preds: 8 ] [succs: 11 ]
-     [java] y = y + 2;
-     [java] goto [?= y = y + 5];
-     [java] 
-     [java] Block 10:
-     [java] [preds: 8 ] [succs: 11 ]
-     [java] y = y + 3;
-     [java] 
-     [java] Block 11:
-     [java] [preds: 9 10 ] [succs: ]
-     [java] y = y + 5;
-     [java] $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r1.<java.io.PrintStream: void println(int)>(y);
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test2/Main.class
-     [java] Soot finished on Fri Sep 23 18:52:59 IST 2016
-     [java] Soot has run for 0 min. 0 sec.
+     [java] Soot finished on Fri Sep 23 19:23:20 IST 2016
+     [java] Soot has run for 0 min. 1 sec.
      [echo] 
      [echo] [Completed "run" mode for test2]
      [echo] 
@@ -171,57 +82,12 @@ build:
      [echo] [Completed "test" mode for test2]
      [echo] 
    [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test3
-     [java] Soot started on Fri Sep 23 18:52:59 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:20 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test3.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test3.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 6 ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = args[0];
-     [java] x = virtualinvoke $r0.<java.lang.String: int length()>();
-     [java] output = null;
-     [java] if x >= 5 goto $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 ] [succs: 2 3 4 5 ]
-     [java] tableswitch(x) {     case 1: goto output = "January";     case 2: goto output = "February";     case 3: goto output = "March";     default: goto output = "Vacation"; };
-     [java] 
-     [java] Block 2:
-     [java] [preds: 1 ] [succs: 6 ]
-     [java] output = "January";
-     [java] goto [?= $r1 = <java.lang.System: java.io.PrintStream err>];
-     [java] 
-     [java] Block 3:
-     [java] [preds: 1 ] [succs: 6 ]
-     [java] output = "February";
-     [java] goto [?= $r1 = <java.lang.System: java.io.PrintStream err>];
-     [java] 
-     [java] Block 4:
-     [java] [preds: 1 ] [succs: 6 ]
-     [java] output = "March";
-     [java] goto [?= $r1 = <java.lang.System: java.io.PrintStream err>];
-     [java] 
-     [java] Block 5:
-     [java] [preds: 1 ] [succs: 6 ]
-     [java] output = "Vacation";
-     [java] 
-     [java] Block 6:
-     [java] [preds: 0 2 3 4 5 ] [succs: ]
-     [java] $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r1.<java.io.PrintStream: void println(java.lang.String)>(output);
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test3/Main.class
-     [java] Soot finished on Fri Sep 23 18:53:00 IST 2016
-     [java] Soot has run for 0 min. 0 sec.
+     [java] Soot finished on Fri Sep 23 19:23:21 IST 2016
+     [java] Soot has run for 0 min. 1 sec.
      [echo] 
      [echo] [Completed "run" mode for test3]
      [echo] 
@@ -245,79 +111,12 @@ build:
      [echo] [Completed "test" mode for test3]
      [echo] 
    [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test4
-     [java] Soot started on Fri Sep 23 18:53:00 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:21 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test4.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test4.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 5 ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = args[0];
-     [java] x = virtualinvoke $r0.<java.lang.String: int length()>();
-     [java] y = 0;
-     [java] if x <= 3 goto return;
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 ] [succs: 2 3 ]
-     [java] if x <= 5 goto (branch);
-     [java] 
-     [java] Block 2:
-     [java] [preds: 1 ] [succs: 6 ]
-     [java] staticinvoke <java.lang.System: void exit(int)>(0);
-     [java] goto [?= y = y + 3];
-     [java] 
-     [java] Block 3:
-     [java] [preds: 1 ] [succs: 4 6 ]
-     [java] if x != 4 goto y = y + 3;
-     [java] 
-     [java] Block 4:
-     [java] [preds: 3 ] [succs: 6 ]
-     [java] y = 0 + 2;
-     [java] goto [?= y = y + 3];
-     [java] 
-     [java] Block 5:
-     [java] [preds: 0 ] [succs: ]
-     [java] return;
-     [java] 
-     [java] Block 6:
-     [java] [preds: 2 3 4 ] [succs: 7 8 ]
-     [java] y = y + 3;
-     [java] if x != 3 goto (branch);
-     [java] 
-     [java] Block 7:
-     [java] [preds: 6 ] [succs: 8 ]
-     [java] y = y + 4;
-     [java] 
-     [java] Block 8:
-     [java] [preds: 6 7 ] [succs: 9 10 ]
-     [java] if x != 4 goto y = y + 3;
-     [java] 
-     [java] Block 9:
-     [java] [preds: 8 ] [succs: 11 ]
-     [java] staticinvoke <java.lang.System: void exit(int)>(0);
-     [java] goto [?= y = y + 5];
-     [java] 
-     [java] Block 10:
-     [java] [preds: 8 ] [succs: 11 ]
-     [java] y = y + 3;
-     [java] 
-     [java] Block 11:
-     [java] [preds: 9 10 ] [succs: ]
-     [java] y = y + 5;
-     [java] $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r1.<java.io.PrintStream: void println(int)>(y);
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test4/Main.class
-     [java] Soot finished on Fri Sep 23 18:53:01 IST 2016
-     [java] Soot has run for 0 min. 0 sec.
+     [java] Soot finished on Fri Sep 23 19:23:22 IST 2016
+     [java] Soot has run for 0 min. 1 sec.
      [echo] 
      [echo] [Completed "run" mode for test4]
      [echo] 
@@ -340,30 +139,12 @@ build:
      [echo] [Completed "test" mode for test4]
      [echo] 
    [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test5
-     [java] Soot started on Fri Sep 23 18:53:02 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:23 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test5.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test5.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = args[0];
-     [java] x = virtualinvoke $r0.<java.lang.String: int length()>();
-     [java] staticinvoke <java.lang.System: void exit(int)>(0);
-     [java] $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r1.<java.io.PrintStream: void println(int)>(x);
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test5/Main.class
-     [java] Soot finished on Fri Sep 23 18:53:02 IST 2016
-     [java] Soot has run for 0 min. 0 sec.
+     [java] Soot finished on Fri Sep 23 19:23:24 IST 2016
+     [java] Soot has run for 0 min. 1 sec.
      [echo] 
      [echo] [Completed "run" mode for test5]
      [echo] 
@@ -386,40 +167,11 @@ build:
      [echo] [Completed "test" mode for test5]
      [echo] 
    [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test6
-     [java] Soot started on Fri Sep 23 18:53:03 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:24 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test6.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test6.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = args[0];
-     [java] x = virtualinvoke $r0.<java.lang.String: int length()>();
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 2 ] [succs: 2 3 ]
-     [java] if x >= 7 goto $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] 
-     [java] Block 2:
-     [java] [preds: 1 ] [succs: 1 ]
-     [java] x = x + 1;
-     [java] goto [?= (branch)];
-     [java] 
-     [java] Block 3:
-     [java] [preds: 1 ] [succs: ]
-     [java] $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r1.<java.io.PrintStream: void println(int)>(x);
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test6/Main.class
-     [java] Soot finished on Fri Sep 23 18:53:04 IST 2016
+     [java] Soot finished on Fri Sep 23 19:23:25 IST 2016
      [java] Soot has run for 0 min. 1 sec.
      [echo] 
      [echo] [Completed "run" mode for test6]
@@ -447,36 +199,11 @@ build:
      [echo] [Completed "test" mode for test6]
      [echo] 
    [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test7
-     [java] Soot started on Fri Sep 23 18:53:04 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:26 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test7.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test7.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = args[0];
-     [java] x = virtualinvoke $r0.<java.lang.String: int length()>();
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 1 ] [succs: 2 1 ]
-     [java] x = x + 1;
-     [java] if x < 7 goto x = x + 1;
-     [java] 
-     [java] Block 2:
-     [java] [preds: 1 ] [succs: ]
-     [java] $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r1.<java.io.PrintStream: void println(int)>(x);
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test7/Main.class
-     [java] Soot finished on Fri Sep 23 18:53:05 IST 2016
+     [java] Soot finished on Fri Sep 23 19:23:26 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test7]
@@ -503,49 +230,11 @@ build:
      [echo] [Completed "test" mode for test7]
      [echo] 
    [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test8
-     [java] Soot started on Fri Sep 23 18:53:05 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:27 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test8.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test8.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = args[0];
-     [java] x = virtualinvoke $r0.<java.lang.String: int length()>();
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 2 ] [succs: 2 3 ]
-     [java] if x > 5 goto (branch);
-     [java] 
-     [java] Block 2:
-     [java] [preds: 1 ] [succs: 1 ]
-     [java] x = x + 1;
-     [java] goto [?= (branch)];
-     [java] 
-     [java] Block 3:
-     [java] [preds: 1 4 ] [succs: 4 5 ]
-     [java] if x > 10 goto $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] 
-     [java] Block 4:
-     [java] [preds: 3 ] [succs: 3 ]
-     [java] x = x + 1;
-     [java] goto [?= (branch)];
-     [java] 
-     [java] Block 5:
-     [java] [preds: 3 ] [succs: ]
-     [java] $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r1.<java.io.PrintStream: void println(int)>(x);
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test8/Main.class
-     [java] Soot finished on Fri Sep 23 18:53:06 IST 2016
+     [java] Soot finished on Fri Sep 23 19:23:28 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test8]
@@ -577,53 +266,11 @@ build:
      [echo] [Completed "test" mode for test8]
      [echo] 
    [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test9
-     [java] Soot started on Fri Sep 23 18:53:07 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:28 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test9.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test9.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = args[0];
-     [java] x = virtualinvoke $r0.<java.lang.String: int length()>();
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 5 ] [succs: 2 6 ]
-     [java] if x >= 10 goto $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] 
-     [java] Block 2:
-     [java] [preds: 1 ] [succs: 3 ]
-     [java] y = 0;
-     [java] 
-     [java] Block 3:
-     [java] [preds: 2 4 ] [succs: 4 5 ]
-     [java] if y >= 5 goto x = x + 1;
-     [java] 
-     [java] Block 4:
-     [java] [preds: 3 ] [succs: 3 ]
-     [java] y = y + 1;
-     [java] goto [?= (branch)];
-     [java] 
-     [java] Block 5:
-     [java] [preds: 3 ] [succs: 1 ]
-     [java] x = x + 1;
-     [java] goto [?= (branch)];
-     [java] 
-     [java] Block 6:
-     [java] [preds: 1 ] [succs: ]
-     [java] $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r1.<java.io.PrintStream: void println(int)>(x);
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test9/Main.class
-     [java] Soot finished on Fri Sep 23 18:53:08 IST 2016
+     [java] Soot finished on Fri Sep 23 19:23:29 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test9]
@@ -684,110 +331,11 @@ build:
      [echo] [Completed "test" mode for test9]
      [echo] 
    [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test10
-     [java] Soot started on Fri Sep 23 18:53:08 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:29 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test10.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test10.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 4 ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = args[0];
-     [java] x = virtualinvoke $r0.<java.lang.String: int length()>();
-     [java] if x >= 3 goto (branch);
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 ] [succs: 2 3 ]
-     [java] if x != 2 goto (branch);
-     [java] 
-     [java] Block 2:
-     [java] [preds: 1 ] [succs: 4 ]
-     [java] goto [?= (branch)];
-     [java] 
-     [java] Block 3:
-     [java] [preds: 1 ] [succs: 4 ]
-     [java] if x != 1 goto (branch);
-     [java] 
-     [java] Block 4:
-     [java] [preds: 0 2 3 6 9 ] [succs: 5 10 ]
-     [java] if x >= 10 goto (branch);
-     [java] 
-     [java] Block 5:
-     [java] [preds: 4 ] [succs: 6 7 ]
-     [java] if x != 5 goto (branch);
-     [java] 
-     [java] Block 6:
-     [java] [preds: 5 ] [succs: 4 ]
-     [java] x = x + 1;
-     [java] goto [?= (branch)];
-     [java] 
-     [java] Block 7:
-     [java] [preds: 5 ] [succs: 8 9 ]
-     [java] if x != 9 goto x = x + 1;
-     [java] 
-     [java] Block 8:
-     [java] [preds: 7 ] [succs: 10 ]
-     [java] goto [?= (branch)];
-     [java] 
-     [java] Block 9:
-     [java] [preds: 7 ] [succs: 4 ]
-     [java] x = x + 1;
-     [java] goto [?= (branch)];
-     [java] 
-     [java] Block 10:
-     [java] [preds: 4 8 ] [succs: 11 18 ]
-     [java] if x >= 5 goto $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] 
-     [java] Block 11:
-     [java] [preds: 10 13 15 16 ] [succs: 12 17 ]
-     [java] if x >= 10 goto staticinvoke <java.lang.System: void exit(int)>(0);
-     [java] 
-     [java] Block 12:
-     [java] [preds: 11 ] [succs: 13 14 ]
-     [java] if x != 6 goto (branch);
-     [java] 
-     [java] Block 13:
-     [java] [preds: 12 ] [succs: 11 ]
-     [java] $r4 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r4.<java.io.PrintStream: void println(int)>(x);
-     [java] goto [?= (branch)];
-     [java] 
-     [java] Block 14:
-     [java] [preds: 12 ] [succs: 15 16 ]
-     [java] if x != 7 goto $r2 = <java.lang.System: java.io.PrintStream err>;
-     [java] 
-     [java] Block 15:
-     [java] [preds: 14 ] [succs: 11 ]
-     [java] $r3 = <java.lang.System: java.io.PrintStream err>;
-     [java] $i1 = x + 1;
-     [java] virtualinvoke $r3.<java.io.PrintStream: void println(int)>($i1);
-     [java] goto [?= (branch)];
-     [java] 
-     [java] Block 16:
-     [java] [preds: 14 ] [succs: 11 ]
-     [java] $r2 = <java.lang.System: java.io.PrintStream err>;
-     [java] $i0 = x - 1;
-     [java] virtualinvoke $r2.<java.io.PrintStream: void println(int)>($i0);
-     [java] goto [?= (branch)];
-     [java] 
-     [java] Block 17:
-     [java] [preds: 11 ] [succs: 18 ]
-     [java] staticinvoke <java.lang.System: void exit(int)>(0);
-     [java] 
-     [java] Block 18:
-     [java] [preds: 10 17 ] [succs: ]
-     [java] $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r1.<java.io.PrintStream: void println(int)>(x);
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test10/Main.class
-     [java] Soot finished on Fri Sep 23 18:53:09 IST 2016
+     [java] Soot finished on Fri Sep 23 19:23:30 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test10]
@@ -817,46 +365,11 @@ build:
      [echo] [Completed "test" mode for test10]
      [echo] 
    [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test11
-     [java] Soot started on Fri Sep 23 18:53:09 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:31 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test11.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test11.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 2 ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = args[0];
-     [java] x = virtualinvoke $r0.<java.lang.String: int length()>();
-     [java] if x <= 3 goto staticinvoke <test11.Main: void bar()>();
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 ] [succs: 3 ]
-     [java] staticinvoke <test11.Main: void bar()>();
-     [java] goto [?= $r1 = <java.lang.System: java.io.PrintStream err>];
-     [java] 
-     [java] Block 2:
-     [java] [preds: 0 ] [succs: 3 ]
-     [java] staticinvoke <test11.Main: void bar()>();
-     [java] 
-     [java] Block 3:
-     [java] [preds: 1 2 ] [succs: ]
-     [java] $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r1.<java.io.PrintStream: void println(int)>(x);
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test11/Main.class
-     [java] Soot finished on Fri Sep 23 18:53:10 IST 2016
+     [java] Soot finished on Fri Sep 23 19:23:32 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test11]
@@ -882,64 +395,11 @@ build:
      [echo] [Completed "test" mode for test11]
      [echo] 
    [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test12
-     [java] Soot started on Fri Sep 23 18:53:10 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:32 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test12.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test12.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 4 ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = args[0];
-     [java] x = virtualinvoke $r0.<java.lang.String: int length()>();
-     [java] if x <= 3 goto $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 ] [succs: 2 3 ]
-     [java] if x <= 5 goto staticinvoke <test12.Main: void foo(int)>(x);
-     [java] 
-     [java] Block 2:
-     [java] [preds: 1 ] [succs: 3 ]
-     [java] staticinvoke <test12.Main: void bar()>();
-     [java] 
-     [java] Block 3:
-     [java] [preds: 1 2 ] [succs: 4 ]
-     [java] staticinvoke <test12.Main: void foo(int)>(x);
-     [java] 
-     [java] Block 4:
-     [java] [preds: 0 3 ] [succs: ]
-     [java] $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r1.<java.io.PrintStream: void println(int)>(x);
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 2 ]
-     [java] x := @parameter0: int;
-     [java] if x != 0 goto staticinvoke <test12.Main: void bar()>();
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 ] [succs: ]
-     [java] return;
-     [java] 
-     [java] Block 2:
-     [java] [preds: 0 ] [succs: ]
-     [java] staticinvoke <test12.Main: void bar()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test12/Main.class
-     [java] Soot finished on Fri Sep 23 18:53:11 IST 2016
+     [java] Soot finished on Fri Sep 23 19:23:33 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test12]
@@ -966,62 +426,12 @@ build:
      [echo] [Completed "test" mode for test12]
      [echo] 
    [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test13
-     [java] Soot started on Fri Sep 23 18:53:12 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:33 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test13.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test13.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = args[0];
-     [java] x = virtualinvoke $r0.<java.lang.String: int length()>();
-     [java] i = x;
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 5 ] [succs: 2 6 ]
-     [java] if i >= 10 goto $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] 
-     [java] Block 2:
-     [java] [preds: 1 ] [succs: 3 4 ]
-     [java] $i0 = i % 2;
-     [java] if $i0 != 0 goto $r2 = <java.lang.System: java.io.PrintStream err>;
-     [java] 
-     [java] Block 3:
-     [java] [preds: 2 ] [succs: 5 ]
-     [java] staticinvoke <test13.Main: void foo()>();
-     [java] goto [?= i = i + 1];
-     [java] 
-     [java] Block 4:
-     [java] [preds: 2 ] [succs: 5 ]
-     [java] $r2 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r2.<java.io.PrintStream: void println(int)>(x);
-     [java] 
-     [java] Block 5:
-     [java] [preds: 3 4 ] [succs: 1 ]
-     [java] i = i + 1;
-     [java] goto [?= (branch)];
-     [java] 
-     [java] Block 6:
-     [java] [preds: 1 ] [succs: ]
-     [java] $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r1.<java.io.PrintStream: void println(int)>(x);
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test13/Main.class
-     [java] Soot finished on Fri Sep 23 18:53:13 IST 2016
-     [java] Soot has run for 0 min. 1 sec.
+     [java] Soot finished on Fri Sep 23 19:23:34 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test13]
      [echo] 
@@ -1057,112 +467,12 @@ build:
      [echo] [Completed "test" mode for test13]
      [echo] 
    [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test14
-     [java] Soot started on Fri Sep 23 18:53:13 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:35 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test14.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test14.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = args[0];
-     [java] x = virtualinvoke $r0.<java.lang.String: int length()>();
-     [java] staticinvoke <test14.Main: void A()>();
-     [java] i = 0;
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 4 ] [succs: 2 3 ]
-     [java] $i0 = i % 2;
-     [java] if $i0 != 0 goto staticinvoke <test14.Main: void E(int)>(i);
-     [java] 
-     [java] Block 2:
-     [java] [preds: 1 ] [succs: 4 ]
-     [java] staticinvoke <test14.Main: void B(int)>(i);
-     [java] goto [?= i = i + 1];
-     [java] 
-     [java] Block 3:
-     [java] [preds: 1 ] [succs: 4 ]
-     [java] staticinvoke <test14.Main: void E(int)>(i);
-     [java] 
-     [java] Block 4:
-     [java] [preds: 2 3 ] [succs: 5 1 ]
-     [java] i = i + 1;
-     [java] if i < 10 goto $i0 = i % 2;
-     [java] 
-     [java] Block 5:
-     [java] [preds: 4 ] [succs: ]
-     [java] staticinvoke <test14.Main: void H()>();
-     [java] $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r1.<java.io.PrintStream: void println(int)>(x);
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 2 ]
-     [java] x := @parameter0: int;
-     [java] if x <= 5 goto staticinvoke <test14.Main: void D()>();
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 ] [succs: 3 ]
-     [java] staticinvoke <test14.Main: void C()>();
-     [java] goto [?= return];
-     [java] 
-     [java] Block 2:
-     [java] [preds: 0 ] [succs: 3 ]
-     [java] staticinvoke <test14.Main: void D()>();
-     [java] 
-     [java] Block 3:
-     [java] [preds: 1 2 ] [succs: ]
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 2 ]
-     [java] x := @parameter0: int;
-     [java] if x <= 5 goto staticinvoke <test14.Main: void D()>();
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 ] [succs: 3 ]
-     [java] staticinvoke <test14.Main: void C()>();
-     [java] goto [?= return];
-     [java] 
-     [java] Block 2:
-     [java] [preds: 0 ] [succs: 3 ]
-     [java] staticinvoke <test14.Main: void D()>();
-     [java] 
-     [java] Block 3:
-     [java] [preds: 1 2 ] [succs: ]
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test14/Main.class
-     [java] Soot finished on Fri Sep 23 18:53:14 IST 2016
-     [java] Soot has run for 0 min. 1 sec.
+     [java] Soot finished on Fri Sep 23 19:23:36 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test14]
      [echo] 
@@ -1217,96 +527,12 @@ build:
      [echo] [Completed "test" mode for test14]
      [echo] 
    [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test15
-     [java] Soot started on Fri Sep 23 18:53:15 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:36 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test15.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test15.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 2 ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = args[0];
-     [java] x = virtualinvoke $r0.<java.lang.String: int length()>();
-     [java] if x <= 1 goto i = 0;
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 ] [succs: 2 ]
-     [java] staticinvoke <test15.Main: void foo()>();
-     [java] 
-     [java] Block 2:
-     [java] [preds: 0 1 ] [succs: 3 ]
-     [java] i = 0;
-     [java] 
-     [java] Block 3:
-     [java] [preds: 2 7 ] [succs: 4 8 ]
-     [java] if i >= 10 goto return;
-     [java] 
-     [java] Block 4:
-     [java] [preds: 3 ] [succs: 5 6 ]
-     [java] $i0 = i % 2;
-     [java] if $i0 != 0 goto staticinvoke <test15.Main: void foo(int,int)>(x, i);
-     [java] 
-     [java] Block 5:
-     [java] [preds: 4 ] [succs: 7 ]
-     [java] staticinvoke <test15.Main: void foo(int)>(x);
-     [java] goto [?= i = i + 1];
-     [java] 
-     [java] Block 6:
-     [java] [preds: 4 ] [succs: 7 ]
-     [java] staticinvoke <test15.Main: void foo(int,int)>(x, i);
-     [java] 
-     [java] Block 7:
-     [java] [preds: 5 6 ] [succs: 3 ]
-     [java] i = i + 1;
-     [java] goto [?= (branch)];
-     [java] 
-     [java] Block 8:
-     [java] [preds: 3 ] [succs: ]
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 2 ]
-     [java] x := @parameter0: int;
-     [java] if x >= 10 goto return;
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 ] [succs: ]
-     [java] return;
-     [java] 
-     [java] Block 2:
-     [java] [preds: 0 ] [succs: ]
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 2 ]
-     [java] x := @parameter0: int;
-     [java] y := @parameter1: int;
-     [java] if x >= y goto return;
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 ] [succs: ]
-     [java] return;
-     [java] 
-     [java] Block 2:
-     [java] [preds: 0 ] [succs: ]
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test15/Main.class
-     [java] Soot finished on Fri Sep 23 18:53:16 IST 2016
-     [java] Soot has run for 0 min. 1 sec.
+     [java] Soot finished on Fri Sep 23 19:23:37 IST 2016
+     [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test15]
      [echo] 
@@ -1350,47 +576,11 @@ build:
      [echo] [Completed "test" mode for test15]
      [echo] 
    [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test16
-     [java] Soot started on Fri Sep 23 18:53:16 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:37 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test16.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test16.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = args[0];
-     [java] x = virtualinvoke $r0.<java.lang.String: int length()>();
-     [java] staticinvoke <test16.Main: int recursion(int)>(x);
-     [java] $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r1.<java.io.PrintStream: void println(int)>(x);
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 2 ]
-     [java] x := @parameter0: int;
-     [java] if x != 0 goto b = x * x;
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 ] [succs: ]
-     [java] return 0;
-     [java] 
-     [java] Block 2:
-     [java] [preds: 0 ] [succs: ]
-     [java] b = x * x;
-     [java] $i0 = x - 1;
-     [java] a = staticinvoke <test16.Main: int recursion(int)>($i0);
-     [java] $i1 = a + b;
-     [java] return $i1;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test16/Main.class
-     [java] Soot finished on Fri Sep 23 18:53:17 IST 2016
+     [java] Soot finished on Fri Sep 23 19:23:38 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test16]
@@ -1428,59 +618,11 @@ build:
      [echo] [Completed "test" mode for test16]
      [echo] 
    [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test17
-     [java] Soot started on Fri Sep 23 18:53:17 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:39 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test17.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test17.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = args[0];
-     [java] x = virtualinvoke $r0.<java.lang.String: int length()>();
-     [java] staticinvoke <test17.Main: void foo(int)>(x);
-     [java] $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r1.<java.io.PrintStream: void println(int)>(x);
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 2 ]
-     [java] x := @parameter0: int;
-     [java] if x >= 8 goto return;
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 ] [succs: 2 ]
-     [java] $i0 = x + 1;
-     [java] staticinvoke <test17.Main: void bar(int)>($i0);
-     [java] 
-     [java] Block 2:
-     [java] [preds: 0 1 ] [succs: ]
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 2 ]
-     [java] x := @parameter0: int;
-     [java] if x >= 7 goto return;
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 ] [succs: 2 ]
-     [java] $i0 = x + 1;
-     [java] staticinvoke <test17.Main: void foo(int)>($i0);
-     [java] 
-     [java] Block 2:
-     [java] [preds: 0 1 ] [succs: ]
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test17/Main.class
-     [java] Soot finished on Fri Sep 23 18:53:18 IST 2016
+     [java] Soot finished on Fri Sep 23 19:23:40 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test17]
@@ -1508,171 +650,17 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test17]
      [echo] 
-     [java] Soot started on Fri Sep 23 18:53:19 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:40 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test18.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test18.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 5 30 1 ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = args[0];
-     [java] x = virtualinvoke $r0.<java.lang.String: int length()>();
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 ] [succs: 5 30 2 ]
-     [java] b = x / 0;
-     [java] 
-     [java] Block 2:
-     [java] [preds: 1 ] [succs: 5 24 27 30 3 ]
-     [java] $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] 
-     [java] Block 3:
-     [java] [preds: 2 ] [succs: 5 24 27 30 4 ]
-     [java] virtualinvoke $r1.<java.io.PrintStream: void println(int)>(b);
-     [java] 
-     [java] Block 4:
-     [java] [preds: 3 ] [succs: 17 27 30 12 ]
-     [java] goto [?= $r15 = args[x]];
-     [java] 
-     [java] Block 5:
-     [java] [preds: 0 1 2 3 ] [succs: 6 30 ]
-     [java] $r8 := @caughtexception;
-     [java] 
-     [java] Block 6:
-     [java] [preds: 5 ] [succs: 7 9 30 ]
-     [java] if x >= 5 goto x = x + -1;
-     [java] 
-     [java] Block 7:
-     [java] [preds: 6 ] [succs: 8 30 ]
-     [java] x = x + 1;
-     [java] 
-     [java] Block 8:
-     [java] [preds: 7 ] [succs: 10 30 ]
-     [java] goto [?= $r7 = <java.lang.System: java.io.PrintStream err>];
-     [java] 
-     [java] Block 9:
-     [java] [preds: 6 ] [succs: 10 30 ]
-     [java] x = x + -1;
-     [java] 
-     [java] Block 10:
-     [java] [preds: 8 9 ] [succs: 21 24 27 30 11 ]
-     [java] $r7 = <java.lang.System: java.io.PrintStream err>;
-     [java] 
-     [java] Block 11:
-     [java] [preds: 10 ] [succs: 17 27 30 21 24 12 ]
-     [java] virtualinvoke $r7.<java.io.PrintStream: void println(java.lang.String)>("Exception: e1");
-     [java] 
-     [java] Block 12:
-     [java] [preds: 4 11 ] [succs: 17 27 30 21 13 ]
-     [java] $r15 = args[x];
-     [java] 
-     [java] Block 13:
-     [java] [preds: 12 ] [succs: 17 21 27 30 14 ]
-     [java] b = virtualinvoke $r15.<java.lang.String: int length()>();
-     [java] 
-     [java] Block 14:
-     [java] [preds: 13 ] [succs: 17 21 27 30 15 ]
-     [java] $r16 = <java.lang.System: java.io.PrintStream err>;
-     [java] 
-     [java] Block 15:
-     [java] [preds: 14 ] [succs: 17 21 27 30 16 ]
-     [java] virtualinvoke $r16.<java.io.PrintStream: void println(int)>(b);
-     [java] 
-     [java] Block 16:
-     [java] [preds: 15 ] [succs: 20 30 ]
-     [java] goto [?= $r2 = <java.lang.System: java.io.PrintStream err>];
-     [java] 
-     [java] Block 17:
-     [java] [preds: 4 11 12 13 14 15 ] [succs: 18 30 ]
-     [java] $r5 := @caughtexception;
-     [java] 
-     [java] Block 18:
-     [java] [preds: 17 ] [succs: 21 24 27 30 19 ]
-     [java] $r6 = <java.lang.System: java.io.PrintStream err>;
-     [java] 
-     [java] Block 19:
-     [java] [preds: 18 ] [succs: 21 24 27 30 20 ]
-     [java] virtualinvoke $r6.<java.io.PrintStream: void println(java.lang.String)>("Exception: e2");
-     [java] 
-     [java] Block 20:
-     [java] [preds: 16 19 ] [succs: 32 ]
-     [java] $r2 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r2.<java.io.PrintStream: void println(java.lang.String)>("Finally");
-     [java] goto [?= $r17 = <java.lang.System: java.io.PrintStream err>];
-     [java] 
-     [java] Block 21:
-     [java] [preds: 12 13 14 15 10 11 18 19 ] [succs: 22 30 ]
-     [java] $r3 := @caughtexception;
-     [java] 
-     [java] Block 22:
-     [java] [preds: 21 ] [succs: 23 30 ]
-     [java] x = x + 1;
-     [java] 
-     [java] Block 23:
-     [java] [preds: 22 ] [succs: 32 ]
-     [java] $r4 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r4.<java.io.PrintStream: void println(java.lang.String)>("Finally");
-     [java] goto [?= $r17 = <java.lang.System: java.io.PrintStream err>];
-     [java] 
-     [java] Block 24:
-     [java] [preds: 2 3 10 11 18 19 ] [succs: 25 30 ]
-     [java] $r14 := @caughtexception;
-     [java] 
-     [java] Block 25:
-     [java] [preds: 24 ] [succs: 26 30 ]
-     [java] x = x + -1;
-     [java] 
-     [java] Block 26:
-     [java] [preds: 25 ] [succs: 32 ]
-     [java] $r13 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r13.<java.io.PrintStream: void println(java.lang.String)>("Finally");
-     [java] goto [?= $r17 = <java.lang.System: java.io.PrintStream err>];
-     [java] 
-     [java] Block 27:
-     [java] [preds: 2 3 4 11 12 13 14 15 10 18 19 ] [succs: 28 30 ]
-     [java] $r10 := @caughtexception;
-     [java] 
-     [java] Block 28:
-     [java] [preds: 27 ] [succs: 29 30 ]
-     [java] x = x + 10;
-     [java] 
-     [java] Block 29:
-     [java] [preds: 28 ] [succs: 32 ]
-     [java] $r9 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r9.<java.io.PrintStream: void println(java.lang.String)>("Finally");
-     [java] goto [?= $r17 = <java.lang.System: java.io.PrintStream err>];
-     [java] 
-     [java] Block 30:
-     [java] [preds: 0 1 2 3 4 11 12 13 14 15 10 18 19 5 6 7 8 9 16 17 21 22 24 25 27 28 30 ] [succs: 31 30 ]
-     [java] $r12 := @caughtexception;
-     [java] 
-     [java] Block 31:
-     [java] [preds: 30 ] [succs: ]
-     [java] $r11 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r11.<java.io.PrintStream: void println(java.lang.String)>("Finally");
-     [java] throw $r12;
-     [java] 
-     [java] Block 32:
-     [java] [preds: 20 23 26 29 ] [succs: ]
-     [java] $r17 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r17.<java.io.PrintStream: void println(int)>(x);
-     [java] return;
-     [java] 
-     [java] 
      [java] [Thread-3] ERROR heros.solver.CountingThreadPoolExecutor - Worker thread execution failed: insertOnEdge failed! No such edge found. The edge on which you want to insert an instrumentation is invalid.
      [java] java.lang.RuntimeException: insertOnEdge failed! No such edge found. The edge on which you want to insert an instrumentation is invalid.
      [java] 	at soot.util.HashChain.insertOnEdge(HashChain.java:341)
      [java] 	at soot.util.HashChain.insertOnEdge(HashChain.java:355)
      [java] 	at soot.util.HashChain.insertOnEdge(HashChain.java:232)
      [java] 	at soot.PatchingChain.insertOnEdge(PatchingChain.java:161)
-     [java] 	at e0210.Essentials.instrumentation(Essentials.java:128)
-     [java] 	at e0210.Analysis.internalTransform(Analysis.java:97)
+     [java] 	at e0210.Essentials.instrumentation(Essentials.java:126)
+     [java] 	at e0210.Analysis.internalTransform(Analysis.java:96)
      [java] 	at soot.BodyTransformer.transform(BodyTransformer.java:54)
      [java] 	at soot.Transform.apply(Transform.java:105)
      [java] 	at soot.BodyPack.internalApply(BodyPack.java:49)
@@ -1688,8 +676,8 @@ build:
      [java] 	at soot.util.HashChain.insertOnEdge(HashChain.java:355)
      [java] 	at soot.util.HashChain.insertOnEdge(HashChain.java:232)
      [java] 	at soot.PatchingChain.insertOnEdge(PatchingChain.java:161)
-     [java] 	at e0210.Essentials.instrumentation(Essentials.java:128)
-     [java] 	at e0210.Analysis.internalTransform(Analysis.java:97)
+     [java] 	at e0210.Essentials.instrumentation(Essentials.java:126)
+     [java] 	at e0210.Analysis.internalTransform(Analysis.java:96)
      [java] 	at soot.BodyTransformer.transform(BodyTransformer.java:54)
      [java] 	at soot.Transform.apply(Transform.java:105)
      [java] 	at soot.BodyPack.internalApply(BodyPack.java:49)
@@ -1705,8 +693,8 @@ build:
      [java] 	at soot.util.HashChain.insertOnEdge(HashChain.java:355)
      [java] 	at soot.util.HashChain.insertOnEdge(HashChain.java:232)
      [java] 	at soot.PatchingChain.insertOnEdge(PatchingChain.java:161)
-     [java] 	at e0210.Essentials.instrumentation(Essentials.java:128)
-     [java] 	at e0210.Analysis.internalTransform(Analysis.java:97)
+     [java] 	at e0210.Essentials.instrumentation(Essentials.java:126)
+     [java] 	at e0210.Analysis.internalTransform(Analysis.java:96)
      [java] 	at soot.BodyTransformer.transform(BodyTransformer.java:54)
      [java] 	at soot.Transform.apply(Transform.java:105)
      [java] 	at soot.BodyPack.internalApply(BodyPack.java:49)
@@ -1730,7 +718,7 @@ build:
      [java]     https://github.com/Sable/soot/wiki/Getting-help
      [java] 
      [java] 3.) Sure it's a bug? Click this link to report it.
-     [java]     https://github.com/Sable/soot/issues/new?title=java.lang.RuntimeException+when+...&body=Steps+to+reproduce%3A%0A1.%29+...%0A%0AFiles+used+to+reproduce%3A+%0A...%0A%0ASoot+version%3A+%3Cpre%3Etrunk%3C%2Fpre%3E%0A%0ACommand+line%3A%0A%3Cpre%3E-prepend-classpath+-app+-validate+-exclude+jdk.net+-exclude+java.lang+-no-bodies-for-excluded+-p+jb+use-original-names%3Atrue+-f+class+-main-class+test18.Main+test18.Main+-output-dir+Testcases%2Fproject-2%2FsootBin%2F%3C%2Fpre%3E%0A%0AMax+Memory%3A%0A%3Cpre%3E1744MB%3C%2Fpre%3E%0A%0AStack+trace%3A%0A%3Cpre%3Ejava.lang.RuntimeException%3A+insertOnEdge+failed%21+No+such+edge+found.+The+edge+on+which+you+want+to+insert+an+instrumentation+is+invalid.%0A%09at+soot.util.HashChain.insertOnEdge%28HashChain.java%3A341%29%0A%09at+soot.util.HashChain.insertOnEdge%28HashChain.java%3A355%29%0A%09at+soot.util.HashChain.insertOnEdge%28HashChain.java%3A232%29%0A%09at+soot.PatchingChain.insertOnEdge%28PatchingChain.java%3A161%29%0A%09at+e0210.Essentials.instrumentation%28Essentials.java%3A128%29%0A%09at+e0210.Analysis.internalTransform%28Analysis.java%3A97%29%0A%09at+soot.BodyTransformer.transform%28BodyTransformer.java%3A54%29%0A%09at+soot.Transform.apply%28Transform.java%3A105%29%0A%09at+soot.BodyPack.internalApply%28BodyPack.java%3A49%29%0A%09at+soot.Pack.apply%28Pack.java%3A125%29%0A%09at+soot.PackManager.runBodyPacks%28PackManager.java%3A986%29%0A%09at+soot.PackManager.access%24000%28PackManager.java%3A138%29%0A%09at+soot.PackManager%241.run%28PackManager.java%3A633%29%0A%09at+java.util.concurrent.ThreadPoolExecutor.runWorker%28ThreadPoolExecutor.java%3A1145%29%0A%09at+java.util.concurrent.ThreadPoolExecutor%24Worker.run%28ThreadPoolExecutor.java%3A615%29%0A%09at+java.lang.Thread.run%28Thread.java%3A745%29%0A%3C%2Fpre%3E
+     [java]     https://github.com/Sable/soot/issues/new?title=java.lang.RuntimeException+when+...&body=Steps+to+reproduce%3A%0A1.%29+...%0A%0AFiles+used+to+reproduce%3A+%0A...%0A%0ASoot+version%3A+%3Cpre%3Etrunk%3C%2Fpre%3E%0A%0ACommand+line%3A%0A%3Cpre%3E-prepend-classpath+-app+-validate+-exclude+jdk.net+-exclude+java.lang+-no-bodies-for-excluded+-p+jb+use-original-names%3Atrue+-f+class+-main-class+test18.Main+test18.Main+-output-dir+Testcases%2Fproject-2%2FsootBin%2F%3C%2Fpre%3E%0A%0AMax+Memory%3A%0A%3Cpre%3E1744MB%3C%2Fpre%3E%0A%0AStack+trace%3A%0A%3Cpre%3Ejava.lang.RuntimeException%3A+insertOnEdge+failed%21+No+such+edge+found.+The+edge+on+which+you+want+to+insert+an+instrumentation+is+invalid.%0A%09at+soot.util.HashChain.insertOnEdge%28HashChain.java%3A341%29%0A%09at+soot.util.HashChain.insertOnEdge%28HashChain.java%3A355%29%0A%09at+soot.util.HashChain.insertOnEdge%28HashChain.java%3A232%29%0A%09at+soot.PatchingChain.insertOnEdge%28PatchingChain.java%3A161%29%0A%09at+e0210.Essentials.instrumentation%28Essentials.java%3A126%29%0A%09at+e0210.Analysis.internalTransform%28Analysis.java%3A96%29%0A%09at+soot.BodyTransformer.transform%28BodyTransformer.java%3A54%29%0A%09at+soot.Transform.apply%28Transform.java%3A105%29%0A%09at+soot.BodyPack.internalApply%28BodyPack.java%3A49%29%0A%09at+soot.Pack.apply%28Pack.java%3A125%29%0A%09at+soot.PackManager.runBodyPacks%28PackManager.java%3A986%29%0A%09at+soot.PackManager.access%24000%28PackManager.java%3A138%29%0A%09at+soot.PackManager%241.run%28PackManager.java%3A633%29%0A%09at+java.util.concurrent.ThreadPoolExecutor.runWorker%28ThreadPoolExecutor.java%3A1145%29%0A%09at+java.util.concurrent.ThreadPoolExecutor%24Worker.run%28ThreadPoolExecutor.java%3A615%29%0A%09at+java.lang.Thread.run%28Thread.java%3A745%29%0A%3C%2Fpre%3E
      [java]     Please be as precise as possible when giving us
      [java]     information on how to reproduce the problem. Thanks!
      [echo] 
@@ -1747,7 +735,7 @@ build:
      [java] 	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
      [java] 	at java.lang.Integer.parseInt(Integer.java:504)
      [java] 	at java.lang.Integer.parseInt(Integer.java:527)
-     [java] 	at e0210.ProcessOutput.main(ProcessOutput.java:76)
+     [java] 	at e0210.ProcessOutput.main(ProcessOutput.java:70)
      [echo] 
      [echo] [Completed post-processing for test18]
      [echo] 
@@ -1761,99 +749,15 @@ build:
      [echo] [Completed "test" mode for test18]
      [echo] 
    [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test19
-     [java] Soot started on Fri Sep 23 18:53:20 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:41 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming Transforming test19.Main... 
-     [java] Transforming test19.Main$1... 
-     [java] test19.Abstract... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test19.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test19.Main$1;
-     [java] specialinvoke this.<test19.Abstract: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test19.Abstract;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = args[0];
-     [java] x = virtualinvoke $r0.<java.lang.String: int length()>();
-     [java] $r1 = new test19.Main$1;
-     [java] specialinvoke $r1.<test19.Main$1: void <init>()>();
-     [java] virtualinvoke $r1.<test19.Main$1: void foo(int)>(x);
-     [java] $r2 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r2.<java.io.PrintStream: void println(int)>(x);
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 2 ]
-     [java] this := @this: test19.Abstract;
-     [java] x := @parameter0: int;
-     [java] if x != 5 goto return;
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 ] [succs: ]
-     [java] return;
-     [java] 
-     [java] Block 2:
-     [java] [preds: 0 ] [succs: ]
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 ]
-     [java] this := @this: test19.Main$1;
-     [java] x := @parameter0: int;
-     [java] i = 0;
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 5 ] [succs: 2 6 ]
-     [java] if i >= x goto return;
-     [java] 
-     [java] Block 2:
-     [java] [preds: 1 ] [succs: 3 4 ]
-     [java] $i0 = i % 2;
-     [java] if $i0 != 0 goto $r0 = <java.lang.System: java.io.PrintStream err>;
-     [java] 
-     [java] Block 3:
-     [java] [preds: 2 ] [succs: 5 ]
-     [java] virtualinvoke this.<test19.Main$1: void bar(int)>(x);
-     [java] goto [?= i = i + 1];
-     [java] 
-     [java] Block 4:
-     [java] [preds: 2 ] [succs: 5 ]
-     [java] $r0 = <java.lang.System: java.io.PrintStream err>;
-     [java] virtualinvoke $r0.<java.io.PrintStream: void println(int)>(x);
-     [java] 
-     [java] Block 5:
-     [java] [preds: 3 4 ] [succs: 1 ]
-     [java] i = i + 1;
-     [java] goto [?= (branch)];
-     [java] 
-     [java] Block 6:
-     [java] [preds: 1 ] [succs: ]
-     [java] return;
-     [java] 
-     [java] 
-     [java] Writing to Testcases/project-2/sootBin/test19/Main.class
+     [java] test19.Main$1... 
+     [java] Transforming test19.Abstract... 
      [java] Writing to Testcases/project-2/sootBin/test19/Main$1.class
      [java] Writing to Testcases/project-2/sootBin/test19/Abstract.class
-     [java] Soot finished on Fri Sep 23 18:53:21 IST 2016
+     [java] Writing to Testcases/project-2/sootBin/test19/Main.class
+     [java] Soot finished on Fri Sep 23 19:23:43 IST 2016
      [java] Soot has run for 0 min. 1 sec.
      [echo] 
      [echo] [Completed "run" mode for test19]
@@ -1861,7 +765,7 @@ build:
    [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test19
      [echo] [Executing test19]
      [java] 2
-     [java] 1
+     [java] 0
      [java] 5
      [java] 6
      [java] 10
@@ -1884,126 +788,20 @@ build:
      [echo] 
      [echo] [Checking the output of test19]
      [echo] 
-     [exec] PASS
+     [exec] 4,5d3
+     [exec] < 
+     [exec] < 0
+     [exec] FAIL
      [echo] 
      [echo] [Completed "test" mode for test19]
      [echo] 
    [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test20
-     [java] Soot started on Fri Sep 23 18:53:21 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:43 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test20.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 2 ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = args[0];
-     [java] x = virtualinvoke $r0.<java.lang.String: int length()>();
-     [java] if x >= 4 goto (branch);
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 ] [succs: 5 ]
-     [java] $r3 = new test20.Main;
-     [java] specialinvoke $r3.<test20.Main: void <init>()>();
-     [java] obj = $r3;
-     [java] goto [?= virtualinvoke obj.<test20.Main: void foo()>()];
-     [java] 
-     [java] Block 2:
-     [java] [preds: 0 ] [succs: 3 4 ]
-     [java] if x <= 4 goto $r1 = new test20.Main;
-     [java] 
-     [java] Block 3:
-     [java] [preds: 2 ] [succs: 5 ]
-     [java] $r2 = new test20.Main;
-     [java] specialinvoke $r2.<test20.Main: void <init>(int)>(x);
-     [java] obj = $r2;
-     [java] goto [?= virtualinvoke obj.<test20.Main: void foo()>()];
-     [java] 
-     [java] Block 4:
-     [java] [preds: 2 ] [succs: 5 ]
-     [java] $r1 = new test20.Main;
-     [java] specialinvoke $r1.<test20.Main: void <init>(int,int)>(x, 10);
-     [java] obj = $r1;
-     [java] 
-     [java] Block 5:
-     [java] [preds: 1 3 4 ] [succs: ]
-     [java] virtualinvoke obj.<test20.Main: void foo()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test20.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] this.<test20.Main: int b> = 10;
-     [java] this.<test20.Main: int a> = 10;
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 2 ]
-     [java] this := @this: test20.Main;
-     [java] x := @parameter0: int;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] if x != 5 goto this.<test20.Main: int b> = x;
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 ] [succs: 3 ]
-     [java] this.<test20.Main: int b> = 10;
-     [java] this.<test20.Main: int a> = 10;
-     [java] goto [?= return];
-     [java] 
-     [java] Block 2:
-     [java] [preds: 0 ] [succs: 3 ]
-     [java] this.<test20.Main: int b> = x;
-     [java] this.<test20.Main: int a> = x;
-     [java] 
-     [java] Block 3:
-     [java] [preds: 1 2 ] [succs: ]
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: 1 ]
-     [java] this := @this: test20.Main;
-     [java] x := @parameter0: int;
-     [java] y := @parameter1: int;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] i = x;
-     [java] 
-     [java] Block 1:
-     [java] [preds: 0 2 ] [succs: 2 3 ]
-     [java] if i >= y goto return;
-     [java] 
-     [java] Block 2:
-     [java] [preds: 1 ] [succs: 1 ]
-     [java] $i0 = this.<test20.Main: int a>;
-     [java] $i1 = $i0 + x;
-     [java] this.<test20.Main: int a> = $i1;
-     [java] $i2 = this.<test20.Main: int b>;
-     [java] $i3 = $i2 + x;
-     [java] this.<test20.Main: int b> = $i3;
-     [java] i = i + 1;
-     [java] goto [?= (branch)];
-     [java] 
-     [java] Block 3:
-     [java] [preds: 1 ] [succs: ]
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test20.Main;
-     [java] $r0 = <java.lang.System: java.io.PrintStream err>;
-     [java] $i0 = this.<test20.Main: int a>;
-     [java] virtualinvoke $r0.<java.io.PrintStream: void println(int)>($i0);
-     [java] $r1 = <java.lang.System: java.io.PrintStream err>;
-     [java] $i1 = this.<test20.Main: int b>;
-     [java] virtualinvoke $r1.<java.io.PrintStream: void println(int)>($i1);
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test20/Main.class
-     [java] Soot finished on Fri Sep 23 18:53:22 IST 2016
-     [java] Soot has run for 0 min. 0 sec.
+     [java] Soot finished on Fri Sep 23 19:23:45 IST 2016
+     [java] Soot has run for 0 min. 1 sec.
      [echo] 
      [echo] [Completed "run" mode for test20]
      [echo] 
@@ -2047,26 +845,11 @@ build:
      [echo] [Completed "test" mode for test20]
      [echo] 
    [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test21
-     [java] Soot started on Fri Sep 23 18:53:23 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:45 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test21.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test21.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = <java.lang.System: java.io.PrintStream out>;
-     [java] virtualinvoke $r0.<java.io.PrintStream: void println(java.lang.String)>("Hello world");
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test21/Main.class
-     [java] Soot finished on Fri Sep 23 18:53:23 IST 2016
+     [java] Soot finished on Fri Sep 23 19:23:46 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test21]
@@ -2078,12 +861,12 @@ build:
      [echo] 
      [echo] [Post-processing for test21]
      [echo] 
-     [java] Processing test21 of project-2
-     [java] Exception in thread "main" java.lang.NumberFormatException: For input string: "Hello world"
+     [java] Processing test21 of project-2Exception in thread "main" java.lang.NumberFormatException: For input string: "Hello world"
+     [java] 
      [java] 	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
      [java] 	at java.lang.Integer.parseInt(Integer.java:492)
      [java] 	at java.lang.Integer.parseInt(Integer.java:527)
-     [java] 	at e0210.ProcessOutput.main(ProcessOutput.java:76)
+     [java] 	at e0210.ProcessOutput.main(ProcessOutput.java:70)
      [echo] 
      [echo] [Completed post-processing for test21]
      [echo] 
@@ -2096,26 +879,12 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test21]
      [echo] 
-     [java] Soot started on Fri Sep 23 18:53:24 IST 2016
+   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test22
+     [java] Soot started on Fri Sep 23 19:23:46 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test22.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test22.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = <java.lang.System: java.io.PrintStream out>;
-     [java] virtualinvoke $r0.<java.io.PrintStream: void println(java.lang.String)>("Hello world");
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test22/Main.class
-     [java] Soot finished on Fri Sep 23 18:53:25 IST 2016
+     [java] Soot finished on Fri Sep 23 19:23:47 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test22]
@@ -2127,12 +896,12 @@ build:
      [echo] 
      [echo] [Post-processing for test22]
      [echo] 
-     [java] Exception in thread "main" java.lang.NumberFormatException: For input string: "Hello world"Processing test22 of project-2
-     [java] 
+     [java] Processing test22 of project-2
+     [java] Exception in thread "main" java.lang.NumberFormatException: For input string: "Hello world"
      [java] 	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
      [java] 	at java.lang.Integer.parseInt(Integer.java:492)
      [java] 	at java.lang.Integer.parseInt(Integer.java:527)
-     [java] 	at e0210.ProcessOutput.main(ProcessOutput.java:76)
+     [java] 	at e0210.ProcessOutput.main(ProcessOutput.java:70)
      [echo] 
      [echo] [Completed post-processing for test22]
      [echo] 
@@ -2146,27 +915,12 @@ build:
      [echo] [Completed "test" mode for test22]
      [echo] 
    [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test23
-     [java] Soot started on Fri Sep 23 18:53:25 IST 2016
+     [java] Soot started on Fri Sep 23 19:23:48 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test23.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test23.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = <java.lang.System: java.io.PrintStream out>;
-     [java] virtualinvoke $r0.<java.io.PrintStream: void println(java.lang.String)>("Hello world");
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test23/Main.class
-     [java] Soot finished on Fri Sep 23 18:53:26 IST 2016
-     [java] Soot has run for 0 min. 0 sec.
+     [java] Soot finished on Fri Sep 23 19:23:49 IST 2016
+     [java] Soot has run for 0 min. 1 sec.
      [echo] 
      [echo] [Completed "run" mode for test23]
      [echo] 
@@ -2182,7 +936,7 @@ build:
      [java] 	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
      [java] 	at java.lang.Integer.parseInt(Integer.java:492)
      [java] 	at java.lang.Integer.parseInt(Integer.java:527)
-     [java] 	at e0210.ProcessOutput.main(ProcessOutput.java:76)
+     [java] 	at e0210.ProcessOutput.main(ProcessOutput.java:70)
      [echo] 
      [echo] [Completed post-processing for test23]
      [echo] 
@@ -2195,42 +949,29 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test23]
      [echo] 
-     [java] Soot started on Fri Sep 23 18:53:26 IST 2016
+   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test24
+     [java] Soot started on Fri Sep 23 19:23:49 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test24.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test24.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = <java.lang.System: java.io.PrintStream out>;
-     [java] virtualinvoke $r0.<java.io.PrintStream: void println(java.lang.String)>("Hello world");
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test24/Main.class
-     [java] Soot finished on Fri Sep 23 18:53:27 IST 2016
+     [java] Soot finished on Fri Sep 23 19:23:50 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test24]
      [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test24
      [echo] [Executing test24]
      [java] Hello world
      [java] 1
      [echo] 
      [echo] [Post-processing for test24]
      [echo] 
-     [java] Exception in thread "main" java.lang.NumberFormatException: For input string: "Hello world"
+     [java] Processing test24 of project-2Exception in thread "main" java.lang.NumberFormatException: For input string: "Hello world"
+     [java] 
      [java] 	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
      [java] 	at java.lang.Integer.parseInt(Integer.java:492)
      [java] 	at java.lang.Integer.parseInt(Integer.java:527)
-     [java] 	at e0210.ProcessOutput.main(ProcessOutput.java:76)
-     [java] Processing test24 of project-2
+     [java] 	at e0210.ProcessOutput.main(ProcessOutput.java:70)
      [echo] 
      [echo] [Completed post-processing for test24]
      [echo] 
@@ -2243,42 +984,29 @@ build:
      [echo] 
      [echo] [Completed "test" mode for test24]
      [echo] 
-     [java] Soot started on Fri Sep 23 18:53:27 IST 2016
+   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test25
+     [java] Soot started on Fri Sep 23 19:23:50 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
      [java] Transforming test25.Main... 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] this := @this: test25.Main;
-     [java] specialinvoke this.<java.lang.Object: void <init>()>();
-     [java] return;
-     [java] 
-     [java] 
-     [java] Block 0:
-     [java] [preds: ] [succs: ]
-     [java] args := @parameter0: java.lang.String[];
-     [java] $r0 = <java.lang.System: java.io.PrintStream out>;
-     [java] virtualinvoke $r0.<java.io.PrintStream: void println(java.lang.String)>("Hello world");
-     [java] return;
-     [java] 
-     [java] 
      [java] Writing to Testcases/project-2/sootBin/test25/Main.class
-     [java] Soot finished on Fri Sep 23 18:53:28 IST 2016
-     [java] Soot has run for 0 min. 0 sec.
+     [java] Soot finished on Fri Sep 23 19:23:51 IST 2016
+     [java] Soot has run for 0 min. 1 sec.
      [echo] 
      [echo] [Completed "run" mode for test25]
      [echo] 
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test25
      [echo] [Executing test25]
      [java] Hello world
      [java] 1
      [echo] 
      [echo] [Post-processing for test25]
      [echo] 
-     [java] Processing test25 of project-2
-     [java] Exception in thread "main" java.lang.NumberFormatException: For input string: "Hello world"
+     [java] Processing test25 of project-2Exception in thread "main" java.lang.NumberFormatException: For input string: "Hello world"
+     [java] 
      [java] 	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
      [java] 	at java.lang.Integer.parseInt(Integer.java:492)
      [java] 	at java.lang.Integer.parseInt(Integer.java:527)
-     [java] 	at e0210.ProcessOutput.main(ProcessOutput.java:76)
+     [java] 	at e0210.ProcessOutput.main(ProcessOutput.java:70)
      [echo] 
      [echo] [Completed post-processing for test25]
      [echo] 
@@ -2311,7 +1039,7 @@ build:
      [echo] Test 16 - FAIL
      [echo] Test 17 - Pass
      [echo] Test 18 - FAIL
-     [echo] Test 19 - Pass
+     [echo] Test 19 - FAIL
      [echo] Test 20 - FAIL
      [echo] Test 21 - FAIL
      [echo] Test 22 - FAIL
@@ -2321,4 +1049,4 @@ build:
      [echo] 
 
 BUILD SUCCESSFUL
-Total time: 32 seconds
+Total time: 34 seconds
