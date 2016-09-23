@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
+
+import soot.coffi.element_value;
 import soot.toolkits.graph.Block;
 
 public class ProcessOutput {
@@ -41,10 +43,7 @@ public class ProcessOutput {
 		String in = new String(Files.readAllBytes(Paths.get(inPath)));
 		Essentials obj1=new Essentials();
 		
-		String[] blFile=in.split(System.getProperty("line.separator")+System.getProperty("line.separator"));		//System.getProperty("line.separator")
-		System.out.println("-----------------");
-		for(String s:blFile) System.out.println(s);
-		System.out.println("-----------------");
+		String[] blFile=in.split(System.getProperty("line.separator"));		//System.getProperty("line.separator")
 		String path=null,result="";
 		DirectedWeightedPseudograph<Vertex, DefaultWeightedEdge> mjGraph=null;
 		List<DirectedWeightedPseudograph<Vertex, DefaultWeightedEdge>> listOfGraph=new ArrayList<DirectedWeightedPseudograph<Vertex, DefaultWeightedEdge>>();
@@ -71,20 +70,38 @@ public class ProcessOutput {
 		DirectedWeightedPseudograph<Vertex, DefaultWeightedEdge> tempGraph=null;
 		List<String> pathList=new ArrayList<>();
 		Iterator<DirectedWeightedPseudograph<Vertex, DefaultWeightedEdge>> graphListIt;
+		int p=0;
+		boolean isFirst=true;
 		for(String s:blFile){
+			int bl=Integer.parseInt(s);
 			graphListIt=listOfGraph.iterator();
-			BufferedReader br=new BufferedReader(new StringReader(s));
-			int checkBl= Integer.parseInt(br.readLine());		//extract BLid for checking purpose
+			//BufferedReader br=new BufferedReader(new StringReader(s));
+			
+			int checkBl= Integer.parseInt(s);		//extract BLid for checking purpose
 			while(graphListIt.hasNext()){
 				tempGraph=graphListIt.next();
-								
+				int gid= listOfGraph.indexOf(tempGraph);			
 				Vertex checkVert = obj1.getVertexfromInt(tempGraph,0);
 				
 				
 				//Vertex checkVert=mjGraph.vertexSet().iterator().next();		//Extract first vertex to check sBL and eBL
 				if(checkVert.sBL<=checkBl && checkVert.eBl>=checkBl){
-					path=obj1.regeneratePath(tempGraph, s,checkVert.sBL);
-					pathList.add(path);
+					path=obj1.regeneratePath(tempGraph, bl,checkVert.sBL);
+					if(isFirst){
+						result=result+path;
+						p=gid;
+						isFirst=false;
+					}
+					else{
+						if(p==gid){
+							result=result+"\n"+path;
+						}
+						else{
+							p=gid;
+							result=result+"\n\n"+path;
+						}
+					}
+					
 					break;
 					
 				}
@@ -93,19 +110,14 @@ public class ProcessOutput {
 			
 			
 		}
-		Iterator<String> pathIt=pathList.iterator();
-		while(pathIt.hasNext()){
-			path=pathIt.next();
-			result+=path;
-			if(pathIt.hasNext()) result+="\n\n";
-		}
+		
 		
 		
 
 		// Write the contents of the string to the output file
 		PrintWriter out = new PrintWriter(outPath);
 		out.print(result);
-		//out.print(in);
+		
 		
 		out.close();
 

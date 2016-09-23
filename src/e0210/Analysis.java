@@ -36,7 +36,6 @@ public class Analysis extends BodyTransformer {
 		//1.Declaration-E
 		
 		graph=new ExceptionalBlockGraph(b);		//soot graph
-		System.out.println(graph);
 		mjGraph=new DirectedWeightedPseudograph<>(DefaultWeightedEdge.class);	//jGraph
 		
 		numPaths =new HashMap<Vertex,Integer>();		//This MAP contains total number of possible paths from each vertex
@@ -75,19 +74,20 @@ public class Analysis extends BodyTransformer {
 		
 		
 		
+		Vertex vs=obj.createVert(-1);	//initial dummy i.e. -1
+		Vertex vd=obj.createVert(-2);	//final dummy i.e. -2
+		mjGraph.addVertex(vs);
+		mjGraph.addVertex(vd);
+		mjGraph.addEdge(vs, obj.getVertexfromInt(mjGraph,0));
+		Iterator<Vertex> vertIt=mjGraph.vertexSet().iterator();
+		while(vertIt.hasNext()){
+			Vertex v=vertIt.next();
+			if(mjGraph.outDegreeOf(v)==0 && v.node!=-2) mjGraph.addEdge(v, vd);
+		}
+		
 		CycleDetector<Vertex, DefaultWeightedEdge> cDetect=new CycleDetector<>(mjGraph);
 		if(cDetect.detectCycles())
 		{	
-			Vertex vs=obj.createVert(-1);	//initial dummy i.e. -1
-			Vertex vd=obj.createVert(-2);	//final dummy i.e. -2
-			mjGraph.addVertex(vs);
-			mjGraph.addVertex(vd);
-			mjGraph.addEdge(vs, obj.getVertexfromInt(mjGraph,0));
-			Iterator<Vertex> vertIt=mjGraph.vertexSet().iterator();
-			while(vertIt.hasNext()){
-				Vertex v=vertIt.next();
-				if(mjGraph.outDegreeOf(v)==0 && v.node!=-2) mjGraph.addEdge(v, vd);
-			}
 			obj.removeCycles(mjGraph,delEdge);				//Remove Cycles
 		}
 		

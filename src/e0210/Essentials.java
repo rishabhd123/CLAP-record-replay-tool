@@ -137,13 +137,13 @@ public class Essentials {
 			Stmt s=(Stmt)unitIt.next();
 			if(s instanceof ReturnVoidStmt || s instanceof ReturnStmt){
 				bUnits.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void println(long)>").makeRef(), pathSum)),s);		//println
-				bUnits.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void print(java.lang.String)>").makeRef(), StringConstant.v("\n"))),s);//edited
+				
 				}
 			else if(s.containsInvokeExpr()){
 				String exp=s.getInvokeExpr().toString();
 				if(exp.contains("staticinvoke <java.lang.System: void exit(")){
 					bUnits.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void println(long)>").makeRef(), pathSum)),s);
-					bUnits.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void print(java.lang.String)>").makeRef(), StringConstant.v("\n"))),s);
+					
 				}
 					
 			}
@@ -151,16 +151,17 @@ public class Essentials {
 				
 	}
 	
-	public synchronized String regeneratePath(DirectedWeightedPseudograph<Vertex, DefaultWeightedEdge> mjGraph,String in,int sBL) throws IOException{
+	public synchronized String regeneratePath(DirectedWeightedPseudograph<Vertex, DefaultWeightedEdge> mjGraph,int in,int sBL) throws IOException{
 		
-		BufferedReader br=new BufferedReader(new StringReader(in));
+		//BufferedReader br=new BufferedReader(new StringReader(in));
 			DirectedNeighborIndex<Vertex, DefaultWeightedEdge> dNI=new DirectedNeighborIndex<>(mjGraph);
-			String bl_str=br.readLine();	//bl_id in string form
+			//String bl_str=br.readLine();	//bl_id in string form
+			boolean flag=true;
 			int bl;
-			Vertex entry=getVertexfromInt(mjGraph, 0);
-			String path="0";
-			bl=Integer.parseInt(bl_str)-sBL;
-			while(true){
+			Vertex entry=getVertexfromInt(mjGraph, -1);
+			String path="";
+			bl=in-sBL;
+			
 				int weight,w;				//w-weight of temp chosen edge, chosenV-edge which is chosen temporarily, weight-weight of final chosen edge
 				Vertex next,chosenV=null;
 				while(mjGraph.outDegreeOf(entry)!=0){
@@ -175,43 +176,28 @@ public class Essentials {
 						}
 						
 					}
+					
 					bl-=weight;
 					
 					if(chosenV.node==-2) break;
-					
+						
+						if(flag) {
+							path=path+chosenV.node;
+							flag=false;
+						}
+						else
 						path=path+"\n"+chosenV.node;
+						
 						if(chosenV.exit) break;	
 						
 						entry=chosenV;
 						
 					
 					
-			}
-				
-				bl_str=br.readLine();
-				if(bl_str==null)
-					break;
+			}			
 				
 				
-				bl=Integer.parseInt(bl_str)-sBL;
-				
-				Iterator<Vertex> adjVert=dNI.successorListOf(getVertexfromInt(mjGraph,-1 )).iterator(); //adjacent vertices to -1
-				int w1,weight1=0;
-				Vertex next1,chosenV1=null;
-				while(adjVert.hasNext()){
-					next1=adjVert.next();
-					w1=(new Double(mjGraph.getEdgeWeight(mjGraph.getEdge(getVertexfromInt(mjGraph,-1 ), next1)))).intValue();
-					if(w1>=weight1 &&  w1<=bl){
-						weight1=w1;
-						chosenV1=next1;						
-					}
-					
-				}
-				bl-=weight1;
-				path=path+"\n"+chosenV1.node;
-				entry=chosenV1;
-				
-		}
+		
 		
 	return path;
 	}
