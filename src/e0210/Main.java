@@ -34,9 +34,14 @@ public class Main {
 
 		String project = args[0];
 		String testcase = args[1];
-		File f=null;
+		File f=null,dir=null;
 		try {
-			f=new File("/home/rishabh/workspace/e0210-project/Testcases/project-2/sootOutput/gr.ser");
+			
+			dir=new File("sootOutput");
+			if(dir.exists()) dir.delete();
+			dir.mkdir();
+			
+			f=new File("sootOutput/gr.ser");
 			if(f.exists()) f.delete();
 			
 			f.createNewFile();

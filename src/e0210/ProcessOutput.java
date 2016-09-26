@@ -43,7 +43,7 @@ public class ProcessOutput {
 		List<DirectedWeightedPseudograph<Vertex, DefaultWeightedEdge>> listOfGraph=new ArrayList<DirectedWeightedPseudograph<Vertex, DefaultWeightedEdge>>();
 				
 		try{	
-			FileInputStream f_g_in=new FileInputStream("/home/rishabh/workspace/e0210-project/Testcases/project-2/sootOutput/gr.ser");
+			FileInputStream f_g_in=new FileInputStream("sootOutput/gr.ser");
 			ObjectInputStream o_g_in=new ObjectInputStream(f_g_in);
 			
 			try {

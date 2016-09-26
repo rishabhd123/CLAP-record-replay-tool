@@ -110,7 +110,7 @@ public class Analysis extends BodyTransformer {
 			synchronized (this) {
 				try{					
 				//First Read all objects from file
-				FileInputStream f_g_in=new FileInputStream("/home/rishabh/workspace/e0210-project/Testcases/project-2/sootOutput/gr.ser");
+				FileInputStream f_g_in=new FileInputStream("sootOutput/gr.ser");
 				
 				if(f_g_in.available()>0)				{
 					ObjectInputStream ob_g_in=new ObjectInputStream(f_g_in);					
@@ -130,7 +130,7 @@ public class Analysis extends BodyTransformer {
 					
 					
 				//Write Object of Graph
-				FileOutputStream f_g_out=new FileOutputStream("/home/rishabh/workspace/e0210-project/Testcases/project-2/sootOutput/gr.ser");
+				FileOutputStream f_g_out=new FileOutputStream("sootOutput/gr.ser");
 				ObjectOutputStream ob_g_out=new ObjectOutputStream(f_g_out);
 				Iterator<DirectedWeightedPseudograph<Vertex, DefaultWeightedEdge>> graphListIt=listOfGraph.iterator();
 				while(graphListIt.hasNext()){
