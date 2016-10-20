@@ -271,7 +271,7 @@ Hence added fork="true" for all the java task in the file.
 		<echo />
 
 		<!-- Run the program which does post-processing -->
-		<java classname="e0210.TraceMaker" failonerror="true" fork="true">
+		<java classname="e0210.ProcessOutput" failonerror="true" fork="true">
 			<classpath refid="e0210.classpath" />
 			<arg value="${project}" />
 			<arg value="${testcase}" />
@@ -286,13 +286,11 @@ Hence added fork="true" for all the java task in the file.
 		<echo />
 
 		<!-- Run diff on the output files to verify the correctness -->
-		<!--
 		<exec executable="sh" resultproperty="exit-code">
 			<redirector output="Testcases/${project}/output/${testcase}.result" alwayslog="true" />
 			<arg value="-c" />
 			<arg value="diff Testcases/output/${project}/${testcase} Testcases/${project}/processed-output/${testcase} ; if [ $? -eq 0 ]; then echo PASS; else echo FAIL; return 1; fi" />
 		</exec>
-		-->
 
 		<echo />
 		<echo>[Completed "test" mode for ${testcase}]</echo>
