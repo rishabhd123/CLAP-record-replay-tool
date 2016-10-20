@@ -6,7 +6,7 @@ import popUtil.PoP_Util;
 import java.util.concurrent.locks.Lock;
 
 /* Test - 7:
-    Three threads modifying a variable in a loop without locks
+    Threads modifying a variable in a loop without locks
     Includes fork, join
     Symbolic writes
 */
@@ -18,18 +18,18 @@ public class Main {
         @Override
         public void run() 
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 3; i++)
             {
                 PoP_Util.randomDelay();
                 
                 if (shared_int_a%3 == 1)
                 {
-                    System.err.println("Increment shared_int_a by 1");
+                    System.err.println(Thread.currentThread().getName()+" Increment shared_int_a by 1");
                     shared_int_a += 1;
                 }
                 else
                 {
-                    System.err.println("Increment shared_int_a by 2");
+                    System.err.println(Thread.currentThread().getName()+" Increment shared_int_a by 2");
                     shared_int_a += 2;
                 }
             }

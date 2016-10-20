@@ -11,7 +11,7 @@ import java.util.concurrent.locks.Lock;
 public class Main {
 
     static Lock lock = new ReentrantLock();
-    static Integer shared_int_a = 3;
+    static Integer shared_int_a = 5; /* Total 5 forks are possible.  */
     static class MyThread extends Thread
     {
         @Override
@@ -19,7 +19,7 @@ public class Main {
         {
             PoP_Util.randomDelay();
             
-            Boolean forkNew = false;
+            Boolean forkNew = true;
             lock.lock(); 
             
             shared_int_a--;
@@ -31,13 +31,13 @@ public class Main {
             if (forkNew)
             {
                 MyThread t3 = new MyThread();
-                System.err.println("Forked new thread");
+                System.err.println(Thread.currentThread().getName()+" Forked new thread");
                 t3.start();
                 
             }
             else
             {
-                System.err.println("shared_int_a exhausted");
+                System.err.println(Thread.currentThread().getName()+" shared_int_a exhausted");
             }
             
         }
@@ -46,10 +46,13 @@ public class Main {
 	public static void main(String[] args) throws InterruptedException {
 
 		MyThread t1 = new MyThread();
+		MyThread t2 = new MyThread();
 
         t1.start();
+        t2.start();
 
         t1.join();
+        t2.join();
         
 		return;
 	}
