@@ -1,7 +1,9 @@
 package e0210;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
-import java.io.FileInputStream;
 /*
  * @author Sridhar Gopinath		-		g.sridhar53@gmail.com
  * 
@@ -11,168 +13,71 @@ import java.io.FileInputStream;
  * Indian Institute of Science (IISc),
  * Bangalore
  */
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.*;
+
+import java.util.Map;
+
+import org.jgrapht.ext.DOTExporter;
+import org.jgrapht.ext.VertexNameProvider;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DirectedPseudograph;
+
 import soot.Body;
 import soot.BodyTransformer;
-import org.jgrapht.alg.CycleDetector;
-import org.jgrapht.graph.*;
-import soot.toolkits.graph.*;
+import soot.toolkits.graph.Block;
+import soot.toolkits.graph.ExceptionalBlockGraph;
 
 public class Analysis extends BodyTransformer {
-	
-	int base=0;
+
+	DirectedPseudograph<Block, DefaultEdge> graph = new DirectedPseudograph<Block, DefaultEdge>(DefaultEdge.class);
+
 	@Override
-	protected void internalTransform(Body b, String phaseName, Map<String, String> options) {
-		
-		//1.Declaration-S
-		ExceptionalBlockGraph graph;
-		DirectedWeightedPseudograph<Vertex, DefaultWeightedEdge> mjGraph;
-		Map<Vertex, Block> vertexMap;
-		Map<Vertex, Integer> numPaths;
-		List<DefaultWeightedEdge> delEdge=null;
-		//1.Declaration-E
-		
-		graph=new ExceptionalBlockGraph(b);		//soot graph
-		mjGraph=new DirectedWeightedPseudograph<>(DefaultWeightedEdge.class);	//jGraph
-		
-		numPaths =new HashMap<Vertex,Integer>();		//This MAP contains total number of possible paths from each vertex
-		
-		
-		Iterator<Block> gIterator=graph.iterator();
-		vertexMap=new HashMap<Vertex, Block>();
-				
-		Essentials obj=new Essentials();
-		//2.Populating jGraph-S	
-		while(gIterator.hasNext()){
-			Block block = gIterator.next();
-			int block_index=block.getIndexInMethod();
-			Vertex v=new Vertex();
-			v.node=block_index;
-			v.exit=obj.isExit(block);
-			vertexMap.put(v, block);
-			mjGraph.addVertex(v);
-		}//Directed graph created but doesn't contain any edges
-		
-				
-		gIterator=graph.iterator();
-		while(gIterator.hasNext()){
-			Block block = gIterator.next();
-			List<Block> succL=block.getSuccs();
-			Iterator<Block> sIterator=succL.iterator();
-			while(sIterator.hasNext()){
-				Block succ=sIterator.next();
-				Vertex src=obj.getVertexfromInt(mjGraph, block.getIndexInMethod());
-				Vertex dest=obj.getVertexfromInt(mjGraph, succ.getIndexInMethod());
-				mjGraph.addEdge(src,dest);
-				
-			}
-		}	//Edges added to mjGraph
-		//2.Populating jGraph-E
-		
-		
-		
-		Vertex vs=obj.createVert(-1);	//initial dummy i.e. -1
-		Vertex vd=obj.createVert(-2);	//final dummy i.e. -2
-		mjGraph.addVertex(vs);
-		mjGraph.addVertex(vd);
-		mjGraph.addEdge(vs, obj.getVertexfromInt(mjGraph,0));
-		Iterator<Vertex> vertIt=mjGraph.vertexSet().iterator();
-		while(vertIt.hasNext()){
-			Vertex v=vertIt.next();
-			if(mjGraph.outDegreeOf(v)==0 && v.node!=-2) mjGraph.addEdge(v, vd);
+	protected synchronized void internalTransform(Body b, String phaseName, Map<String, String> options) {
+
+		ExceptionalBlockGraph cfg = new ExceptionalBlockGraph(b);
+
+		for (Block block : cfg.getBlocks()) {
+			graph.addVertex(block);
 		}
-		
-		CycleDetector<Vertex, DefaultWeightedEdge> cDetect=new CycleDetector<>(mjGraph);
-		if(cDetect.detectCycles())
-		{	
-			obj.removeCycles(mjGraph,delEdge);				//Remove Cycles
+
+		for (Block block : cfg.getBlocks()) {
+			for (Block succ : cfg.getSuccsOf(block))
+				graph.addEdge(block, succ);
 		}
-		
-			int nPath= obj.BL(mjGraph,numPaths);	//apply Ball-Larus algorithm and returns number of paths in current method 
-			synchronized (this) {
-				obj.instrumentation(b, mjGraph, vertexMap,base);
-				Iterator<Vertex> vIt=mjGraph.vertexSet().iterator();
-				while(vIt.hasNext()){
-					Vertex v=vIt.next();
-					v.sBL=base;
-					v.eBl=base+nPath-1;
-				}
-				base+=nPath;
-			}
-			
-		
-		//Graph Exporter
-			DirectedWeightedPseudograph<Vertex, DefaultWeightedEdge> gr=null; //auxillary graph object
-			List<DirectedWeightedPseudograph<Vertex, DefaultWeightedEdge>> listOfGraph=new ArrayList<>();
-			synchronized (this) {
-				try{					
-				//First Read all objects from file
-				FileInputStream f_g_in=new FileInputStream("sootOutput/gr.ser");
-				
-				if(f_g_in.available()>0)				{
-					ObjectInputStream ob_g_in=new ObjectInputStream(f_g_in);					
-					try {
-						gr=(DirectedWeightedPseudograph<Vertex, DefaultWeightedEdge>) ob_g_in.readObject();
-						while(gr!=null){
-							listOfGraph.add(gr);
-							gr= (DirectedWeightedPseudograph<Vertex, DefaultWeightedEdge>) ob_g_in.readObject();
-						}
-					} catch (Exception e) {
-						//e.printStackTrace();
-					}
-					listOfGraph.add(mjGraph);
-					ob_g_in.close();
-				}
-				f_g_in.close();
-					
-					
-				//Write Object of Graph
-				FileOutputStream f_g_out=new FileOutputStream("sootOutput/gr.ser");
-				ObjectOutputStream ob_g_out=new ObjectOutputStream(f_g_out);
-				Iterator<DirectedWeightedPseudograph<Vertex, DefaultWeightedEdge>> graphListIt=listOfGraph.iterator();
-				while(graphListIt.hasNext()){
-					gr=graphListIt.next();
-					ob_g_out.writeObject(gr);
-				}
-				
-				
-				ob_g_out.close();
-				f_g_out.close();
-				}
-				catch(Exception e){
-					e.printStackTrace();
-				}
-			
-			}
-		
-		//Print Edges and Edge-Weights
-			/*	
-		Set<DefaultWeightedEdge>edges=mjGraph.edgeSet();
-		Iterator<DefaultWeightedEdge> edgeIt=edges.iterator();
-		while(edgeIt.hasNext()){
-			DefaultWeightedEdge e1=edgeIt.next();
-			System.out.println(mjGraph.getEdgeSource(e1).node+"-"+mjGraph.getEdgeTarget(e1).node+"--"+mjGraph.getEdgeWeight(e1));
-			}
-		
-		System.out.println("-----------------------------------------------------------------------------------");	
-		// Print Vertices
-		Set<Integer>vert=mjGraph.vertexSet();
-		Iterator<Integer> vertIt=vert.iterator();
-		while(vertIt.hasNext()){
-			int v1=vertIt.next();
-			System.out.println(v1);
-			}	
-		*/
-		
-		
-		
-		//System.out.println(mjGraph.toString());
-		//System.out.println(graph.toString());
-		//System.out.println(b.toString()); //prints soot ByteCode
+
+		System.out.println(b.toString());
+
 		return;
 	}
-				
+
+	public void finish(String testcase) {
+
+		VertexNameProvider<Block> id = new VertexNameProvider<Block>() {
+
+			@Override
+			public String getVertexName(Block b) {
+				return String.valueOf("\"" + b.getBody().getMethod().getNumber() + " " + b.getIndexInMethod() + "\"");
+			}
+		};
+
+		VertexNameProvider<Block> name = new VertexNameProvider<Block>() {
+
+			@Override
+			public String getVertexName(Block b) {
+				String body = b.toString().replace("\'", "").replace("\"", "");
+				return body;
+			}
+		};
+
+		new File("sootOutput").mkdir();
+
+		DOTExporter<Block, DefaultEdge> exporter = new DOTExporter<Block, DefaultEdge>(id, name, null);
+		try {
+			exporter.export(new PrintWriter("sootOutput/" + testcase + ".dot"), graph);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		return;
+	}
+
 }
