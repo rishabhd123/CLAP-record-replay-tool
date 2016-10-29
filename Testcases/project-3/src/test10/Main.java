@@ -6,12 +6,13 @@ import popUtil.PoP_Util;
 import java.util.concurrent.locks.Lock;
 
 /* Test - 10:
-    Two threads competing to enter into an 'if' block
-    Includes lock, fork
+    Threads competing to enter an 'if' block
+    Includes lock, fork, join
     Symbolic writes
     
     Multiple methods
-    Method will also take arguments and return a value
+    A method also take arguments and return a value
+    Lock and unlock in different methods
     
 */
 public class Main {
@@ -21,17 +22,18 @@ public class Main {
     static Integer shared_int_b = 2;
     static void incrementShared (int incrementCount)
     {
-        lock.lock(); 
-        if(shared_int_a == 1)
-        /* Only one thread will be able to enter this */
+        
+        if(shared_int_a <= 2)
+        /* Only two threads will be able to enter this */
         { 
             
-            System.err.println("Wrote shared_int_a");
-            shared_int_a += incrementCount;
+            System.err.println(Thread.currentThread().getName()+" Wrote shared_int_a and shared_int_b");
+            shared_int_a += 1;
+            shared_int_b += incrementCount;
         }
         else
         {
-            System.err.println("Couldn't write shared_int_a");
+            System.err.println(Thread.currentThread().getName()+" Couldn't write shared_int_a");
         }
         lock.unlock(); 
     }
@@ -47,6 +49,7 @@ public class Main {
         {
             PoP_Util.randomDelay();
             
+            lock.lock(); 
             int local_int_a = shared_int_b + 4;
             incrementShared(getIncrementCount(local_int_a));
         }
@@ -56,11 +59,16 @@ public class Main {
 
 		MyThread t1 = new MyThread();
         MyThread t2 = new MyThread();
+        MyThread t3 = new MyThread();
 
         t1.start();
         t2.start();
+        t3.start();
 
-        incrementShared(getIncrementCount(4));
+        t2.join();
+        PoP_Util.randomDelay();
+        lock.lock();
+        incrementShared(getIncrementCount(5));
         
 		return;
 	}

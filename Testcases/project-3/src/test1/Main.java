@@ -22,18 +22,17 @@ public class Main {
 		public void run() {
 			PoP_Util.randomDelay(); /*
 									 * You need to skip over this in your
-									 * analysis
+									 * analysis in all test cases
 									 */
 
 			lock.lock();
 			if (shared_int_a == 1)
 			/* Only one thread will be able to enter this */
 			{
-				System.err.println(Thread.currentThread().getId());
 				shared_int_a = 2;
-				System.err.println("Wrote shared_int_a");
+				System.err.println(Thread.currentThread().getName()+" Wrote shared_int_a");
 			} else {
-				System.err.println("Couldn't write shared_int_a");
+				System.err.println(Thread.currentThread().getName()+" Couldn't write shared_int_a");
 			}
 
 			lock.unlock();
@@ -44,12 +43,15 @@ public class Main {
 
 		MyThread t1 = new MyThread();
 		MyThread t2 = new MyThread();
+		MyThread t3 = new MyThread();
 
 		t1.start();
 		t2.start();
+		t3.start();
 
 		t1.join();
 		t2.join();
+		t3.join();
 
 		return;
 	}

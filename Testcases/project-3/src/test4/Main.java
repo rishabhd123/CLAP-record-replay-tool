@@ -6,9 +6,9 @@ import popUtil.PoP_Util;
 import java.util.concurrent.locks.Lock;
 
 /* Test - 4:
-    Four threads competing to enter into an 'if' block
+    Threads competing to enter into an 'if' block
     Includes lock, fork, join
-    Including symbolic writes
+    Includes symbolic writes
 */
 public class Main {
 
@@ -26,12 +26,12 @@ public class Main {
             if(shared_int_a <= 2)
             /* Only two threads will be able to enter this */
             { 
-                System.err.println("Incremented shared_int_a");
+                System.err.println(Thread.currentThread().getName()+" Incremented shared_int_a");
                 shared_int_a += 1; /* Need a symbolic write here */
             }
             else
             {
-                System.err.println("Couldn't increment shared_int_a");
+                System.err.println(Thread.currentThread().getName()+" Couldn't increment shared_int_a");
             }
             lock.unlock(); 
         }

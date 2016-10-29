@@ -5,11 +5,12 @@ import java.util.concurrent.locks.ReentrantLock;
 import popUtil.PoP_Util;
 
 import java.util.concurrent.locks.Lock;
+import java.lang.Thread;
 
 /* Test - 2:
-    Two threads competing to enter into an 'if' block
+    Threads competing to enter into an 'if' block
     Includes lock, fork, join
-    No symbolic writesx
+    No symbolic writes
     Includes local variables and arithmetic operations
 */
 public class Main {
@@ -30,9 +31,9 @@ public class Main {
 			/* Only one thread will be able to enter this */
 			{
 				shared_int_a = 2;
-				System.err.println("Wrote shared_int_a");
+				System.err.println(Thread.currentThread().getName()+" Wrote shared_int_a");
 			} else {
-				System.err.println("Couldn't write shared_int_a");
+				System.err.println(Thread.currentThread().getName()+" Couldn't write shared_int_a");
 			}
 			lock.unlock();
 		}
@@ -42,12 +43,15 @@ public class Main {
 
 		MyThread t1 = new MyThread();
 		MyThread t2 = new MyThread();
+		MyThread t3 = new MyThread();
 
 		t1.start();
 		t2.start();
+		t3.start();
 
 		t1.join();
 		t2.join();
+		t3.join();
 
 		return;
 	}

@@ -6,11 +6,11 @@ import popUtil.PoP_Util;
 import java.util.concurrent.locks.Lock;
 
 /* Test - 3:
-    Two threads competing to enter into an 'if' block
+    Threads competing to enter into an 'if' block
     Includes lock, fork, join
     No symbolic writes
     Includes local variables and arithmetic/boolean operations
-    Multiple shared variables
+    Multiple shared variables and locks
     
     Note: You may need to handle the XOR operation separately
 */
@@ -35,11 +35,11 @@ public class Main {
             { 
                 modified = true;
                 shared_int_a = 2;
-                System.err.println("Wrote shared_int_a");
+                System.err.println(Thread.currentThread().getName()+" Wrote shared_int_a");
             }
             else
             {
-                System.err.println("Coudln't write shared_int_a");
+                System.err.println(Thread.currentThread().getName()+" Coudln't write shared_int_a");
             }
             lock1.unlock(); 
             
@@ -52,11 +52,11 @@ public class Main {
                 {
                     modified = true;
                     shared_int_b = 2;
-                    System.err.println("Wrote shared_int_b");
+                    System.err.println(Thread.currentThread().getName()+" Wrote shared_int_b");
                 }
                 else
                 {
-                    System.err.println("Couldn't write shared_int_b");
+                    System.err.println(Thread.currentThread().getName()+" Couldn't write shared_int_b");
                 }
                 lock2.unlock();
             }

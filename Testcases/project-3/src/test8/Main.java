@@ -11,14 +11,14 @@ import java.util.concurrent.locks.Lock;
 public class Main {
 
     static Lock lock = new ReentrantLock();
-    static Integer shared_int_a = 10;
+    static Integer shared_int_a = 10; /* Total 10 forks are possible */
     static class MyThread extends Thread
     {
         @Override
         public void run() 
         {
         
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 2; i++)
             {
                 PoP_Util.randomDelay();
                 
@@ -33,12 +33,12 @@ public class Main {
                 if (forkNew)
                 {
                     MyThread t3 = new MyThread();
-                    System.err.println("Starting new thread");
+                    System.err.println(Thread.currentThread().getName()+" Starting new thread");
                     t3.start();
                 }
                 else
                 {
-                    System.err.println("shared_int_a exhausted");
+                    System.err.println(Thread.currentThread().getName()+" shared_int_a exhausted");
                 }
             }    
         
