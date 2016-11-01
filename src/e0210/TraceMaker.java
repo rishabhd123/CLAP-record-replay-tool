@@ -80,13 +80,13 @@ public class TraceMaker {
 
 		// Output the global trace 
 		PrintWriter globalTraceWriter = new PrintWriter(globalTraceOutPath);
-		globalTraceWriter.print();
+		globalTraceWriter.print("");
 
 		globalTraceWriter.close();
 
 		// Output the tuples
 		PrintWriter tupleWriter = new PrintWriter(tupleOutPath);
-		tupleWriter.print();
+		tupleWriter.print("");
 
 		tupleWriter.close();
 
@@ -113,6 +113,8 @@ public class TraceMaker {
 		base_args.add("jdk.net");
 		base_args.add("-exclude");
 		base_args.add("java.lang");
+		base_args.add("-exclude");
+        base_args.add("jdk.internal.*"); 
 		base_args.add("-no-bodies-for-excluded");
 
 		// Retain variable names from the bytecode
