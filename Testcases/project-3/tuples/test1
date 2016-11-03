@@ -1,9 +1,0 @@
-void <clinit>(),null,0,0
-void <init>(),0,null,0
-void <init>(),0,null,0
-void <init>(),0,null,0
-void <clinit>(),0.0,0,0
-void run(),0.2,0,0&1&3
-void run(),0.0,0,0&2&3
-void run(),0.1,0,0&2&3
-void main(java.lang.String[]),0,0,0
