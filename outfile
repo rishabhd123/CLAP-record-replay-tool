@@ -18,1035 +18,253 @@ build-subprojects:
 init:
 
 build-project:
-     [echo] project-2: /home/rishabh/workspace/e0210-project/Testcases/project-2/build.xml
+     [echo] project-3: /home/rishabh/workspace/e0210-project/Testcases/project-3/build.xml
+    [javac] Compiling 1 source file to /home/rishabh/workspace/e0210-project/Testcases/project-3/bin
 
 build:
+      [jar] Building jar: /home/rishabh/workspace/e0210-project/Testcases/project-3/project-3.jar
 
--testall:
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test1
-     [java] Soot started on Fri Sep 23 19:23:17 IST 2016
+-testsingle:
+   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-3/sootBin/test1
+     [java] Soot started on Wed Nov 02 18:33:18 IST 2016
      [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test1.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test1/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:18 IST 2016
+     [java] Transforming Transforming test1.Main... 
+     [java] e0210.MyCounter... 
+     [java]     public void <init>()
+     [java]     {
+     [java]         test1.Main this;
+     [java] 
+     [java]         this := @this: test1.Main;
+     [java] 
+     [java]         specialinvoke this.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java] Transforming test1.Main$MyThread... 
+     [java]     void <init>()
+     [java]     {
+     [java]         test1.Main$MyThread this;
+     [java] 
+     [java]         this := @this: test1.Main$MyThread;
+     [java] 
+     [java]         specialinvoke this.<java.lang.Thread: void <init>()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java] Transforming popUtil.PoP_Util... 
+     [java]     public void <init>()
+     [java]     {
+     [java]         popUtil.PoP_Util this;
+     [java] 
+     [java]         this := @this: popUtil.PoP_Util;
+     [java] 
+     [java]         specialinvoke this.<java.lang.Object: void <init>()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public static void main(java.lang.String[]) throws java.lang.InterruptedException
+     [java]     {
+     [java]         java.lang.String[] args;
+     [java]         test1.Main$MyThread $r0, $r1, $r2;
+     [java] 
+     [java]         args := @parameter0: java.lang.String[];
+     [java] 
+     [java]         $r0 = new test1.Main$MyThread;
+     [java] 
+     [java]         specialinvoke $r0.<test1.Main$MyThread: void <init>()>();
+     [java] 
+     [java]         $r1 = new test1.Main$MyThread;
+     [java] 
+     [java]         specialinvoke $r1.<test1.Main$MyThread: void <init>()>();
+     [java] 
+     [java]         $r2 = new test1.Main$MyThread;
+     [java] 
+     [java]         specialinvoke $r2.<test1.Main$MyThread: void <init>()>();
+     [java] 
+     [java]         virtualinvoke $r0.<test1.Main$MyThread: void start()>();
+     [java] 
+     [java]         virtualinvoke $r1.<test1.Main$MyThread: void start()>();
+     [java] 
+     [java]         virtualinvoke $r2.<test1.Main$MyThread: void start()>();
+     [java] 
+     [java]         virtualinvoke $r0.<test1.Main$MyThread: void join()>();
+     [java] 
+     [java]         virtualinvoke $r1.<test1.Main$MyThread: void join()>();
+     [java] 
+     [java]         virtualinvoke $r2.<test1.Main$MyThread: void join()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     public void run()
+     [java]     {
+     [java]         test1.Main$MyThread this;
+     [java]         java.util.concurrent.locks.Lock $r0, $r9;
+     [java]         java.lang.Integer $r1, $r10;
+     [java]         int $i0;
+     [java]         java.lang.StringBuilder $r2, $r6, $r7, $r11, $r14, $r17;
+     [java]         java.io.PrintStream $r3, $r12;
+     [java]         java.lang.Thread $r4, $r13;
+     [java]         java.lang.String $r5, $r8, $r15, $r16;
+     [java] 
+     [java]         this := @this: test1.Main$MyThread;
+     [java] 
+     [java]         staticinvoke <popUtil.PoP_Util: void randomDelay()>();
+     [java] 
+     [java]         $r0 = <test1.Main: java.util.concurrent.locks.Lock lock>;
+     [java] 
+     [java]         interfaceinvoke $r0.<java.util.concurrent.locks.Lock: void lock()>();
+     [java] 
+     [java]         $r1 = <test1.Main: java.lang.Integer shared_int_a>;
+     [java] 
+     [java]         $i0 = virtualinvoke $r1.<java.lang.Integer: int intValue()>();
+     [java] 
+     [java]         if $i0 != 1 goto label1;
+     [java] 
+     [java]         $r10 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(2);
+     [java] 
+     [java]         <test1.Main: java.lang.Integer shared_int_a> = $r10;
+     [java] 
+     [java]         $r12 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         $r11 = new java.lang.StringBuilder;
+     [java] 
+     [java]         specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+     [java] 
+     [java]         $r13 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>();
+     [java] 
+     [java]         $r15 = virtualinvoke $r13.<java.lang.Thread: java.lang.String getName()>();
+     [java] 
+     [java]         $r14 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r15);
+     [java] 
+     [java]         $r17 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" Wrote shared_int_a");
+     [java] 
+     [java]         $r16 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+     [java] 
+     [java]         virtualinvoke $r12.<java.io.PrintStream: void println(java.lang.String)>($r16);
+     [java] 
+     [java]         goto label2;
+     [java] 
+     [java]      label1:
+     [java]         $r3 = <java.lang.System: java.io.PrintStream err>;
+     [java] 
+     [java]         $r2 = new java.lang.StringBuilder;
+     [java] 
+     [java]         specialinvoke $r2.<java.lang.StringBuilder: void <init>()>();
+     [java] 
+     [java]         $r4 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>();
+     [java] 
+     [java]         $r5 = virtualinvoke $r4.<java.lang.Thread: java.lang.String getName()>();
+     [java] 
+     [java]         $r6 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+     [java] 
+     [java]         $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" Couldn\'t write shared_int_a");
+     [java] 
+     [java]         $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+     [java] 
+     [java]         virtualinvoke $r3.<java.io.PrintStream: void println(java.lang.String)>($r8);
+     [java] 
+     [java]      label2:
+     [java]         $r9 = <test1.Main: java.util.concurrent.locks.Lock lock>;
+     [java] 
+     [java]         interfaceinvoke $r9.<java.util.concurrent.locks.Lock: void unlock()>();
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         java.util.Random $r0;
+     [java] 
+     [java]         $r0 = new java.util.Random;
+     [java] 
+     [java]         specialinvoke $r0.<java.util.Random: void <init>()>();
+     [java] 
+     [java]         <popUtil.PoP_Util: java.util.Random randGen> = $r0;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         java.util.concurrent.locks.ReentrantLock $r0;
+     [java]         java.lang.Integer $r1;
+     [java] 
+     [java]         $r0 = new java.util.concurrent.locks.ReentrantLock;
+     [java] 
+     [java]         specialinvoke $r0.<java.util.concurrent.locks.ReentrantLock: void <init>()>();
+     [java] 
+     [java]         <test1.Main: java.util.concurrent.locks.Lock lock> = $r0;
+     [java] 
+     [java]         $r1 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(1);
+     [java] 
+     [java]         <test1.Main: java.lang.Integer shared_int_a> = $r1;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
+     [java] Writing to Testcases/project-3/sootBin/e0210/MyCounter.class
+     [java] Writing to Testcases/project-3/sootBin/test1/Main.class
+     [java] Writing to Testcases/project-3/sootBin/test1/Main$MyThread.class
+     [java] Writing to Testcases/project-3/sootBin/popUtil/PoP_Util.class
+     [java] Soot finished on Wed Nov 02 18:33:19 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
      [echo] [Completed "run" mode for test1]
      [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test1
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-3/output/test1
      [echo] [Executing test1]
-     [java] 1
-     [java] Argument length is 4
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/processed-output/test1
+     [java] void <clinit>(),null,0,7
+     [java] void <init>(),0,null,2
+     [java] void <init>(),0,null,2
+     [java] void <init>(),0,null,2
+     [java] void <clinit>(),0.0,0,4
+     [java] void run(),0.0,0,5
+     [java] void run(),0.2,0,6
+     [java] void run(),0.1,0,6
+     [java] void main(java.lang.String[]),0,0,3
+     [java] Thread-0 Wrote shared_int_a
+     [java] Thread-2 Couldn't write shared_int_a
+     [java] Thread-1 Couldn't write shared_int_a
      [echo] 
      [echo] [Post-processing for test1]
      [echo] 
-     [java] Processing test1 of project-2
+     [java] Processing test1 of project-3
+     [java] Soot started on Wed Nov 02 18:33:19 IST 2016
+     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
+     [java] [Call Graph] For information on where the call graph may be incomplete, use the verbose option to the cg phase.
+     [java] <0.0 Lock, lock_object_name
+     [java] <0.0 Unlock, unlock_object_name
+     [java] <0.2 Lock, lock_object_name
+     [java] <0.2 Unlock, unlock_object_name
+     [java] <0.1 Lock, lock_object_name
+     [java] <0.1 Unlock, unlock_object_name
+     [java] <0, Fork, 0.0>
+     [java] <0, Fork, 0.1>
+     [java] <0, Fork, 0.2>
+     [java] <0, Join, 0.0>
+     [java] <0, Join, 0.1>
+     [java] <0, Join, 0.2>
+     [java] Transforming test1.Main... 
+     [java] Transforming test1.Main$MyThread... 
+     [java] Transforming popUtil.PoP_Util... 
+     [java] Writing to Testcases/project-3/sootBin/test1/Main$MyThread.class
+     [java] Writing to Testcases/project-3/sootBin/test1/Main.class
+     [java] Writing to Testcases/project-3/sootBin/popUtil/PoP_Util.class
+     [java] Soot finished on Wed Nov 02 18:33:21 IST 2016
+     [java] Soot has run for 0 min. 1 sec.
      [echo] 
      [echo] [Completed post-processing for test1]
      [echo] 
      [echo] 
-     [echo] [Checking the output of test1]
+     [echo] [Checking the output for test1]
      [echo] 
-     [exec] PASS
      [echo] 
      [echo] [Completed "test" mode for test1]
      [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test2
-     [java] Soot started on Fri Sep 23 19:23:18 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test2.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test2/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:20 IST 2016
-     [java] Soot has run for 0 min. 1 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test2]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test2
-     [echo] [Executing test2]
-     [java] 7
-     [java] 12
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/processed-output/test2
-     [echo] 
-     [echo] [Post-processing for test2]
-     [echo] 
-     [java] Processing test2 of project-2
-     [echo] 
-     [echo] [Completed post-processing for test2]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test2]
-     [echo] 
-     [exec] PASS
-     [echo] 
-     [echo] [Completed "test" mode for test2]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test3
-     [java] Soot started on Fri Sep 23 19:23:20 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test3.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test3/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:21 IST 2016
-     [java] Soot has run for 0 min. 1 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test3]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test3
-     [echo] [Executing test3]
-     [java] 4
-     [java] Vacation
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/processed-output/test3
-     [echo] 
-     [echo] [Post-processing for test3]
-     [echo] 
-     [java] Processing test3 of project-2
-     [echo] 
-     [echo] [Completed post-processing for test3]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test3]
-     [echo] 
-     [exec] PASS
-     [echo] 
-     [echo] [Completed "test" mode for test3]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test4
-     [java] Soot started on Fri Sep 23 19:23:21 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test4.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test4/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:22 IST 2016
-     [java] Soot has run for 0 min. 1 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test4]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test4
-     [echo] [Executing test4]
-     [java] 7
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/processed-output/test4
-     [echo] 
-     [echo] [Post-processing for test4]
-     [echo] 
-     [java] Processing test4 of project-2
-     [echo] 
-     [echo] [Completed post-processing for test4]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test4]
-     [echo] 
-     [exec] PASS
-     [echo] 
-     [echo] [Completed "test" mode for test4]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test5
-     [java] Soot started on Fri Sep 23 19:23:23 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test5.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test5/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:24 IST 2016
-     [java] Soot has run for 0 min. 1 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test5]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test5
-     [echo] [Executing test5]
-     [java] 1
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/processed-output/test5
-     [echo] 
-     [echo] [Post-processing for test5]
-     [echo] 
-     [java] Processing test5 of project-2
-     [echo] 
-     [echo] [Completed post-processing for test5]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test5]
-     [echo] 
-     [exec] PASS
-     [echo] 
-     [echo] [Completed "test" mode for test5]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test6
-     [java] Soot started on Fri Sep 23 19:23:24 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test6.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test6/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:25 IST 2016
-     [java] Soot has run for 0 min. 1 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test6]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test6
-     [echo] [Executing test6]
-     [java] 1
-     [java] 3
-     [java] 3
-     [java] 4
-     [java] 7
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/processed-output/test6
-     [echo] 
-     [echo] [Post-processing for test6]
-     [echo] 
-     [java] Processing test6 of project-2
-     [echo] 
-     [echo] [Completed post-processing for test6]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test6]
-     [echo] 
-     [exec] PASS
-     [echo] 
-     [echo] [Completed "test" mode for test6]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test7
-     [java] Soot started on Fri Sep 23 19:23:26 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test7.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test7/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:26 IST 2016
-     [java] Soot has run for 0 min. 0 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test7]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test7
-     [echo] [Executing test7]
-     [java] 2
-     [java] 4
-     [java] 3
-     [java] 7
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/processed-output/test7
-     [echo] 
-     [echo] [Post-processing for test7]
-     [echo] 
-     [java] Processing test7 of project-2
-     [echo] 
-     [echo] [Completed post-processing for test7]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test7]
-     [echo] 
-     [exec] PASS
-     [echo] 
-     [echo] [Completed "test" mode for test7]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test8
-     [java] Soot started on Fri Sep 23 19:23:27 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test8.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test8/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:28 IST 2016
-     [java] Soot has run for 0 min. 0 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test8]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test8
-     [echo] [Executing test8]
-     [java] 1
-     [java] 4
-     [java] 5
-     [java] 7
-     [java] 7
-     [java] 7
-     [java] 7
-     [java] 8
-     [java] 11
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/processed-output/test8
-     [echo] 
-     [echo] [Post-processing for test8]
-     [echo] 
-     [java] Processing test8 of project-2
-     [echo] 
-     [echo] [Completed post-processing for test8]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test8]
-     [echo] 
-     [exec] PASS
-     [echo] 
-     [echo] [Completed "test" mode for test8]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test9
-     [java] Soot started on Fri Sep 23 19:23:28 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test9.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test9/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:29 IST 2016
-     [java] Soot has run for 0 min. 0 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test9]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test9
-     [echo] [Executing test9]
-     [java] 1
-     [java] 4
-     [java] 4
-     [java] 4
-     [java] 4
-     [java] 5
-     [java] 6
-     [java] 4
-     [java] 4
-     [java] 4
-     [java] 4
-     [java] 5
-     [java] 6
-     [java] 4
-     [java] 4
-     [java] 4
-     [java] 4
-     [java] 5
-     [java] 6
-     [java] 4
-     [java] 4
-     [java] 4
-     [java] 4
-     [java] 5
-     [java] 6
-     [java] 4
-     [java] 4
-     [java] 4
-     [java] 4
-     [java] 5
-     [java] 6
-     [java] 4
-     [java] 4
-     [java] 4
-     [java] 4
-     [java] 5
-     [java] 8
-     [java] 10
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/processed-output/test9
-     [echo] 
-     [echo] [Post-processing for test9]
-     [echo] 
-     [java] Processing test9 of project-2
-     [echo] 
-     [echo] [Completed post-processing for test9]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test9]
-     [echo] 
-     [exec] PASS
-     [echo] 
-     [echo] [Completed "test" mode for test9]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test10
-     [java] Soot started on Fri Sep 23 19:23:29 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test10.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test10/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:30 IST 2016
-     [java] Soot has run for 0 min. 0 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test10]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test10
-     [echo] [Executing test10]
-     [java] 31
-     [java] 37
-     [java] 43
-     [java] 43
-     [java] 43
-     [java] 42
-     [java] 9
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/processed-output/test10
-     [echo] 
-     [echo] [Post-processing for test10]
-     [echo] 
-     [java] Processing test10 of project-2
-     [echo] 
-     [echo] [Completed post-processing for test10]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test10]
-     [echo] 
-     [exec] PASS
-     [echo] 
-     [echo] [Completed "test" mode for test10]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test11
-     [java] Soot started on Fri Sep 23 19:23:31 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test11.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test11/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:32 IST 2016
-     [java] Soot has run for 0 min. 0 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test11]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test11
-     [echo] [Executing test11]
-     [java] 3
-     [java] 1
-     [java] 4
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/processed-output/test11
-     [echo] 
-     [echo] [Post-processing for test11]
-     [echo] 
-     [java] Processing test11 of project-2
-     [echo] 
-     [echo] [Completed post-processing for test11]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test11]
-     [echo] 
-     [exec] PASS
-     [echo] 
-     [echo] [Completed "test" mode for test11]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test12
-     [java] Soot started on Fri Sep 23 19:23:32 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test12.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test12/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:33 IST 2016
-     [java] Soot has run for 0 min. 0 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test12]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test12
-     [echo] [Executing test12]
-     [java] 6
-     [java] 5
-     [java] 2
-     [java] 4
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/processed-output/test12
-     [echo] 
-     [echo] [Post-processing for test12]
-     [echo] 
-     [java] Processing test12 of project-2
-     [echo] 
-     [echo] [Completed post-processing for test12]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test12]
-     [echo] 
-     [exec] PASS
-     [echo] 
-     [echo] [Completed "test" mode for test12]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test13
-     [java] Soot started on Fri Sep 23 19:23:33 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test13.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test13/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:34 IST 2016
-     [java] Soot has run for 0 min. 0 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test13]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test13
-     [echo] [Executing test13]
-     [java] 7
-     [java] 1
-     [java] 5
-     [java] 7
-     [java] 4
-     [java] 5
-     [java] 7
-     [java] 4
-     [java] 5
-     [java] 6
-     [java] 4
-     [java] 4
-     [java] 4
-     [java] 4
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/processed-output/test13
-     [echo] 
-     [echo] [Post-processing for test13]
-     [echo] 
-     [java] Processing test13 of project-2
-     [echo] 
-     [echo] [Completed post-processing for test13]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test13]
-     [echo] 
-     [exec] PASS
-     [echo] 
-     [echo] [Completed "test" mode for test13]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test14
-     [java] Soot started on Fri Sep 23 19:23:35 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test14.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test14/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:36 IST 2016
-     [java] Soot has run for 0 min. 0 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test14]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test14
-     [echo] [Executing test14]
-     [java] 9
-     [java] 13
-     [java] 11
-     [java] 2
-     [java] 13
-     [java] 15
-     [java] 8
-     [java] 13
-     [java] 11
-     [java] 6
-     [java] 13
-     [java] 15
-     [java] 8
-     [java] 13
-     [java] 11
-     [java] 6
-     [java] 13
-     [java] 15
-     [java] 8
-     [java] 12
-     [java] 10
-     [java] 6
-     [java] 12
-     [java] 14
-     [java] 8
-     [java] 12
-     [java] 10
-     [java] 6
-     [java] 12
-     [java] 14
-     [java] 16
-     [java] 7
-     [java] 4
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/processed-output/test14
-     [echo] 
-     [echo] [Post-processing for test14]
-     [echo] 
-     [java] Processing test14 of project-2
-     [echo] 
-     [echo] [Completed post-processing for test14]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test14]
-     [echo] 
-     [exec] PASS
-     [echo] 
-     [echo] [Completed "test" mode for test14]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test15
-     [java] Soot started on Fri Sep 23 19:23:36 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test15.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test15/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:37 IST 2016
-     [java] Soot has run for 0 min. 0 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test15]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test15
-     [echo] [Executing test15]
-     [java] 10
-     [java] 11
-     [java] 1
-     [java] 14
-     [java] 8
-     [java] 11
-     [java] 7
-     [java] 14
-     [java] 8
-     [java] 11
-     [java] 7
-     [java] 13
-     [java] 8
-     [java] 11
-     [java] 7
-     [java] 13
-     [java] 8
-     [java] 11
-     [java] 7
-     [java] 13
-     [java] 8
-     [java] 9
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/processed-output/test15
-     [echo] 
-     [echo] [Post-processing for test15]
-     [echo] 
-     [java] Processing test15 of project-2
-     [echo] 
-     [echo] [Completed post-processing for test15]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test15]
-     [echo] 
-     [exec] PASS
-     [echo] 
-     [echo] [Completed "test" mode for test15]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test16
-     [java] Soot started on Fri Sep 23 19:23:37 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test16.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test16/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:38 IST 2016
-     [java] Soot has run for 0 min. 0 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test16]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test16
-     [echo] [Executing test16]
-     [java] 2
-     [java] 3
-     [java] 3
-     [java] 3
-     [java] 3
-     [java] 1
-     [java] 4
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/processed-output/test16
-     [echo] 
-     [echo] [Post-processing for test16]
-     [echo] 
-     [java] Processing test16 of project-2
-     [echo] 
-     [echo] [Completed post-processing for test16]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test16]
-     [echo] 
-     [exec] 3d2
-     [exec] < 
-     [exec] 6d4
-     [exec] < 
-     [exec] 9d6
-     [exec] < 
-     [exec] 12d8
-     [exec] < 
-     [exec] FAIL
-     [echo] 
-     [echo] [Completed "test" mode for test16]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test17
-     [java] Soot started on Fri Sep 23 19:23:39 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test17.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test17/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:40 IST 2016
-     [java] Soot has run for 0 min. 0 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test17]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test17
-     [echo] [Executing test17]
-     [java] 5
-     [java] 2
-     [java] 4
-     [java] 2
-     [java] 1
-     [java] 4
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/processed-output/test17
-     [echo] 
-     [echo] [Post-processing for test17]
-     [echo] 
-     [java] Processing test17 of project-2
-     [echo] 
-     [echo] [Completed post-processing for test17]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test17]
-     [echo] 
-     [exec] PASS
-     [echo] 
-     [echo] [Completed "test" mode for test17]
-     [echo] 
-     [java] Soot started on Fri Sep 23 19:23:40 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test18.Main... 
-     [java] [Thread-3] ERROR heros.solver.CountingThreadPoolExecutor - Worker thread execution failed: insertOnEdge failed! No such edge found. The edge on which you want to insert an instrumentation is invalid.
-     [java] java.lang.RuntimeException: insertOnEdge failed! No such edge found. The edge on which you want to insert an instrumentation is invalid.
-     [java] 	at soot.util.HashChain.insertOnEdge(HashChain.java:341)
-     [java] 	at soot.util.HashChain.insertOnEdge(HashChain.java:355)
-     [java] 	at soot.util.HashChain.insertOnEdge(HashChain.java:232)
-     [java] 	at soot.PatchingChain.insertOnEdge(PatchingChain.java:161)
-     [java] 	at e0210.Essentials.instrumentation(Essentials.java:126)
-     [java] 	at e0210.Analysis.internalTransform(Analysis.java:96)
-     [java] 	at soot.BodyTransformer.transform(BodyTransformer.java:54)
-     [java] 	at soot.Transform.apply(Transform.java:105)
-     [java] 	at soot.BodyPack.internalApply(BodyPack.java:49)
-     [java] 	at soot.Pack.apply(Pack.java:125)
-     [java] 	at soot.PackManager.runBodyPacks(PackManager.java:986)
-     [java] 	at soot.PackManager.access$000(PackManager.java:138)
-     [java] 	at soot.PackManager$1.run(PackManager.java:633)
-     [java] 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
-     [java] 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
-     [java] 	at java.lang.Thread.run(Thread.java:745)
-     [java] Exception in thread "Thread-3" java.lang.RuntimeException: insertOnEdge failed! No such edge found. The edge on which you want to insert an instrumentation is invalid.
-     [java] 	at soot.util.HashChain.insertOnEdge(HashChain.java:341)
-     [java] 	at soot.util.HashChain.insertOnEdge(HashChain.java:355)
-     [java] 	at soot.util.HashChain.insertOnEdge(HashChain.java:232)
-     [java] 	at soot.PatchingChain.insertOnEdge(PatchingChain.java:161)
-     [java] 	at e0210.Essentials.instrumentation(Essentials.java:126)
-     [java] 	at e0210.Analysis.internalTransform(Analysis.java:96)
-     [java] 	at soot.BodyTransformer.transform(BodyTransformer.java:54)
-     [java] 	at soot.Transform.apply(Transform.java:105)
-     [java] 	at soot.BodyPack.internalApply(BodyPack.java:49)
-     [java] 	at soot.Pack.apply(Pack.java:125)
-     [java] 	at soot.PackManager.runBodyPacks(PackManager.java:986)
-     [java] 	at soot.PackManager.access$000(PackManager.java:138)
-     [java] 	at soot.PackManager$1.run(PackManager.java:633)
-     [java] 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
-     [java] 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
-     [java] 	at java.lang.Thread.run(Thread.java:745)
-     [java] java.lang.RuntimeException: insertOnEdge failed! No such edge found. The edge on which you want to insert an instrumentation is invalid.
-     [java] 	at soot.util.HashChain.insertOnEdge(HashChain.java:341)
-     [java] 	at soot.util.HashChain.insertOnEdge(HashChain.java:355)
-     [java] 	at soot.util.HashChain.insertOnEdge(HashChain.java:232)
-     [java] 	at soot.PatchingChain.insertOnEdge(PatchingChain.java:161)
-     [java] 	at e0210.Essentials.instrumentation(Essentials.java:126)
-     [java] 	at e0210.Analysis.internalTransform(Analysis.java:96)
-     [java] 	at soot.BodyTransformer.transform(BodyTransformer.java:54)
-     [java] 	at soot.Transform.apply(Transform.java:105)
-     [java] 	at soot.BodyPack.internalApply(BodyPack.java:49)
-     [java] 	at soot.Pack.apply(Pack.java:125)
-     [java] 	at soot.PackManager.runBodyPacks(PackManager.java:986)
-     [java] 	at soot.PackManager.access$000(PackManager.java:138)
-     [java] 	at soot.PackManager$1.run(PackManager.java:633)
-     [java] 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
-     [java] 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
-     [java] 	at java.lang.Thread.run(Thread.java:745)
-     [java] 
-     [java] 
-     [java] Ouuups... something went wrong! Sorry about that.
-     [java] Follow these steps to fix the problem:
-     [java] 1.) Are you sure you used the right command line?
-     [java]     Click here to double-check:
-     [java]     https://ssebuild.cased.de/nightly/soot/doc/soot_options.htm
-     [java] 
-     [java] 2.) Not sure whether it's a bug? Feel free to discuss
-     [java]     the issue on the Soot mailing list:
-     [java]     https://github.com/Sable/soot/wiki/Getting-help
-     [java] 
-     [java] 3.) Sure it's a bug? Click this link to report it.
-     [java]     https://github.com/Sable/soot/issues/new?title=java.lang.RuntimeException+when+...&body=Steps+to+reproduce%3A%0A1.%29+...%0A%0AFiles+used+to+reproduce%3A+%0A...%0A%0ASoot+version%3A+%3Cpre%3Etrunk%3C%2Fpre%3E%0A%0ACommand+line%3A%0A%3Cpre%3E-prepend-classpath+-app+-validate+-exclude+jdk.net+-exclude+java.lang+-no-bodies-for-excluded+-p+jb+use-original-names%3Atrue+-f+class+-main-class+test18.Main+test18.Main+-output-dir+Testcases%2Fproject-2%2FsootBin%2F%3C%2Fpre%3E%0A%0AMax+Memory%3A%0A%3Cpre%3E1744MB%3C%2Fpre%3E%0A%0AStack+trace%3A%0A%3Cpre%3Ejava.lang.RuntimeException%3A+insertOnEdge+failed%21+No+such+edge+found.+The+edge+on+which+you+want+to+insert+an+instrumentation+is+invalid.%0A%09at+soot.util.HashChain.insertOnEdge%28HashChain.java%3A341%29%0A%09at+soot.util.HashChain.insertOnEdge%28HashChain.java%3A355%29%0A%09at+soot.util.HashChain.insertOnEdge%28HashChain.java%3A232%29%0A%09at+soot.PatchingChain.insertOnEdge%28PatchingChain.java%3A161%29%0A%09at+e0210.Essentials.instrumentation%28Essentials.java%3A126%29%0A%09at+e0210.Analysis.internalTransform%28Analysis.java%3A96%29%0A%09at+soot.BodyTransformer.transform%28BodyTransformer.java%3A54%29%0A%09at+soot.Transform.apply%28Transform.java%3A105%29%0A%09at+soot.BodyPack.internalApply%28BodyPack.java%3A49%29%0A%09at+soot.Pack.apply%28Pack.java%3A125%29%0A%09at+soot.PackManager.runBodyPacks%28PackManager.java%3A986%29%0A%09at+soot.PackManager.access%24000%28PackManager.java%3A138%29%0A%09at+soot.PackManager%241.run%28PackManager.java%3A633%29%0A%09at+java.util.concurrent.ThreadPoolExecutor.runWorker%28ThreadPoolExecutor.java%3A1145%29%0A%09at+java.util.concurrent.ThreadPoolExecutor%24Worker.run%28ThreadPoolExecutor.java%3A615%29%0A%09at+java.lang.Thread.run%28Thread.java%3A745%29%0A%3C%2Fpre%3E
-     [java]     Please be as precise as possible when giving us
-     [java]     information on how to reproduce the problem. Thanks!
-     [echo] 
-     [echo] [Completed "run" mode for test18]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test18
-     [echo] [Executing test18]
-     [java] Error: Could not find or load main class test18.Main
-     [echo] 
-     [echo] [Post-processing for test18]
-     [echo] 
-     [java] Processing test18 of project-2
-     [java] Exception in thread "main" java.lang.NumberFormatException: For input string: ""
-     [java] 	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-     [java] 	at java.lang.Integer.parseInt(Integer.java:504)
-     [java] 	at java.lang.Integer.parseInt(Integer.java:527)
-     [java] 	at e0210.ProcessOutput.main(ProcessOutput.java:70)
-     [echo] 
-     [echo] [Completed post-processing for test18]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test18]
-     [echo] 
-     [exec] FAIL
-     [exec] diff: Testcases/project-2/processed-output/test18: No such file or directory
-     [exec] diff: Testcases/project-2/processed-output/test18: No such file or directory
-     [echo] 
-     [echo] [Completed "test" mode for test18]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test19
-     [java] Soot started on Fri Sep 23 19:23:41 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming Transforming test19.Main... 
-     [java] test19.Main$1... 
-     [java] Transforming test19.Abstract... 
-     [java] Writing to Testcases/project-2/sootBin/test19/Main$1.class
-     [java] Writing to Testcases/project-2/sootBin/test19/Abstract.class
-     [java] Writing to Testcases/project-2/sootBin/test19/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:43 IST 2016
-     [java] Soot has run for 0 min. 1 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test19]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test19
-     [echo] [Executing test19]
-     [java] 2
-     [java] 0
-     [java] 5
-     [java] 6
-     [java] 10
-     [java] 5
-     [java] 9
-     [java] 10
-     [java] 11
-     [java] 3
-     [java] 4
-     [java] 4
-     [java] 4
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/processed-output/test19
-     [echo] 
-     [echo] [Post-processing for test19]
-     [echo] 
-     [java] Processing test19 of project-2
-     [echo] 
-     [echo] [Completed post-processing for test19]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test19]
-     [echo] 
-     [exec] 4,5d3
-     [exec] < 
-     [exec] < 0
-     [exec] FAIL
-     [echo] 
-     [echo] [Completed "test" mode for test19]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test20
-     [java] Soot started on Fri Sep 23 19:23:43 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test20.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test20/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:45 IST 2016
-     [java] Soot has run for 0 min. 1 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test20]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test20
-     [echo] [Executing test20]
-     [java] 6
-     [java] 8
-     [java] 8
-     [java] 8
-     [java] 8
-     [java] 8
-     [java] 9
-     [java] 10
-     [java] 2
-     [java] 24
-     [java] 24
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/processed-output/test20
-     [echo] 
-     [echo] [Post-processing for test20]
-     [echo] 
-     [java] Processing test20 of project-2
-     [echo] 
-     [echo] [Completed post-processing for test20]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test20]
-     [echo] 
-     [exec] 17,22c17
-     [exec] < 0
-     [exec] < 
-     [exec] < 0
-     [exec] < 2
-     [exec] < 4
-     [exec] < 5
-     [exec] \ No newline at end of file
-     [exec] ---
-     [exec] > 0
-     [exec] \ No newline at end of file
-     [exec] FAIL
-     [echo] 
-     [echo] [Completed "test" mode for test20]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test21
-     [java] Soot started on Fri Sep 23 19:23:45 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test21.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test21/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:46 IST 2016
-     [java] Soot has run for 0 min. 0 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test21]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test21
-     [echo] [Executing test21]
-     [java] Hello world
-     [java] 1
-     [echo] 
-     [echo] [Post-processing for test21]
-     [echo] 
-     [java] Processing test21 of project-2Exception in thread "main" java.lang.NumberFormatException: For input string: "Hello world"
-     [java] 
-     [java] 	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-     [java] 	at java.lang.Integer.parseInt(Integer.java:492)
-     [java] 	at java.lang.Integer.parseInt(Integer.java:527)
-     [java] 	at e0210.ProcessOutput.main(ProcessOutput.java:70)
-     [echo] 
-     [echo] [Completed post-processing for test21]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test21]
-     [echo] 
-     [exec] FAIL
-     [exec] diff: Testcases/project-2/processed-output/test21: No such file or directory
-     [exec] diff: Testcases/project-2/processed-output/test21: No such file or directory
-     [echo] 
-     [echo] [Completed "test" mode for test21]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test22
-     [java] Soot started on Fri Sep 23 19:23:46 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test22.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test22/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:47 IST 2016
-     [java] Soot has run for 0 min. 0 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test22]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test22
-     [echo] [Executing test22]
-     [java] Hello world
-     [java] 1
-     [echo] 
-     [echo] [Post-processing for test22]
-     [echo] 
-     [java] Processing test22 of project-2
-     [java] Exception in thread "main" java.lang.NumberFormatException: For input string: "Hello world"
-     [java] 	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-     [java] 	at java.lang.Integer.parseInt(Integer.java:492)
-     [java] 	at java.lang.Integer.parseInt(Integer.java:527)
-     [java] 	at e0210.ProcessOutput.main(ProcessOutput.java:70)
-     [echo] 
-     [echo] [Completed post-processing for test22]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test22]
-     [echo] 
-     [exec] FAIL
-     [exec] diff: Testcases/project-2/processed-output/test22: No such file or directory
-     [exec] diff: Testcases/project-2/processed-output/test22: No such file or directory
-     [echo] 
-     [echo] [Completed "test" mode for test22]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test23
-     [java] Soot started on Fri Sep 23 19:23:48 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test23.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test23/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:49 IST 2016
-     [java] Soot has run for 0 min. 1 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test23]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test23
-     [echo] [Executing test23]
-     [java] Hello world
-     [java] 1
-     [echo] 
-     [echo] [Post-processing for test23]
-     [echo] 
-     [java] Processing test23 of project-2
-     [java] Exception in thread "main" java.lang.NumberFormatException: For input string: "Hello world"
-     [java] 	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-     [java] 	at java.lang.Integer.parseInt(Integer.java:492)
-     [java] 	at java.lang.Integer.parseInt(Integer.java:527)
-     [java] 	at e0210.ProcessOutput.main(ProcessOutput.java:70)
-     [echo] 
-     [echo] [Completed post-processing for test23]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test23]
-     [echo] 
-     [exec] FAIL
-     [exec] diff: Testcases/project-2/processed-output/test23: No such file or directory
-     [exec] diff: Testcases/project-2/processed-output/test23: No such file or directory
-     [echo] 
-     [echo] [Completed "test" mode for test23]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test24
-     [java] Soot started on Fri Sep 23 19:23:49 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test24.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test24/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:50 IST 2016
-     [java] Soot has run for 0 min. 0 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test24]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test24
-     [echo] [Executing test24]
-     [java] Hello world
-     [java] 1
-     [echo] 
-     [echo] [Post-processing for test24]
-     [echo] 
-     [java] Processing test24 of project-2Exception in thread "main" java.lang.NumberFormatException: For input string: "Hello world"
-     [java] 
-     [java] 	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-     [java] 	at java.lang.Integer.parseInt(Integer.java:492)
-     [java] 	at java.lang.Integer.parseInt(Integer.java:527)
-     [java] 	at e0210.ProcessOutput.main(ProcessOutput.java:70)
-     [echo] 
-     [echo] [Completed post-processing for test24]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test24]
-     [echo] 
-     [exec] FAIL
-     [exec] diff: Testcases/project-2/processed-output/test24: No such file or directory
-     [exec] diff: Testcases/project-2/processed-output/test24: No such file or directory
-     [echo] 
-     [echo] [Completed "test" mode for test24]
-     [echo] 
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-2/sootBin/test25
-     [java] Soot started on Fri Sep 23 19:23:50 IST 2016
-     [java] Warning: java.lang.invoke.LambdaMetafactory is a phantom class!
-     [java] Transforming test25.Main... 
-     [java] Writing to Testcases/project-2/sootBin/test25/Main.class
-     [java] Soot finished on Fri Sep 23 19:23:51 IST 2016
-     [java] Soot has run for 0 min. 1 sec.
-     [echo] 
-     [echo] [Completed "run" mode for test25]
-     [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-2/output/test25
-     [echo] [Executing test25]
-     [java] Hello world
-     [java] 1
-     [echo] 
-     [echo] [Post-processing for test25]
-     [echo] 
-     [java] Processing test25 of project-2Exception in thread "main" java.lang.NumberFormatException: For input string: "Hello world"
-     [java] 
-     [java] 	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-     [java] 	at java.lang.Integer.parseInt(Integer.java:492)
-     [java] 	at java.lang.Integer.parseInt(Integer.java:527)
-     [java] 	at e0210.ProcessOutput.main(ProcessOutput.java:70)
-     [echo] 
-     [echo] [Completed post-processing for test25]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output of test25]
-     [echo] 
-     [exec] FAIL
-     [exec] diff: Testcases/project-2/processed-output/test25: No such file or directory
-     [exec] diff: Testcases/project-2/processed-output/test25: No such file or directory
-     [echo] 
-     [echo] [Completed "test" mode for test25]
-     [echo] 
-     [echo] 
-     [echo] Summary of the execution:
-     [echo] Test 1 - Pass
-     [echo] Test 2 - Pass
-     [echo] Test 3 - Pass
-     [echo] Test 4 - Pass
-     [echo] Test 5 - Pass
-     [echo] Test 6 - Pass
-     [echo] Test 7 - Pass
-     [echo] Test 8 - Pass
-     [echo] Test 9 - Pass
-     [echo] Test 10 - Pass
-     [echo] Test 11 - Pass
-     [echo] Test 12 - Pass
-     [echo] Test 13 - Pass
-     [echo] Test 14 - Pass
-     [echo] Test 15 - Pass
-     [echo] Test 16 - FAIL
-     [echo] Test 17 - Pass
-     [echo] Test 18 - FAIL
-     [echo] Test 19 - FAIL
-     [echo] Test 20 - FAIL
-     [echo] Test 21 - FAIL
-     [echo] Test 22 - FAIL
-     [echo] Test 23 - FAIL
-     [echo] Test 24 - FAIL
-     [echo] Test 25 - FAIL
-     [echo] 
 
 BUILD SUCCESSFUL
-Total time: 34 seconds
+Total time: 4 seconds

@@ -11,8 +11,11 @@ import soot.*;
 import soot.jimple.*;
 import soot.jimple.toolkits.typing.Util;
 import soot.toolkits.graph.Block;
+import soot.toolkits.graph.ExceptionalBlockGraph;
+import soot.util.Chain;
 import soot.util.HashChain;
 import soot.jimple.Jimple;
+import soot.jimple.internal.JAssignStmt;
 
 
 public class Essentials {
@@ -23,8 +26,8 @@ public class Essentials {
 	public synchronized int BL(DirectedWeightedPseudograph<Vertex, DefaultWeightedEdge> mjGraph,Map<Vertex, Integer> numPaths){
 		List<Vertex> rTopologicalOrder;
 		//3.Generating Reverse Topological order-S
-				TopologicalOrderIterator<Vertex, DefaultWeightedEdge> tIterator=new TopologicalOrderIterator<>(mjGraph);
-				rTopologicalOrder=new ArrayList<Vertex>();
+				TopologicalOrderIterator<Vertex, DefaultWeightedEdge> tIterator=new TopologicalOrderIterator<>(mjGraph);	//topological iteratot
+				rTopologicalOrder=new ArrayList<Vertex>();		//List that will hold reverse topological sequence
 				while(tIterator.hasNext()){rTopologicalOrder.add(tIterator.next());}
 				Collections.reverse(rTopologicalOrder);
 				//3.Generating Reverse Topological order-E
@@ -79,12 +82,14 @@ public class Essentials {
 	
 		
 	
-	public synchronized void instrumentation(Body b,DirectedWeightedPseudograph<Vertex, DefaultWeightedEdge> mjGraph,Map<Vertex, Block> vertexMap,long base)
+	public synchronized void instrumentation(Body b,DirectedWeightedPseudograph<Vertex, DefaultWeightedEdge> mjGraph,Map<Vertex, Block> vertexMap,long base,SootMethod concat,SootMethod generateTuple)
 	{	
 		
 		Unit u1,u2,u3;
 		PatchingChain<Unit> bUnits=b.getUnits();
-		Local pathSum,disp;
+		Local pathSum,disp,blString;
+		blString=Jimple.v().newLocal("blString", RefType.v("java.lang.String"));
+		b.getLocals().add(blString);
 		pathSum=Jimple.v().newLocal("pathSum", LongType.v());
 		disp=Jimple.v().newLocal("disp", RefType.v("java.io.PrintStream"));
 		b.getLocals().add(pathSum);
@@ -92,7 +97,7 @@ public class Essentials {
 		
 		bUnits.insertBefore(Jimple.v().newAssignStmt(pathSum, LongConstant.v(base)), Util.findFirstNonIdentityUnit(b, (Stmt)bUnits.getFirst()));//initialization
 		bUnits.insertBefore(Jimple.v().newAssignStmt(disp, Jimple.v().newStaticFieldRef(Scene.v().getField("<java.lang.System: java.io.PrintStream out>").makeRef())),Util.findFirstNonIdentityUnit(b, (Stmt)bUnits.getFirst()));
-		
+		bUnits.insertBefore(Jimple.v().newAssignStmt(blString, StringConstant.v("")), Util.findFirstNonIdentityUnit(b, (Stmt)bUnits.getFirst()));
 		
 		Iterator<Vertex> vertIt=mjGraph.vertexSet().iterator();
 		Vertex v;
@@ -114,16 +119,28 @@ public class Essentials {
 						i=ai.intValue();
 						u1=Jimple.v().newAssignStmt(pathSum, Jimple.v().newAddExpr(pathSum, LongConstant.v(i)));	//pathsum=pathsum+i
 						bEdgeChain.addLast(u1);
-						u2=Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void println(long)>").makeRef(), pathSum)); //print pathsum
+						
+						
+						StaticInvokeExpr concatInvExpr= Jimple.v().newStaticInvokeExpr(concat.makeRef(),blString,pathSum);
+						u2=Jimple.v().newAssignStmt(blString, concatInvExpr);						
+						
 						bEdgeChain.addLast(u2);
+						
 						u3=Jimple.v().newAssignStmt(pathSum, LongConstant.v(j+base));	//pathsum=j
 						bEdgeChain.addLast(u3);
-						bUnits.insertOnEdge(bEdgeChain, sb.getTail(),db.getHead());						
+						
+						try{
+							bUnits.insertOnEdge(bEdgeChain, sb.getTail(),db.getHead());
+						}catch(Exception e){}
+						
 					}
 					else{
 						d=new Double(mjGraph.getEdgeWeight(mjGraph.getEdge(v,w)));
 						weight=d.intValue();
-						bUnits.insertOnEdge(Jimple.v().newAssignStmt(pathSum, Jimple.v().newAddExpr(pathSum, LongConstant.v(weight))), sb.getTail(), db.getHead());
+						try{
+							bUnits.insertOnEdge(Jimple.v().newAssignStmt(pathSum, Jimple.v().newAddExpr(pathSum, LongConstant.v(weight))), sb.getTail(), db.getHead());
+						}catch(Exception e){}
+						
 					}
 									
 				}
@@ -134,13 +151,25 @@ public class Essentials {
 		while(unitIt.hasNext()){
 			Stmt s=(Stmt)unitIt.next();
 			if(s instanceof ReturnVoidStmt || s instanceof ReturnStmt){
-				bUnits.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void println(long)>").makeRef(), pathSum)),s);		//println
+				StaticInvokeExpr concatInvExpr= Jimple.v().newStaticInvokeExpr(concat.makeRef(),blString,pathSum);
+				bUnits.insertBefore(Jimple.v().newAssignStmt(blString, concatInvExpr), s);
+				
+				InvokeStmt printTupleStmt= Jimple.v().newInvokeStmt(Jimple.v().newStaticInvokeExpr(generateTuple.makeRef(),blString,StringConstant.v(b.getMethod().getSubSignature())));
+				bUnits.insertBefore(printTupleStmt, s);
+				
 				
 				}
 			else if(s.containsInvokeExpr()){
 				String exp=s.getInvokeExpr().toString();
 				if(exp.contains("staticinvoke <java.lang.System: void exit(")){
-					bUnits.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void println(long)>").makeRef(), pathSum)),s);
+
+					StaticInvokeExpr concatInvExpr= Jimple.v().newStaticInvokeExpr(concat.makeRef(),blString,pathSum);
+					bUnits.insertBefore(Jimple.v().newAssignStmt(blString, concatInvExpr), s);
+					
+					InvokeStmt printTupleStmt= Jimple.v().newInvokeStmt(Jimple.v().newStaticInvokeExpr(generateTuple.makeRef(),blString,StringConstant.v(b.getMethod().getSubSignature())));
+					bUnits.insertBefore(printTupleStmt, s);
+					
+					//bUnits.insertBefore(Jimple.v().newInvokeStmt(Jimple.v().newVirtualInvokeExpr(disp, Scene.v().getMethod("<java.io.PrintStream: void println(long)>").makeRef(), pathSum)),s);
 					
 				}
 					
@@ -184,19 +213,12 @@ public class Essentials {
 							flag=false;
 						}
 						else
-						path=path+"\n"+chosenV.node;
+						path=path+"&"+chosenV.node;
 						
 						if(chosenV.exit) break;	
 						
-						entry=chosenV;
-						
-					
-					
-			}			
-				
-				
-		
-		
+						entry=chosenV;			
+			}					
 	return path;
 	}
 	
@@ -233,7 +255,7 @@ public class Essentials {
 		return v;
 		
 	}
+	
+	
 
 }
-	
-	

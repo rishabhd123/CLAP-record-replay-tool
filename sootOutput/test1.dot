@@ -1,0 +1,146 @@
+digraph G {
+  "8533 0" [ label="Block 0:
+[preds: ] [succs: ]
+this := @this: test1.Main;
+specialinvoke this.<java.lang.Object: void <init>()>();
+return;
+" ];
+  "8538 0" [ label="Block 0:
+[preds: ] [succs: ]
+this := @this: popUtil.PoP_Util;
+specialinvoke this.<java.lang.Object: void <init>()>();
+return;
+" ];
+  "8536 0" [ label="Block 0:
+[preds: ] [succs: ]
+this := @this: test1.Main$MyThread;
+specialinvoke this.<java.lang.Thread: void <init>()>();
+return;
+" ];
+  "8534 0" [ label="Block 0:
+[preds: ] [succs: ]
+args := @parameter0: java.lang.String[];
+$r0 = new test1.Main$MyThread;
+specialinvoke $r0.<test1.Main$MyThread: void <init>()>();
+$r1 = new test1.Main$MyThread;
+specialinvoke $r1.<test1.Main$MyThread: void <init>()>();
+$r2 = new test1.Main$MyThread;
+specialinvoke $r2.<test1.Main$MyThread: void <init>()>();
+virtualinvoke $r0.<test1.Main$MyThread: void start()>();
+virtualinvoke $r1.<test1.Main$MyThread: void start()>();
+virtualinvoke $r2.<test1.Main$MyThread: void start()>();
+virtualinvoke $r0.<test1.Main$MyThread: void join()>();
+virtualinvoke $r1.<test1.Main$MyThread: void join()>();
+virtualinvoke $r2.<test1.Main$MyThread: void join()>();
+return;
+" ];
+  "8539 0" [ label="Block 0:
+[preds: ] [succs: ]
+staticinvoke <popUtil.PoP_Util: void randomDelay(int)>(100);
+return;
+" ];
+  "8537 0" [ label="Block 0:
+[preds: ] [succs: 1 2 ]
+this := @this: test1.Main$MyThread;
+staticinvoke <popUtil.PoP_Util: void randomDelay()>();
+$r0 = <test1.Main: java.util.concurrent.locks.Lock lock>;
+interfaceinvoke $r0.<java.util.concurrent.locks.Lock: void lock()>();
+$r1 = <test1.Main: java.lang.Integer shared_int_a>;
+$i0 = virtualinvoke $r1.<java.lang.Integer: int intValue()>();
+if $i0 != 1 goto $r3 = <java.lang.System: java.io.PrintStream err>;
+" ];
+  "8537 1" [ label="Block 1:
+[preds: 0 ] [succs: 3 ]
+$r10 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(2);
+<test1.Main: java.lang.Integer shared_int_a> = $r10;
+$r12 = <java.lang.System: java.io.PrintStream err>;
+$r11 = new java.lang.StringBuilder;
+specialinvoke $r11.<java.lang.StringBuilder: void <init>()>();
+$r13 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>();
+$r15 = virtualinvoke $r13.<java.lang.Thread: java.lang.String getName()>();
+$r14 = virtualinvoke $r11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r15);
+$r17 = virtualinvoke $r14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>( Wrote shared_int_a);
+$r16 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>();
+virtualinvoke $r12.<java.io.PrintStream: void println(java.lang.String)>($r16);
+goto [?= $r9 = <test1.Main: java.util.concurrent.locks.Lock lock>];
+" ];
+  "8537 2" [ label="Block 2:
+[preds: 0 ] [succs: 3 ]
+$r3 = <java.lang.System: java.io.PrintStream err>;
+$r2 = new java.lang.StringBuilder;
+specialinvoke $r2.<java.lang.StringBuilder: void <init>()>();
+$r4 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>();
+$r5 = virtualinvoke $r4.<java.lang.Thread: java.lang.String getName()>();
+$r6 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+$r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>( Couldn\t write shared_int_a);
+$r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+virtualinvoke $r3.<java.io.PrintStream: void println(java.lang.String)>($r8);
+" ];
+  "8537 3" [ label="Block 3:
+[preds: 1 2 ] [succs: ]
+$r9 = <test1.Main: java.util.concurrent.locks.Lock lock>;
+interfaceinvoke $r9.<java.util.concurrent.locks.Lock: void unlock()>();
+return;
+" ];
+  "8535 0" [ label="Block 0:
+[preds: ] [succs: ]
+$r0 = new java.util.concurrent.locks.ReentrantLock;
+specialinvoke $r0.<java.util.concurrent.locks.ReentrantLock: void <init>()>();
+<test1.Main: java.util.concurrent.locks.Lock lock> = $r0;
+$r1 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(1);
+<test1.Main: java.lang.Integer shared_int_a> = $r1;
+return;
+" ];
+  "8540 0" [ label="Block 0:
+[preds: ] [succs: 1 5 ]
+maxDelay := @parameter0: int;
+$r0 = <popUtil.PoP_Util: java.util.Random randGen>;
+" ];
+  "8540 1" [ label="Block 1:
+[preds: 0 ] [succs: 2 5 ]
+delay = virtualinvoke $r0.<java.util.Random: int nextInt(int)>(maxDelay);
+" ];
+  "8540 2" [ label="Block 2:
+[preds: 1 ] [succs: 3 5 ]
+$l0 = (long) delay;
+" ];
+  "8540 3" [ label="Block 3:
+[preds: 2 ] [succs: 4 5 ]
+staticinvoke <java.lang.Thread: void sleep(long)>($l0);
+" ];
+  "8540 4" [ label="Block 4:
+[preds: 3 ] [succs: 6 ]
+goto [?= return];
+" ];
+  "8540 5" [ label="Block 5:
+[preds: 0 1 2 3 ] [succs: 6 ]
+$r1 := @caughtexception;
+$r2 = <java.lang.System: java.io.PrintStream err>;
+virtualinvoke $r2.<java.io.PrintStream: void println(java.lang.String)>(Exception in PoP_Util class. Please contact the TA);
+" ];
+  "8540 6" [ label="Block 6:
+[preds: 4 5 ] [succs: ]
+return;
+" ];
+  "8541 0" [ label="Block 0:
+[preds: ] [succs: ]
+$r0 = new java.util.Random;
+specialinvoke $r0.<java.util.Random: void <init>()>();
+<popUtil.PoP_Util: java.util.Random randGen> = $r0;
+return;
+" ];
+  "8537 0" -> "8537 1";
+  "8537 0" -> "8537 2";
+  "8537 1" -> "8537 3";
+  "8537 2" -> "8537 3";
+  "8540 0" -> "8540 1";
+  "8540 0" -> "8540 5";
+  "8540 1" -> "8540 2";
+  "8540 1" -> "8540 5";
+  "8540 2" -> "8540 3";
+  "8540 2" -> "8540 5";
+  "8540 3" -> "8540 4";
+  "8540 3" -> "8540 5";
+  "8540 4" -> "8540 6";
+  "8540 5" -> "8540 6";
+}

@@ -55,7 +55,7 @@ public class Main {
 		// This is done so that SOOT can find java.lang.Object
 		base_args.add("-prepend-classpath");
 		
-		base_args.add("-w");
+		//base_args.add("-w");
 
 		// Consider the Main Class as an application and not as a library
 		base_args.add("-app");
@@ -107,7 +107,7 @@ public class Main {
 	    Scene.v().addBasicClass("java.lang.System",SootClass.SIGNATURES);
 		soot.Main.main(base_args.toArray(new String[base_args.size()]));
 
-		obj.finish(testcase);
+		//obj.finish(testcase);
 		
 		return;
 	}
