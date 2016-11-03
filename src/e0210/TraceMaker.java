@@ -15,6 +15,8 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 import soot.PackManager;
 import soot.Transform;
@@ -35,8 +37,8 @@ public class TraceMaker {
 		String inPath = "Testcases/" + project + "/output/" + testcase;
 
         // The output files for global trace and tuples. You'll output the results to these files
-		String globalTraceOutPath = "Testcases/" + project + "/processed-output/" + testcase + "-global-trace";
-		String tupleOutPath = "Testcases/" + project + "/processed-output/" + testcase + "-tuples";
+		String globalTraceOutPath = "Testcases/" + project + "/processed-output/" + testcase + ".global_trace";
+		String tupleOutPath = "Testcases/" + project + "/processed-output/" + testcase + ".tuples";
 
 		System.out.println("Processing " + testcase + " of " + project);
 
@@ -81,7 +83,7 @@ public class TraceMaker {
 		// Output the global trace 
 		PrintWriter globalTraceWriter = new PrintWriter(globalTraceOutPath);
 		globalTraceWriter.print("");
-
+      
 		globalTraceWriter.close();
 
 		// Output the tuples
@@ -142,7 +144,7 @@ public class TraceMaker {
 
 		SymbolicExecution obj = new SymbolicExecution();
 
-		PackManager.v().getPack("jtp").add(new Transform("jtp.MyAnalysis", obj));
+		PackManager.v().getPack("wjtp").add(new Transform("wjtp.MyAnalysis", obj));
 
 		soot.Main.main(base_args.toArray(new String[base_args.size()]));
 
