@@ -11,11 +11,9 @@ import soot.*;
 import soot.jimple.*;
 import soot.jimple.toolkits.typing.Util;
 import soot.toolkits.graph.Block;
-import soot.toolkits.graph.ExceptionalBlockGraph;
-import soot.util.Chain;
 import soot.util.HashChain;
 import soot.jimple.Jimple;
-import soot.jimple.internal.JAssignStmt;
+
 
 
 public class Essentials {

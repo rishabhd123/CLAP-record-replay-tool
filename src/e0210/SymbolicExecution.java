@@ -1,21 +1,20 @@
 package e0210;
 
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
-
 import soot.Body;
-import soot.Local;
 import soot.Scene;
 import soot.SceneTransformer;
 import soot.SootClass;
 import soot.SootMethod;
 import soot.Unit;
+import soot.Value;
 import soot.jimple.AssignStmt;
 import soot.jimple.IfStmt;
 import soot.jimple.InvokeStmt;
@@ -24,17 +23,34 @@ import soot.jimple.internal.AbstractInstanceInvokeExpr;
 import soot.toolkits.graph.Block;
 import soot.toolkits.graph.ExceptionalBlockGraph;
 import soot.util.Chain;
+import com.microsoft.z3.*;
+
+
 
 public class SymbolicExecution extends SceneTransformer {
 	String project,testcase;
 	String[] tupleList=null;
+	
 	Hashtable<String,Hashtable<String,Integer> > hashThreadMethodCount= new Hashtable<String,Hashtable<String,Integer> >();
 	Hashtable<String,String> forkjoinMap;
 	Hashtable<String,String> lockObjMap;
-	int forksByThread;
+	Hashtable<String,Integer> readCountForSymVal=new Hashtable<String,Integer>();
+	Hashtable<String,Integer> writeCountForSymVal=new Hashtable<String,Integer>();
+	Hashtable<String,Hashtable<String,String> > programOrderConst=new Hashtable<String,Hashtable<String,String>>();
+	Hashtable<String,Integer> stmtCountOfThread=new Hashtable<String,Integer>();		//contains cnt of nos of stmt executed in particular thread
+	BoolExpr[]  constraints=new BoolExpr[100000];		//contains all constraints
+	int c=0;
+	
+	
+	Context ctx=new Context(new HashMap<String,String>());		//solver specific
+	Solver solver=ctx.mkSolver();
+	
+	
+	
+	String varName,stmtToPrint;		//stmtToPrint::it holds the intrathread stmts which is to be printed on the console
+	int forksByThread,cntProgramOrder;		//Sequence number of stmt which is currently executing
 	
 	Chain<SootClass> classes=Scene.v().getApplicationClasses();
-	
 	
 	
 	//Constructor for SymbolicExecution
@@ -44,7 +60,10 @@ public class SymbolicExecution extends SceneTransformer {
 	}
 	
 	@Override
-	protected void internalTransform(String phaseName, Map<String, String> options) {
+	protected void internalTransform(String phaseName, Map<String, String> options) {	
+		
+		
+		
 		
 		String in=null;
 		String inPath="Testcases/"+project+"/tuples/"+testcase;
@@ -56,13 +75,52 @@ public class SymbolicExecution extends SceneTransformer {
 		for(String tuple:tupleList){
 			if(tuple.contains("void main(") || tuple.contains("void run()")){
 				String[] tupleComponents=tuple.split(",");
-				System.out.println("Begin Intrathread Trace of Thread: "+tupleComponents[1]);
+				String thread=tupleComponents[1];
+				programOrderConst.put(thread, new Hashtable<String,String>());
+				
+				stmtToPrint= thread+", Begin";
+				programOrderConst.get(thread).put("O_"+thread+"_1", stmtToPrint);
+				System.out.println(stmtToPrint);
+				
+				
 				getTrace(tupleComponents[0], tupleComponents[1], tupleComponents[3],true);
-				System.out.println("End Intrathread Trace of Thread: "+tupleComponents[1]);
+				
+				
+				stmtToPrint= thread+", End";
+				programOrderConst.get(thread).put("O_"+thread+"_"+cntProgramOrder, stmtToPrint);
+				System.out.println(stmtToPrint+"\n\n");				
+				stmtCountOfThread.put(thread, cntProgramOrder);
+
+				// inserting program order constraints of "thread" in array of constraints.
+					for(int p=1;p<cntProgramOrder;p++){
+						IntExpr innum1=ctx.mkIntConst("O_"+thread+"_"+p);
+						IntExpr innum2=ctx.mkIntConst("O_"+thread+"_"+(p+1));
+						BoolExpr lt=ctx.mkLt(innum1, innum2);
+						constraints[c++]=lt;
+					}
+					
+					
+					
+					
+				
+				//System.out.println(solver.check());		//solver specific
+				//System.out.println(solver.toString());	
+				//System.out.println(cntProgramOrder);
+				
 			}
 						
 		}
-		
+		BoolExpr[] constraints1= new BoolExpr[c];
+		java.lang.System.arraycopy(constraints, 0, constraints1,0 ,c);
+				
+		System.out.println(constraints1.length);
+		solver.add(ctx.mkAnd(constraints1));
+		System.out.println(solver.check());		//solver specific
+		//System.out.println(solver.toString());
+		solver.check();
+		Model model=solver.getModel();
+		//System.out.println(model.toString());
+			
 		
 		/* 
         SceneTransformer vs BodyTransformer
@@ -124,6 +182,8 @@ public class SymbolicExecution extends SceneTransformer {
 
 	public void getTrace(String method,String thread,String blString,boolean newThread){	
 		if(newThread) {
+			cntProgramOrder=2;
+			
 			forksByThread=0;
 			forkjoinMap=new Hashtable<String,String>();
 			lockObjMap=new Hashtable<String,String>();
@@ -191,12 +251,12 @@ public class SymbolicExecution extends SceneTransformer {
 		else if(s instanceof AssignStmt) {
 			//System.out.println(s);
 			String rightOp=((AssignStmt) s).getRightOp().toString();
-			
+						
 			String stmtStr=s.toString();
 			if(rightOp.contains("locks.Lock")){
-				String[] rightOpStr=rightOp.split(" ");
+				
 				String leftOp=((AssignStmt) s).getLeftOp().toString();
-				lockObjMap.put(leftOp,rightOpStr[2]);
+				lockObjMap.put(leftOp,s.getFieldRef().getField().getName());
 				
 			}
 			else if(s.containsInvokeExpr() && !( stmtStr.contains("start(") || stmtStr.contains("<init>(") || stmtStr.contains("join(") ) && stmtStr.contains("test") ){
@@ -216,36 +276,111 @@ public class SymbolicExecution extends SceneTransformer {
 					hashThreadMethodCount.get(thread).put(methodInvoked, hashThreadMethodCount.get(thread).get(methodInvoked)+1);
 				}
 			}
-			return;
+			
+			else if(s.containsFieldRef() && ( stmtStr.contains("Integer") || stmtStr.contains("Double") || stmtStr.contains("Long") || stmtStr.contains("Short") || stmtStr.contains("Byte") || stmtStr.contains("int ") || stmtStr.contains("double ") || stmtStr.contains("long ") || stmtStr.contains("float "))){
+				Value rightop= ((AssignStmt) s).getRightOp();
+				Value leftop=  ((AssignStmt) s).getLeftOp();
+				//System.out.println(s.getFieldRef().getField().getName());
+				int r=rightop.toString().length();
+				int l=leftop.toString().length();
+				varName=s.getFieldRef().getField().getName();
+							
+				if(l>r){
+					if(writeCountForSymVal.containsKey(varName))	writeCountForSymVal.put(varName,writeCountForSymVal.get(varName)+1);
+					else	writeCountForSymVal.put(varName,1);
+					
+					stmtToPrint= thread+", Write, "+varName+", Sym_Val_"+varName+"_W"+writeCountForSymVal.get(varName);
+					programOrderConst.get(thread).put("O_"+thread+"_"+cntProgramOrder, stmtToPrint);
+					cntProgramOrder++;
+					System.out.println(stmtToPrint);
+					
+				}
+				else{
+					if(readCountForSymVal.containsKey(varName))		readCountForSymVal.put(varName,readCountForSymVal.get(varName)+1);
+					else	readCountForSymVal.put(varName,1);
+					
+					stmtToPrint= thread+", Read, "+varName+", Sym_Val_"+varName+"_R"+readCountForSymVal.get(varName);
+					programOrderConst.get(thread).put("O_"+thread+"_"+cntProgramOrder, stmtToPrint);
+					cntProgramOrder++;
+					System.out.println(stmtToPrint);
+				}
+				
+				
+				
+			}
+			
 			
 		}
 		else if(s instanceof InvokeStmt){
 			String stmtStr=s.toString();
 			if(stmtStr.contains("start(")){
-				System.out.println("<"+thread+", Fork, "+thread+"."+forksByThread+">");
+				
+				stmtToPrint=thread+", Fork, "+thread+"."+forksByThread;
+				programOrderConst.get(thread).put("O_"+thread+"_"+cntProgramOrder, stmtToPrint);
+				
+				System.out.println(stmtToPrint);
+				
 				AbstractInstanceInvokeExpr expr1=(AbstractInstanceInvokeExpr)s.getInvokeExpr();
 				String baseObj=expr1.getBase().toString();
-				forkjoinMap.put(baseObj, "<"+thread+", Join, "+thread+"."+forksByThread+">");
+				forkjoinMap.put(baseObj, thread+", Join, "+thread+"."+forksByThread);
+				
+				//fork constraints: instead of printing, give these to solver
+				System.out.println("O_"+thread+"_"+cntProgramOrder+" < "+ "O_"+thread+"."+forksByThread+"_"+1 );
+				//
+					IntExpr innum1=ctx.mkIntConst("O_"+thread+"_"+cntProgramOrder);		//solver specific
+					IntExpr innum2=ctx.mkIntConst("O_"+thread+"."+forksByThread+"_"+1);
+					BoolExpr lt=ctx.mkLt(innum1, innum2);
+					constraints[c++]=lt;
+					//solver.add(lt);
+					
+				//
+				
+				
+				cntProgramOrder++;
 				forksByThread++;				
 			}
 			else if(stmtStr.contains("join(")){
 				AbstractInstanceInvokeExpr expr1=(AbstractInstanceInvokeExpr)s.getInvokeExpr();
 				String baseObj=expr1.getBase().toString();
-				System.out.println(forkjoinMap.get(baseObj));
+				
+				stmtToPrint=forkjoinMap.get(baseObj);
+				programOrderConst.get(thread).put("O_"+thread+"_"+cntProgramOrder, stmtToPrint);
+				
+				System.out.println(stmtToPrint);
+				
+				String temp=forkjoinMap.get(baseObj).split(" ")[2];
+				
+				//join constraints: instead of printing, give these to solver
+				System.out.println("O_"+thread+"_"+cntProgramOrder+" > "+ "O_"+temp+"_"+stmtCountOfThread.get(temp));
+				//
+					IntExpr innum1=ctx.mkIntConst("O_"+thread+"_"+cntProgramOrder);			//solver specific
+					IntExpr innum2=ctx.mkIntConst("O_"+temp+"_"+stmtCountOfThread.get(temp));
+					BoolExpr gt=ctx.mkGt(innum1, innum2);
+					constraints[c++]=gt;
+					//solver.add(lt);
+				//
+				
+				cntProgramOrder++;
 				
 			}
 			else if(stmtStr.contains("void lock()") ){
 				AbstractInstanceInvokeExpr expr1=(AbstractInstanceInvokeExpr)s.getInvokeExpr();
-				System.out.println("<"+thread+" Lock, "+lockObjMap.get(expr1.getBase().toString()));
+				
+				stmtToPrint= thread+", Lock, "+lockObjMap.get(expr1.getBase().toString());
+				programOrderConst.get(thread).put("O_"+thread+"_"+cntProgramOrder, stmtToPrint);
+				cntProgramOrder++;
+				System.out.println(stmtToPrint);
 				
 			}
 			else if(stmtStr.contains("void unlock()")){
 				AbstractInstanceInvokeExpr expr1=(AbstractInstanceInvokeExpr)s.getInvokeExpr();
-				System.out.println("<"+thread+" Unlock, "+lockObjMap.get(expr1.getBase().toString()));
 				
-			}
-			
-			
+				stmtToPrint= thread+", Unlock, "+lockObjMap.get(expr1.getBase().toString());
+				programOrderConst.get(thread).put("O_"+thread+"_"+cntProgramOrder, stmtToPrint);
+				cntProgramOrder++;
+				System.out.println(stmtToPrint);
+				
+			}			
 			else if( !(  stmtStr.contains("<init>(") ) && stmtStr.contains("test") ){
 				String methodInvoked=s.getInvokeExpr().getMethod().getSubSignature();
 				if(!hashThreadMethodCount.containsKey(thread)){
@@ -267,10 +402,10 @@ public class SymbolicExecution extends SceneTransformer {
 				}
 			}
 			
-		return;
+		
 		}
 		
-		
+	return;	
 	}
 
 }

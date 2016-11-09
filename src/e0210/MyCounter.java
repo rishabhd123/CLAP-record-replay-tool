@@ -2,9 +2,6 @@ package e0210;
 
 
 import java.util.Hashtable;
-import java.util.Iterator;
-
-import org.jboss.util.Null;
 
 public class MyCounter {
   
