@@ -4,11 +4,13 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.io.IOException;
 import java.nio.file.Files;
 import soot.Body;
+import soot.PatchingChain;
 import soot.Scene;
 import soot.SceneTransformer;
 import soot.SootClass;
@@ -34,10 +36,12 @@ public class SymbolicExecution extends SceneTransformer {
 	Hashtable<String,Hashtable<String,Integer> > hashThreadMethodCount= new Hashtable<String,Hashtable<String,Integer> >();
 	Hashtable<String,String> forkjoinMap;
 	Hashtable<String,String> lockObjMap;
-	Hashtable<String,Integer> readCountForSymVal=new Hashtable<String,Integer>();
-	Hashtable<String,Integer> writeCountForSymVal=new Hashtable<String,Integer>();
+	Hashtable<String,Integer> readCountForSymVal=new Hashtable<String,Integer>();		//number of reads performed on variables
+	Hashtable<String,Integer> writeCountForSymVal=new Hashtable<String,Integer>();		//number of writes performed on variables
 	Hashtable<String,Hashtable<String,String> > programOrderConst=new Hashtable<String,Hashtable<String,String>>();
 	Hashtable<String,Integer> stmtCountOfThread=new Hashtable<String,Integer>();		//contains cnt of nos of stmt executed in particular thread
+	Hashtable<String, LinkedList<MyLock> > lockListMap=new Hashtable<String, LinkedList<MyLock>>();		//Mapping of lock-name and corresponding objects of MyLock
+	
 	BoolExpr[]  constraints=new BoolExpr[100000];		//contains all constraints
 	int c=0;
 	
@@ -88,6 +92,7 @@ public class SymbolicExecution extends SceneTransformer {
 				
 				stmtToPrint= thread+", End";
 				programOrderConst.get(thread).put("O_"+thread+"_"+cntProgramOrder, stmtToPrint);
+				
 				System.out.println(stmtToPrint+"\n\n");				
 				stmtCountOfThread.put(thread, cntProgramOrder);
 
@@ -110,15 +115,18 @@ public class SymbolicExecution extends SceneTransformer {
 			}
 						
 		}
+		
+		generateLockUnlockConstr(); 			//Generating Lock_unlock constraints
+		
 		BoolExpr[] constraints1= new BoolExpr[c];
 		java.lang.System.arraycopy(constraints, 0, constraints1,0 ,c);
 				
-		System.out.println(constraints1.length);
+		//System.out.println(constraints1.length);
 		solver.add(ctx.mkAnd(constraints1));
-		System.out.println(solver.check());		//solver specific
+		System.out.println(solver.check());			//solver specific
 		//System.out.println(solver.toString());
-		solver.check();
-		Model model=solver.getModel();
+		//solver.check();
+		//Model model=solver.getModel();
 		//System.out.println(model.toString());
 			
 		
@@ -245,18 +253,35 @@ public class SymbolicExecution extends SceneTransformer {
 		
 	}
 	public void printStatement(Stmt s,String thread){				//Print statement of Unit if it is assign or if stmt
+		
 		if(s instanceof IfStmt) { //System.out.println(s);
+			System.out.println("------------------------------------");
+			System.out.println(((IfStmt) s).getCondition().getUseBoxes().get(0).getValue());
+			System.out.println("------------------------------------");
+			
 		}
 		
 		else if(s instanceof AssignStmt) {
 			//System.out.println(s);
+			String leftOp=((AssignStmt) s).getLeftOp().toString();
 			String rightOp=((AssignStmt) s).getRightOp().toString();
-						
 			String stmtStr=s.toString();
-			if(rightOp.contains("locks.Lock")){
+			if(stmtStr.contains("Integer") || stmtStr.contains("Double") || stmtStr.contains("Character") || stmtStr.contains("Boolean") ||  stmtStr.contains("int ") || stmtStr.contains("double ") || stmtStr.contains("char ") || stmtStr.contains("boolean ")){
+				if(s.containsFieldRef()){
+					//TODO
+				}
+				else if(s.containsInvokeExpr()){
+					//AbstractInstanceInvokeExpr expr1=(AbstractInstanceInvokeExpr)s.getInvokeExpr();
+					//	String baseObj=expr1.getBase().toString();
 				
-				String leftOp=((AssignStmt) s).getLeftOp().toString();
-				lockObjMap.put(leftOp,s.getFieldRef().getField().getName());
+				}
+				
+			}
+						
+			
+			if(rightOp.contains("locks.Lock")){
+								
+				lockObjMap.put(leftOp,s.getFieldRef().getField().toString());
 				
 			}
 			else if(s.containsInvokeExpr() && !( stmtStr.contains("start(") || stmtStr.contains("<init>(") || stmtStr.contains("join(") ) && stmtStr.contains("test") ){
@@ -277,13 +302,13 @@ public class SymbolicExecution extends SceneTransformer {
 				}
 			}
 			
-			else if(s.containsFieldRef() && ( stmtStr.contains("Integer") || stmtStr.contains("Double") || stmtStr.contains("Long") || stmtStr.contains("Short") || stmtStr.contains("Byte") || stmtStr.contains("int ") || stmtStr.contains("double ") || stmtStr.contains("long ") || stmtStr.contains("float "))){
+			else if(s.containsFieldRef() && ( stmtStr.contains("Integer") || stmtStr.contains("Double") || stmtStr.contains("Character") || stmtStr.contains("Boolean") ||  stmtStr.contains("int ") || stmtStr.contains("double ") || stmtStr.contains("char ") || stmtStr.contains("boolean "))){
 				Value rightop= ((AssignStmt) s).getRightOp();
 				Value leftop=  ((AssignStmt) s).getLeftOp();
 				//System.out.println(s.getFieldRef().getField().getName());
 				int r=rightop.toString().length();
 				int l=leftop.toString().length();
-				varName=s.getFieldRef().getField().getName();
+				varName=s.getFieldRef().getField().toString();
 							
 				if(l>r){
 					if(writeCountForSymVal.containsKey(varName))	writeCountForSymVal.put(varName,writeCountForSymVal.get(varName)+1);
@@ -365,18 +390,29 @@ public class SymbolicExecution extends SceneTransformer {
 			}
 			else if(stmtStr.contains("void lock()") ){
 				AbstractInstanceInvokeExpr expr1=(AbstractInstanceInvokeExpr)s.getInvokeExpr();
+				String lockName=lockObjMap.get(expr1.getBase().toString());
 				
-				stmtToPrint= thread+", Lock, "+lockObjMap.get(expr1.getBase().toString());
+				stmtToPrint= thread+", Lock, "+lockName;
 				programOrderConst.get(thread).put("O_"+thread+"_"+cntProgramOrder, stmtToPrint);
+				if(!lockListMap.containsKey(lockName)) lockListMap.put(lockName, new LinkedList<MyLock>());
+				
+				MyLock loc=new MyLock("O_"+thread+"_"+cntProgramOrder, "");				
+				lockListMap.get(lockName).addLast(loc);
+				
 				cntProgramOrder++;
 				System.out.println(stmtToPrint);
 				
 			}
 			else if(stmtStr.contains("void unlock()")){
 				AbstractInstanceInvokeExpr expr1=(AbstractInstanceInvokeExpr)s.getInvokeExpr();
-				
-				stmtToPrint= thread+", Unlock, "+lockObjMap.get(expr1.getBase().toString());
+				String lockName=lockObjMap.get(expr1.getBase().toString());
+				stmtToPrint= thread+", Unlock, "+lockName;
 				programOrderConst.get(thread).put("O_"+thread+"_"+cntProgramOrder, stmtToPrint);
+				
+				MyLock temp=lockListMap.get(lockName).removeLast();
+				MyLock loc=new MyLock(temp.lockO, "O_"+thread+"_"+cntProgramOrder);
+				lockListMap.get(lockName).addLast(loc);
+				
 				cntProgramOrder++;
 				System.out.println(stmtToPrint);
 				
@@ -406,6 +442,64 @@ public class SymbolicExecution extends SceneTransformer {
 		}
 		
 	return;	
+	
 	}
-
+	
+	public void generateLockUnlockConstr(){
+		Iterator<String>lockIt= lockListMap.keySet().iterator();		//iterator of list of locks(lock1, lock2)
+		while(lockIt.hasNext()){
+			
+			String loc=lockIt.next();					//get the object list of lock into loc.     Onject list=MyLock Object which contains 'O'(order) variables-
+			LinkedList<MyLock> a=lockListMap.get(loc);	//- of lock-unlock,which will be required in contraint generation
+			int size=a.size();
+				for(int i=0;i<size-1;i++){
+			
+					MyLock ob1=a.get(i);				//
+					String lock1=ob1.lockO;
+					String unlock1=ob1.unlockO;
+					IntExpr l1=ctx.mkIntConst(lock1);
+					IntExpr u1=ctx.mkIntConst(unlock1);
+					for(int j=i+1;j<size;j++){
+			
+						MyLock ob2=a.get(j);
+						String lock2=ob2.lockO;
+						String unlock2=ob2.unlockO;
+						IntExpr l2=ctx.mkIntConst(lock2);
+						IntExpr u2=ctx.mkIntConst(unlock2);
+											
+						BoolExpr[] lt_OR_gt=new BoolExpr[2];
+						lt_OR_gt[0]=ctx.mkLt(u1, l2);	//less than
+						lt_OR_gt[1]=ctx.mkGt(l1, u2);	//greater than
+						
+						
+						constraints[c++]=ctx.mkOr(lt_OR_gt);
+						
+					}
+				}
+		}
+	}
+	
+	public void handleclinit(Body b){
+		PatchingChain<Unit> byteU=b.getUnits();
+		Iterator<Unit> iter=byteU.iterator();
+		while(iter.hasNext()){
+			Stmt s=(Stmt)iter.next();
+			String stmtStr=s.toString();
+			if(s.containsFieldRef() && ( stmtStr.contains("Integer") || stmtStr.contains("Double") || stmtStr.contains("Character") || stmtStr.contains("Boolean") ||  stmtStr.contains("int ") || stmtStr.contains("double ") || stmtStr.contains("char ") || stmtStr.contains("boolean "))){
+				Value rightop= ((AssignStmt) s).getRightOp();
+				Value leftop=  ((AssignStmt) s).getLeftOp();
+				//System.out.println(s.getFieldRef().getField().getName());
+				varName=s.getFieldRef().getField().toString();
+						
+					writeCountForSymVal.put(varName,1);
+					
+					stmtToPrint= "0, Write, "+varName+", Sym_Val_"+varName+"_W1";
+					programOrderConst.get("0").put("O_"+"0"+"_"+cntProgramOrder, stmtToPrint);
+					cntProgramOrder++;
+					System.out.println(stmtToPrint);
+			
+			}
+		}
+	}
 }
+	
