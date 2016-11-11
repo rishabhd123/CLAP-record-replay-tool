@@ -17,9 +17,15 @@ import soot.SootClass;
 import soot.SootMethod;
 import soot.Unit;
 import soot.Value;
+import soot.jimple.AddExpr;
 import soot.jimple.AssignStmt;
+import soot.jimple.BinopExpr;
+import soot.jimple.Constant;
+import soot.jimple.DivExpr;
 import soot.jimple.IfStmt;
 import soot.jimple.InvokeStmt;
+import soot.jimple.MulExpr;
+import soot.jimple.RemExpr;
 import soot.jimple.Stmt;
 import soot.jimple.internal.AbstractInstanceInvokeExpr;
 import soot.toolkits.graph.Block;
@@ -41,9 +47,11 @@ public class SymbolicExecution extends SceneTransformer {
 	Hashtable<String,Hashtable<String,String> > programOrderConst=new Hashtable<String,Hashtable<String,String>>();
 	Hashtable<String,Integer> stmtCountOfThread=new Hashtable<String,Integer>();		//contains cnt of nos of stmt executed in particular thread
 	Hashtable<String, LinkedList<MyLock> > lockListMap=new Hashtable<String, LinkedList<MyLock>>();		//Mapping of lock-name and corresponding objects of MyLock
+	Hashtable<String,Integer> localReadCountForSymval;
+	Hashtable<String,Integer> localWriteCountForSymval;
 	
 	BoolExpr[]  constraints=new BoolExpr[100000];		//contains all constraints
-	int c=0;
+	int c=0, blockId,nextBlockId;
 	
 	
 	Context ctx=new Context(new HashMap<String,String>());		//solver specific
@@ -121,10 +129,10 @@ public class SymbolicExecution extends SceneTransformer {
 		BoolExpr[] constraints1= new BoolExpr[c];
 		java.lang.System.arraycopy(constraints, 0, constraints1,0 ,c);
 				
-		//System.out.println(constraints1.length);
+		System.out.println(constraints1.length);
 		solver.add(ctx.mkAnd(constraints1));
 		System.out.println(solver.check());			//solver specific
-		//System.out.println(solver.toString());
+		System.out.println(solver.toString());
 		//solver.check();
 		//Model model=solver.getModel();
 		//System.out.println(model.toString());
@@ -191,7 +199,7 @@ public class SymbolicExecution extends SceneTransformer {
 	public void getTrace(String method,String thread,String blString,boolean newThread){	
 		if(newThread) {
 			cntProgramOrder=2;
-			
+			localWriteCountForSymval=new Hashtable<String,Integer>();
 			forksByThread=0;
 			forkjoinMap=new Hashtable<String,String>();
 			lockObjMap=new Hashtable<String,String>();
@@ -225,9 +233,13 @@ public class SymbolicExecution extends SceneTransformer {
 		ExceptionalBlockGraph graph=new ExceptionalBlockGraph(b);
 		
 		List<Block> blockList=graph.getBlocks();
-		for(String blockStr:blBlocks){
-			int blockId=Integer.parseInt(blockStr);
-		
+		int sizeblBlocks=blBlocks.length;
+		for(int i=0;i<sizeblBlocks;i++)					//for(String blockStr:blBlocks)
+		{	
+			String blockStr=blBlocks[i];
+			blockId=Integer.parseInt(blockStr);					
+			if(i<sizeblBlocks-1) 	nextBlockId=Integer.parseInt(blBlocks[i+1]);					//successor of current block: will be used in "IfStmt"
+			
 			Iterator<Block> blockListIt=blockList.iterator();
 			while(blockListIt.hasNext()){
 				Block bloc=blockListIt.next();
@@ -255,35 +267,260 @@ public class SymbolicExecution extends SceneTransformer {
 	public void printStatement(Stmt s,String thread){				//Print statement of Unit if it is assign or if stmt
 		
 		if(s instanceof IfStmt) { //System.out.println(s);
-			System.out.println("------------------------------------");
-			System.out.println(((IfStmt) s).getCondition().getUseBoxes().get(0).getValue());
-			System.out.println("------------------------------------");
+			BinopExpr binaryExpOfIf=(BinopExpr)((IfStmt) s).getCondition();
+			Value op1=binaryExpOfIf.getOp1();
+			Value op2=binaryExpOfIf.getOp2();
+			String operation=binaryExpOfIf.getSymbol();			
+			String type=binaryExpOfIf.getType().toString();
+			String lhs="SV_"+thread+"_"+op1.toString()+"_W"+localWriteCountForSymval.get(op1.toString());
+			if((blockId+1)==nextBlockId){		//False according to jimple
+								
+				
+			}
+			else{			//True according to jimple
+				
+				
+			}
+			
+			System.out.println(type+"---"+op1+"---"+operation+"---"+op2);
+			
+			//System.out.println("------------------------------------");
+			//System.out.println(((IfStmt) s).getCondition().getUseBoxes().get(0).getValue());
+			//System.out.println("------------------------------------");
 			
 		}
 		
 		else if(s instanceof AssignStmt) {
 			//System.out.println(s);
+			Value rightop= ((AssignStmt) s).getRightOp();
+			Value leftop=  ((AssignStmt) s).getLeftOp();
+			
 			String leftOp=((AssignStmt) s).getLeftOp().toString();
 			String rightOp=((AssignStmt) s).getRightOp().toString();
 			String stmtStr=s.toString();
-			if(stmtStr.contains("Integer") || stmtStr.contains("Double") || stmtStr.contains("Character") || stmtStr.contains("Boolean") ||  stmtStr.contains("int ") || stmtStr.contains("double ") || stmtStr.contains("char ") || stmtStr.contains("boolean ")){
-				if(s.containsFieldRef()){
-					//TODO
-				}
-				else if(s.containsInvokeExpr()){
-					//AbstractInstanceInvokeExpr expr1=(AbstractInstanceInvokeExpr)s.getInvokeExpr();
-					//	String baseObj=expr1.getBase().toString();
-				
-				}
-				
-			}
+			
 						
+			if(s.containsInvokeExpr()){
+				if(stmtStr.contains("Value()")){
+					AbstractInstanceInvokeExpr expr1=(AbstractInstanceInvokeExpr)s.getInvokeExpr();
+					String baseObj=expr1.getBase().toString();
+					String rhs="SV_"+thread+"_"+baseObj+"_W"+localWriteCountForSymval.get(baseObj);
+					
+					if(localWriteCountForSymval.containsKey(leftOp)) 	localWriteCountForSymval.put(leftOp, localWriteCountForSymval.get(leftOp)+1);
+					else		localWriteCountForSymval.put(leftOp, 1);
+					
+					String lhs="SV_"+thread+"_"+leftOp+"_W"+localWriteCountForSymval.get(leftOp);
+					global_eq_local(s.getInvokeExpr().getType().toString(), lhs, rhs);
+					
+					
+				}
+				else if(stmtStr.contains("valueOf(")){
+					
+					if(localWriteCountForSymval.containsKey(leftOp)) 	localWriteCountForSymval.put(leftOp, localWriteCountForSymval.get(leftOp)+1);
+					else		localWriteCountForSymval.put(leftOp, 1);
+					
+					String lhs;
+					Value arg=s.getInvokeExpr().getArg(0);
+					String arg_s=arg.toString();
+					String type=s.getInvokeExpr().getType().toString();
+					
+					lhs="SV_"+thread+"_"+leftOp+"_W"+localWriteCountForSymval.get(leftOp);
+					
+					if(arg instanceof Constant){
+						
+						switch (type){
+						case "java.lang.Integer": 
+							IntExpr lhs0=ctx.mkIntConst(lhs);
+							IntNum rhs0=ctx.mkInt(Integer.parseInt(arg_s));
+							constraints[c++]=ctx.mkEq(lhs0, rhs0);
+							break;
+							
+						case "int":
+							IntExpr lhs1=ctx.mkIntConst(lhs);
+							IntNum rhs1=ctx.mkInt(Integer.parseInt(arg_s));
+							constraints[c++]=ctx.mkEq(lhs1, rhs1);
+							break;
+							
+						case "java.lang.Double": 
+							RealExpr lhs2=ctx.mkRealConst(lhs);
+							RatNum rhs2=ctx.mkReal(arg_s);
+							constraints[c++]=ctx.mkEq(lhs2, rhs2);
+							break;
+							
+						case "double": 
+							RealExpr lhs3=ctx.mkRealConst(lhs);
+							RatNum rhs3=ctx.mkReal(arg_s);
+							constraints[c++]=ctx.mkEq(lhs3, rhs3);
+							break;
+							
+						case "java.lang.Character": 
+							
+							break;
+							
+						case "char": 
+							
+							break;
+							
+						case "java.lang.Boolean": 
+							IntExpr lhs6=ctx.mkIntConst(lhs);
+							IntNum rhs6=ctx.mkInt(Integer.parseInt(arg_s));
+							constraints[c++]=ctx.mkEq(lhs6, rhs6);
+							break;
+							
+						case "boolean":
+							IntExpr lhs7=ctx.mkIntConst(lhs);
+							IntNum rhs7=ctx.mkInt(Integer.parseInt(arg_s));
+							constraints[c++]=ctx.mkEq(lhs7, rhs7);
+							break;
+							
+						}
+						
+						
+					}
+					
+					else{
+												
+						String rhs="SV_"+thread+"_"+arg_s+"_W"+localWriteCountForSymval.get(arg_s);
+						global_eq_local(type, lhs, rhs);
+					}
+					//System.out.println(s.getInvokeExpr().getType().toString()+"--------------------------");
+					
+				}
+			}
+			
+			else if( !(s.containsFieldRef()) && !(stmtStr.contains("$r")) ){	//IMP :: enter here only when ass stmt doesn't contain InvokeExpr,Static global field. :: here "$r" condition is added to eliminate--	
+				//System.out.println(stmtStr+"-----a-------------------");		//-- ass stmt which contains thread object initialization line t1=$r0 or t2=$r1
+				
+				if(localWriteCountForSymval.containsKey(leftOp)) localWriteCountForSymval.put(leftOp, localWriteCountForSymval.get(leftOp)+1);
+				else localWriteCountForSymval.put(leftOp, 1);
+				//System.out.println(leftop.getType().toString());
+				String lhs="SV_"+thread+"_"+leftOp+"_W"+localWriteCountForSymval.get(leftOp);
+				String type=leftop.getType().toString();	
+					if(rightop instanceof BinopExpr){
+						Value op1=((BinopExpr) rightop).getOp1();
+						Value op2=((BinopExpr) rightop).getOp2();
+						if(rightop instanceof AddExpr){
+							
+							if(op1 instanceof Constant && op2 instanceof Constant){
+								
+							}
+							else if(op1 instanceof Constant){
+								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+localWriteCountForSymval.get(op2.toString());
+								CV(type, lhs, op1.toString(), sym_op2, "Add");
+								//System.out.println(sym_op2);
+							}
+							else if(op2 instanceof Constant){
+								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+localWriteCountForSymval.get(op1.toString());
+								VC(type, lhs, sym_op1, op2.toString(), "Add");
+								//System.out.println(sym_op1+"-------"+op1.toString());
+							}
+							else{
+								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+localWriteCountForSymval.get(op1.toString());
+								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+localWriteCountForSymval.get(op2.toString());
+								VV(type, lhs, sym_op1, sym_op2, "Add");
+								//System.out.println(sym_op1+"-------"+op1.toString());
+								
+							}
+							
+							//System.out.println(((BinopExpr) rightop).getOp1()+"---------------"+((BinopExpr) rightop).getOp2());
+							
+							
+						}
+						else if(rightop instanceof MulExpr){
+							
+							if(op1 instanceof Constant && op2 instanceof Constant){
+								
+							}
+							else if(op1 instanceof Constant){
+								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+localWriteCountForSymval.get(op2.toString());
+								CV(type, lhs, op1.toString(), sym_op2, "Mult");
+								//System.out.println(sym_op2);
+							}
+							else if(op2 instanceof Constant){
+								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+localWriteCountForSymval.get(op1.toString());
+								VC(type, lhs, sym_op1, op2.toString(), "Mult");
+								//System.out.println(sym_op1+"-------"+op1.toString());
+							}
+							else{
+								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+localWriteCountForSymval.get(op1.toString());
+								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+localWriteCountForSymval.get(op2.toString());
+								VV(type, lhs, sym_op1, sym_op2, "Mult");
+								//System.out.println(sym_op1+"-------"+op1.toString());
+
+							}
+							
+							//System.out.println(((BinopExpr) rightop).getOp1()+"---------------"+((BinopExpr) rightop).getOp2());
+						
+						}
+						else if(rightop instanceof DivExpr){
+							
+							if(op1 instanceof Constant && op2 instanceof Constant){
+								
+							}
+							else if(op1 instanceof Constant){
+								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+localWriteCountForSymval.get(op2.toString());
+								CV(type, lhs, op1.toString(), sym_op2, "Div");
+								//System.out.println(sym_op2);
+							}
+							else if(op2 instanceof Constant){
+								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+localWriteCountForSymval.get(op1.toString());
+								VC(type, lhs, sym_op1, op2.toString(), "Div");
+								//System.out.println(sym_op1+"-------"+op1.toString());
+							}
+							else{
+								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+localWriteCountForSymval.get(op1.toString());
+								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+localWriteCountForSymval.get(op2.toString());
+								VV(type, lhs, sym_op1, sym_op2, "Div");
+								//System.out.println(sym_op1+"-------"+op1.toString());
+								
+							}
+							
+							//System.out.println(((BinopExpr) rightop).getOp1()+"---------------"+((BinopExpr) rightop).getOp2());
+							
+						}
+						else if(rightop instanceof RemExpr){
+							
+							if(op1 instanceof Constant && op2 instanceof Constant){
+								
+							}
+							else if(op1 instanceof Constant){
+								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+localWriteCountForSymval.get(op2.toString());
+								CV(type, lhs, op1.toString(), sym_op2, "Rem");
+								//System.out.println(sym_op2);
+							}
+							else if(op2 instanceof Constant){
+								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+localWriteCountForSymval.get(op1.toString());
+								VC(type, lhs, sym_op1, op2.toString(), "Rem");
+								//System.out.println(sym_op1+"-------"+op1.toString());
+							}
+							else{
+								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+localWriteCountForSymval.get(op1.toString());
+								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+localWriteCountForSymval.get(op2.toString());
+								VV(type, lhs, sym_op1, sym_op2, "Rem");
+								//System.out.println(sym_op1+"-------"+op1.toString());
+								
+							}
+							
+							//System.out.println(((BinopExpr) rightop).getOp1()+"---------------"+((BinopExpr) rightop).getOp2());
+							
+						}
+						
+					}
+					
+					else{
+						//TODO
+					}
+					
+					
+			}
+			
 			
 			if(rightOp.contains("locks.Lock")){
 								
 				lockObjMap.put(leftOp,s.getFieldRef().getField().toString());
 				
 			}
+			
 			else if(s.containsInvokeExpr() && !( stmtStr.contains("start(") || stmtStr.contains("<init>(") || stmtStr.contains("join(") ) && stmtStr.contains("test") ){
 				String methodInvoked=s.getInvokeExpr().getMethod().toString();
 				if(!hashThreadMethodCount.containsKey(thread)){
@@ -303,19 +540,25 @@ public class SymbolicExecution extends SceneTransformer {
 			}
 			
 			else if(s.containsFieldRef() && ( stmtStr.contains("Integer") || stmtStr.contains("Double") || stmtStr.contains("Character") || stmtStr.contains("Boolean") ||  stmtStr.contains("int ") || stmtStr.contains("double ") || stmtStr.contains("char ") || stmtStr.contains("boolean "))){
-				Value rightop= ((AssignStmt) s).getRightOp();
-				Value leftop=  ((AssignStmt) s).getLeftOp();
+				
+				
 				//System.out.println(s.getFieldRef().getField().getName());
 				int r=rightop.toString().length();
 				int l=leftop.toString().length();
 				varName=s.getFieldRef().getField().toString();
+				
 							
 				if(l>r){
 					if(writeCountForSymVal.containsKey(varName))	writeCountForSymVal.put(varName,writeCountForSymVal.get(varName)+1);
 					else	writeCountForSymVal.put(varName,1);
 					
-					stmtToPrint= thread+", Write, "+varName+", Sym_Val_"+varName+"_W"+writeCountForSymVal.get(varName);
+					stmtToPrint= thread+", Write, "+varName+", SV_"+varName+"_W"+writeCountForSymVal.get(varName);
 					programOrderConst.get(thread).put("O_"+thread+"_"+cntProgramOrder, stmtToPrint);
+					
+					//creating constraints that SV of lhs(static shared var) = SV of rhs(local variable)
+					global_eq_local( s.getFieldRef().getType().toString(), "SV_"+varName+"_W"+writeCountForSymVal.get(varName), "SV_"+thread+"_"+rightOp+"_W"+localWriteCountForSymval.get(rightOp));
+					
+					
 					cntProgramOrder++;
 					System.out.println(stmtToPrint);
 					
@@ -324,8 +567,15 @@ public class SymbolicExecution extends SceneTransformer {
 					if(readCountForSymVal.containsKey(varName))		readCountForSymVal.put(varName,readCountForSymVal.get(varName)+1);
 					else	readCountForSymVal.put(varName,1);
 					
-					stmtToPrint= thread+", Read, "+varName+", Sym_Val_"+varName+"_R"+readCountForSymVal.get(varName);
+					stmtToPrint= thread+", Read, "+varName+", SV_"+varName+"_R"+readCountForSymVal.get(varName);
 					programOrderConst.get(thread).put("O_"+thread+"_"+cntProgramOrder, stmtToPrint);
+					
+					localWriteCountForSymval.put(leftOp, 1);
+					//creating constraints that SV of lhs(local) = SV of rhs(static shared var)		
+					//i am not creating a new function for this, coz this is just opposite of above case
+					global_eq_local(s.getFieldRef().getType().toString(), "SV_"+thread+"_"+leftOp+"_W1" , "SV_"+varName+"_R"+readCountForSymVal.get(varName));
+					
+					
 					cntProgramOrder++;
 					System.out.println(stmtToPrint);
 				}
@@ -500,6 +750,544 @@ public class SymbolicExecution extends SceneTransformer {
 			
 			}
 		}
+	}
+	
+	public void global_eq_local(String type,String SV_lhs,String SV_rhs){
+		
+		switch (type){
+		case "java.lang.Integer": 
+			IntExpr lhs=ctx.mkIntConst(SV_lhs);
+			IntExpr rhs=ctx.mkIntConst(SV_rhs);
+			constraints[c++]=ctx.mkEq(lhs, rhs);
+			break;
+			
+		case "int":
+			IntExpr lhs1=ctx.mkIntConst(SV_lhs);
+			IntExpr rhs1=ctx.mkIntConst(SV_rhs);
+			constraints[c++]=ctx.mkEq(lhs1, rhs1);
+			break;
+			
+		case "java.lang.Double": 
+			RealExpr lhs2=ctx.mkRealConst(SV_lhs);
+			RealExpr rhs2=ctx.mkRealConst(SV_rhs);
+			constraints[c++]=ctx.mkEq(lhs2, rhs2);
+			break;
+			
+		case "double": 
+			RealExpr lhs3=ctx.mkRealConst(SV_lhs);
+			RealExpr rhs3=ctx.mkRealConst(SV_rhs);
+			constraints[c++]=ctx.mkEq(lhs3, rhs3);
+			break;
+			
+		case "java.lang.Character": 
+			
+			break;
+			
+		case "char": 
+			break;
+			
+		case "java.lang.Boolean": 
+			IntExpr lhs6=ctx.mkIntConst(SV_lhs);
+			IntExpr rhs6=ctx.mkIntConst(SV_rhs);
+			constraints[c++]=ctx.mkEq(lhs6, rhs6);
+			break;
+			
+		case "boolean":
+			IntExpr lhs7=ctx.mkIntConst(SV_lhs);
+			IntExpr rhs7=ctx.mkIntConst(SV_rhs);
+			constraints[c++]=ctx.mkEq(lhs7, rhs7);
+			break;
+			
+		}
+		
+	}
+	
+	public void CC(String type,String SV_lhs,String op1,String op2,String operation){
+		ArithExpr rhs=null;
+		
+		switch (type){
+		case "java.lang.Integer": 
+			IntNum[] rightExpr1=new IntNum[2];
+			IntExpr lhs1=ctx.mkIntConst(SV_lhs);
+			IntNum f_op1=ctx.mkInt(Integer.parseInt(op1));
+			IntNum s_op1=ctx.mkInt(Integer.parseInt(op2));
+			rightExpr1[0]=f_op1;
+			rightExpr1[1]=s_op1;
+			switch (operation){
+			case "Add":
+				rhs=ctx.mkAdd(rightExpr1);
+				break;
+			case "Mult":
+				rhs=ctx.mkMul(rightExpr1);
+				break;
+			case "Div":
+				rhs=ctx.mkDiv(f_op1, s_op1);
+				break;
+			case "Rem":
+				rhs=ctx.mkMod(f_op1, s_op1);
+				break;			
+			}
+			
+			
+			constraints[c++]=ctx.mkEq(lhs1, rhs);
+			break;
+			
+		case "int":
+			IntNum[] rightExpr2=new IntNum[2];
+			IntExpr lhs2=ctx.mkIntConst(SV_lhs);
+			IntNum f_op2=ctx.mkInt(Integer.parseInt(op1));
+			IntNum s_op2=ctx.mkInt(Integer.parseInt(op2));
+			rightExpr2[0]=f_op2;
+			rightExpr2[1]=s_op2;
+			switch (operation){
+			case "Add":
+				rhs=ctx.mkAdd(rightExpr2);
+				break;
+			case "Mult":
+				rhs=ctx.mkMul(rightExpr2);
+				break;
+			case "Div":
+				rhs=ctx.mkDiv(f_op2, s_op2);
+				break;
+			case "Rem":
+				rhs=ctx.mkMod(f_op2, s_op2);
+				break;			
+			}
+			
+			
+			constraints[c++]=ctx.mkEq(lhs2, rhs);
+			break;
+			
+		case "java.lang.Double": 
+			RatNum[] rightExpr3=new RatNum[2];
+			RealExpr lhs3=ctx.mkRealConst(SV_lhs);
+			RatNum f_op3=ctx.mkReal(op1);
+			RatNum s_op3=ctx.mkReal(op2);
+			rightExpr3[0]=f_op3;
+			rightExpr3[1]=s_op3;
+			switch (operation){
+			case "Add":
+				rhs=ctx.mkAdd(rightExpr3);
+				break;
+			case "Mult":
+				rhs=ctx.mkMul(rightExpr3);
+				break;
+			case "Div":
+				rhs=ctx.mkDiv(f_op3, s_op3);
+				break;
+					
+			}
+			
+			constraints[c++]=ctx.mkEq(lhs3, rhs);
+			break;
+			
+		case "double": 
+			RatNum[] rightExpr4=new RatNum[2];
+			RealExpr lhs4=ctx.mkRealConst(SV_lhs);
+			RatNum f_op4=ctx.mkReal(op1);
+			RatNum s_op4=ctx.mkReal(op2);
+			rightExpr4[0]=f_op4;
+			rightExpr4[1]=s_op4;
+			switch (operation){
+			case "Add":
+				rhs=ctx.mkAdd(rightExpr4);
+				break;
+			case "Mult":
+				rhs=ctx.mkMul(rightExpr4);
+				break;
+			case "Div":
+				rhs=ctx.mkDiv(f_op4, s_op4);
+				break;
+					
+			}
+			
+			constraints[c++]=ctx.mkEq(lhs4, rhs);
+			break;
+			
+		case "java.lang.Character": 
+			//TODO
+			break;
+			
+		case "char": 
+			//TODO
+			break;
+			
+		case "java.lang.Boolean": 
+			//TODO
+			break;
+			
+		case "boolean":
+			//TODO
+			break;
+			
+		}
+		
+	}
+	
+	public void VC(String type,String SV_lhs,String op1,String op2,String operation){
+		ArithExpr rhs=null;
+		
+		switch (type){
+		case "java.lang.Integer": 
+			IntExpr[] rightExpr1=new IntExpr[2];
+			IntExpr lhs1=ctx.mkIntConst(SV_lhs);
+			IntExpr f_op1=ctx.mkIntConst(op1);
+			IntNum s_op1=ctx.mkInt(Integer.parseInt(op2));
+			rightExpr1[0]=f_op1;
+			rightExpr1[1]=s_op1;
+			switch (operation){
+			case "Add":
+				rhs=ctx.mkAdd(rightExpr1);
+				break;
+			case "Mult":
+				rhs=ctx.mkMul(rightExpr1);
+				break;
+			case "Div":
+				rhs=ctx.mkDiv(f_op1, s_op1);
+				break;
+			case "Rem":
+				rhs=ctx.mkMod(f_op1, s_op1);
+				break;			
+			}
+			
+			
+			constraints[c++]=ctx.mkEq(lhs1, rhs);
+			break;
+			
+		case "int":
+			IntExpr[] rightExpr2=new IntExpr[2];
+			IntExpr lhs2=ctx.mkIntConst(SV_lhs);
+			IntExpr f_op2=ctx.mkIntConst(op1);
+			IntNum s_op2=ctx.mkInt(Integer.parseInt(op2));
+			rightExpr2[0]=f_op2;
+			rightExpr2[1]=s_op2;
+			switch (operation){
+			case "Add":
+				rhs=ctx.mkAdd(rightExpr2);
+				break;
+			case "Mult":
+				rhs=ctx.mkMul(rightExpr2);
+				break;
+			case "Div":
+				rhs=ctx.mkDiv(f_op2, s_op2);
+				break;
+			case "Rem":
+				rhs=ctx.mkMod(f_op2, s_op2);
+				break;			
+			}
+			
+			
+			constraints[c++]=ctx.mkEq(lhs2, rhs);
+			break;
+			
+		case "java.lang.Double": 
+			RealExpr[] rightExpr3=new RealExpr[2];
+			RealExpr lhs3=ctx.mkRealConst(SV_lhs);
+			RealExpr f_op3=ctx.mkRealConst(op1);
+			RatNum s_op3=ctx.mkReal(op2);
+			rightExpr3[0]=f_op3;
+			rightExpr3[1]=s_op3;
+			switch (operation){
+			case "Add":
+				rhs=ctx.mkAdd(rightExpr3);
+				break;
+			case "Mult":
+				rhs=ctx.mkMul(rightExpr3);
+				break;
+			case "Div":
+				rhs=ctx.mkDiv(f_op3, s_op3);
+				break;
+					
+			}
+			
+			constraints[c++]=ctx.mkEq(lhs3, rhs);
+			break;
+			
+		case "double": 
+			RealExpr[] rightExpr4=new RealExpr[2];
+			RealExpr lhs4=ctx.mkRealConst(SV_lhs);
+			RealExpr f_op4=ctx.mkRealConst(op1);
+			RatNum s_op4=ctx.mkReal(op2);
+			rightExpr4[0]=f_op4;
+			rightExpr4[1]=s_op4;
+			switch (operation){
+			case "Add":
+				rhs=ctx.mkAdd(rightExpr4);
+				break;
+			case "Mult":
+				rhs=ctx.mkMul(rightExpr4);
+				break;
+			case "Div":
+				rhs=ctx.mkDiv(f_op4, s_op4);
+				break;
+					
+			}
+			
+			constraints[c++]=ctx.mkEq(lhs4, rhs);
+			break;
+			
+		case "java.lang.Character": 
+			//TODO
+			break;
+			
+		case "char": 
+			//TODO
+			break;
+			
+		case "java.lang.Boolean": 
+			//TODO
+			break;
+			
+		case "boolean":
+			//TODO
+			break;
+			
+		}
+		
+	}
+	
+	public void CV(String type,String SV_lhs,String op1,String op2,String operation){
+		ArithExpr rhs=null;
+		
+		switch (type){
+		case "java.lang.Integer": 
+			IntExpr[] rightExpr1=new IntExpr[2];
+			IntExpr lhs1=ctx.mkIntConst(SV_lhs);
+			IntNum f_op1=	ctx.mkInt(Integer.parseInt(op1));							
+			IntExpr s_op1=	ctx.mkIntConst(op2);
+			rightExpr1[0]=f_op1;
+			rightExpr1[1]=s_op1;
+			switch (operation){
+			case "Add":
+				rhs=ctx.mkAdd(rightExpr1);
+				break;
+			case "Mult":
+				rhs=ctx.mkMul(rightExpr1);
+				break;
+			case "Div":
+				rhs=ctx.mkDiv(f_op1, s_op1);
+				break;
+			case "Rem":
+				rhs=ctx.mkMod(f_op1, s_op1);
+				break;			
+			}
+			
+			
+			constraints[c++]=ctx.mkEq(lhs1, rhs);
+			break;
+			
+		case "int":
+			IntExpr[] rightExpr2=new IntExpr[2];
+			IntExpr lhs2=ctx.mkIntConst(SV_lhs);
+			IntNum f_op2=ctx.mkInt(Integer.parseInt(op1));								
+			IntExpr s_op2=ctx.mkIntConst(op2);
+			rightExpr2[0]=f_op2;
+			rightExpr2[1]=s_op2;
+			switch (operation){
+			case "Add":
+				rhs=ctx.mkAdd(rightExpr2);
+				break;
+			case "Mult":
+				rhs=ctx.mkMul(rightExpr2);
+				break;
+			case "Div":
+				rhs=ctx.mkDiv(f_op2, s_op2);
+				break;
+			case "Rem":
+				rhs=ctx.mkMod(f_op2, s_op2);
+				break;			
+			}
+			
+			
+			constraints[c++]=ctx.mkEq(lhs2, rhs);
+			break;
+			
+		case "java.lang.Double": 
+			RealExpr[] rightExpr3=new RealExpr[2];
+			RealExpr lhs3=ctx.mkRealConst(SV_lhs);
+			RatNum f_op3=	ctx.mkReal(op1);				
+			RealExpr s_op3=ctx.mkRealConst(op2);
+			rightExpr3[0]=f_op3;
+			rightExpr3[1]=s_op3;
+			switch (operation){
+			case "Add":
+				rhs=ctx.mkAdd(rightExpr3);
+				break;
+			case "Mult":
+				rhs=ctx.mkMul(rightExpr3);
+				break;
+			case "Div":
+				rhs=ctx.mkDiv(f_op3, s_op3);
+				break;
+					
+			}
+			
+			constraints[c++]=ctx.mkEq(lhs3, rhs);
+			break;
+			
+		case "double": 
+			RealExpr[] rightExpr4=new RealExpr[2];
+			RealExpr lhs4=ctx.mkRealConst(SV_lhs);
+			RatNum f_op4=	ctx.mkReal(op1);					
+			RealExpr s_op4=ctx.mkRealConst(op2);
+			rightExpr4[0]=f_op4;
+			rightExpr4[1]=s_op4;
+			switch (operation){
+			case "Add":
+				rhs=ctx.mkAdd(rightExpr4);
+				break;
+			case "Mult":
+				rhs=ctx.mkMul(rightExpr4);
+				break;
+			case "Div":
+				rhs=ctx.mkDiv(f_op4, s_op4);
+				break;
+					
+			}
+			
+			constraints[c++]=ctx.mkEq(lhs4, rhs);
+			break;
+			
+		case "java.lang.Character": 
+			//TODO
+			break;
+			
+		case "char": 
+			//TODO
+			break;
+			
+		case "java.lang.Boolean": 
+			//TODO
+			break;
+			
+		case "boolean":
+			//TODO
+			break;
+			
+		}
+		
+	}
+	
+	public void VV(String type,String SV_lhs,String op1,String op2,String operation){
+		ArithExpr rhs=null;
+		
+		switch (type){
+		case "java.lang.Integer": 
+			IntExpr[] rightExpr1=new IntExpr[2];
+			IntExpr lhs1=ctx.mkIntConst(SV_lhs);
+			IntExpr f_op1=	ctx.mkIntConst(op1);			
+			IntExpr s_op1=	ctx.mkIntConst(op2);
+			rightExpr1[0]=f_op1;
+			rightExpr1[1]=s_op1;
+			switch (operation){
+			case "Add":
+				rhs=ctx.mkAdd(rightExpr1);
+				break;
+			case "Mult":
+				rhs=ctx.mkMul(rightExpr1);
+				break;
+			case "Div":
+				rhs=ctx.mkDiv(f_op1, s_op1);
+				break;
+			case "Rem":
+				rhs=ctx.mkMod(f_op1, s_op1);
+				break;			
+			}
+			
+			
+			constraints[c++]=ctx.mkEq(lhs1, rhs);
+			break;
+			
+		case "int":
+			IntExpr[] rightExpr2=new IntExpr[2];
+			IntExpr lhs2=ctx.mkIntConst(SV_lhs);
+			IntExpr f_op2=ctx.mkIntConst(op1);								
+			IntExpr s_op2=ctx.mkIntConst(op2);
+			rightExpr2[0]=f_op2;
+			rightExpr2[1]=s_op2;
+			switch (operation){
+			case "Add":
+				rhs=ctx.mkAdd(rightExpr2);
+				break;
+			case "Mult":
+				rhs=ctx.mkMul(rightExpr2);
+				break;
+			case "Div":
+				rhs=ctx.mkDiv(f_op2, s_op2);
+				break;
+			case "Rem":
+				rhs=ctx.mkMod(f_op2, s_op2);
+				break;			
+			}
+			
+			
+			constraints[c++]=ctx.mkEq(lhs2, rhs);
+			break;
+			
+		case "java.lang.Double": 
+			RealExpr[] rightExpr3=new RealExpr[2];
+			RealExpr lhs3=ctx.mkRealConst(SV_lhs);
+			RealExpr f_op3=	ctx.mkRealConst(op1);				
+			RealExpr s_op3=ctx.mkRealConst(op2);
+			rightExpr3[0]=f_op3;
+			rightExpr3[1]=s_op3;
+			switch (operation){
+			case "Add":
+				rhs=ctx.mkAdd(rightExpr3);
+				break;
+			case "Mult":
+				rhs=ctx.mkMul(rightExpr3);
+				break;
+			case "Div":
+				rhs=ctx.mkDiv(f_op3, s_op3);
+				break;
+					
+			}
+			
+			constraints[c++]=ctx.mkEq(lhs3, rhs);
+			break;
+			
+		case "double": 
+			RealExpr[] rightExpr4=new RealExpr[2];
+			RealExpr lhs4=ctx.mkRealConst(SV_lhs);
+			RealExpr f_op4=	ctx.mkRealConst(op1);					
+			RealExpr s_op4=ctx.mkRealConst(op2);
+			rightExpr4[0]=f_op4;
+			rightExpr4[1]=s_op4;
+			switch (operation){
+			case "Add":
+				rhs=ctx.mkAdd(rightExpr4);
+				break;
+			case "Mult":
+				rhs=ctx.mkMul(rightExpr4);
+				break;
+			case "Div":
+				rhs=ctx.mkDiv(f_op4, s_op4);
+				break;
+					
+			}
+			
+			constraints[c++]=ctx.mkEq(lhs4, rhs);
+			break;
+			
+		case "java.lang.Character": 
+			//TODO
+			break;
+			
+		case "char": 
+			//TODO
+			break;
+			
+		case "java.lang.Boolean": 
+			//TODO
+			break;
+			
+		case "boolean":
+			//TODO
+			break;
+			
+		}
+		
 	}
 }
 	

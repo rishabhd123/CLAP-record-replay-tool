@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
@@ -22,6 +23,11 @@ import java.util.Iterator;
 import java.util.List;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+
+
 import soot.PackManager;
 import soot.Transform;
 
@@ -40,9 +46,16 @@ public class TraceMaker {
 		
 		// The raw output from instrumented code. You'll use this to construct the tuple for each method call
 		String inPath = "Testcases/" + project + "/output/" + testcase;
+
 		// The output files for global trace and tuples. You'll output the results to these files
 		String globalTraceOutPath = "Testcases/" + project + "/processed-output/" + testcase + "-global-trace";
 		String tupleOutPath = "Testcases/" + project + "/tuples/"+ testcase;
+
+
+        // The output files for global trace and tuples. You'll output the results to these files
+		String globalTraceOutPath = "Testcases/" + project + "/processed-output/" + testcase + ".global_trace";
+		String tupleOutPath = "Testcases/" + project + "/processed-output/" + testcase + ".tuples";
+
 
 		System.out.println("Processing " + testcase + " of " + project);
 
@@ -153,7 +166,7 @@ public class TraceMaker {
 		// Output the global trace 
 		PrintWriter globalTraceWriter = new PrintWriter(globalTraceOutPath);
 		globalTraceWriter.print("");
-
+      
 		globalTraceWriter.close();
 
 		// Output the tuples
