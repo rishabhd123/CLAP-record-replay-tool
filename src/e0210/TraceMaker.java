@@ -15,7 +15,6 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.Iterator;
@@ -32,18 +31,14 @@ public class TraceMaker {
 		String project = args[0];
 		String testcase = args[1];
 		
-		try{
-		File f=new File("Testcases/"+project+"/tuples");
-		if(f.exists()) f.delete();
-		f.mkdir();
-		}catch(Exception e){}
+		
 		
 		// The raw output from instrumented code. You'll use this to construct the tuple for each method call
 		String inPath = "Testcases/" + project + "/output/" + testcase;
 		// The output files for global trace and tuples. You'll output the results to these files
-		String globalTraceOutPath = "Testcases/" + project + "/processed-output/" + testcase + "-global-trace";
-		String tupleOutPath = "Testcases/" + project + "/tuples/"+ testcase;
-
+		String globalTraceOutPath = "Testcases/" + project + "/processed-output/" + testcase + ".global_trace";
+		String tupleOutPath = "Testcases/" + project + "/processed-output/" + testcase + ".tuples";
+		
 		System.out.println("Processing " + testcase + " of " + project);
 
 		// Read the contents of the output file into a string
@@ -150,19 +145,7 @@ public class TraceMaker {
            trace entries in ascending order of their order variables.
         */
 
-		// Output the global trace 
-		PrintWriter globalTraceWriter = new PrintWriter(globalTraceOutPath);
-		globalTraceWriter.print("");
-
-		globalTraceWriter.close();
-
-		// Output the tuples
-		PrintWriter tupleWriter = new PrintWriter(tupleOutPath);
-		tupleWriter.print("");
-
-		tupleWriter.close();
-
-
+		
 		return;
 	}
 

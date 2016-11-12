@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import soot.Body;
 import soot.PatchingChain;
@@ -103,7 +104,8 @@ public class SymbolicExecution extends SceneTransformer {
 		
 		
 		String in=null;
-		String inPath="Testcases/"+project+"/tuples/"+testcase;
+		String inPath="Testcases/" + project + "/processed-output/" + testcase + ".tuples";
+
 		try {
 			 in = new String(Files.readAllBytes(Paths.get(inPath)));
 		} catch (IOException e) {/*e.printStackTrace();*/}
@@ -148,9 +150,7 @@ public class SymbolicExecution extends SceneTransformer {
 					
 					
 				
-				//System.out.println(solver.check());		//solver specific
-				//System.out.println(solver.toString());	
-				//System.out.println(cntProgramOrder);
+				
 				
 			}
 						
@@ -186,16 +186,27 @@ public class SymbolicExecution extends SceneTransformer {
 		sortArray();
 
 		//printing global trace
+		String globalTraceOutPath = "Testcases/" + project + "/processed-output/" + testcase + ".global_trace";
+		String globalTrace="";
 		for(Sort t:orderVarValue) {
 			String prnt=programOrderConst.get(t.o_var.split("_")[1]).get(t.o_var);
 			
 			if(prnt.contains("Write") || prnt.contains("Read")){
 				String[] temp=prnt.split(">");
 				System.out.println(temp[0]+">");
+				globalTrace=globalTrace+temp[0]+">\n";
 			}
-			else
-			System.out.println(prnt);
+			else{
+				System.out.println(prnt);
+				globalTrace=globalTrace+prnt+"\n";
+			}
 		}
+		try{
+		PrintWriter globalTraceWriter = new PrintWriter(globalTraceOutPath);
+		globalTraceWriter.print(globalTrace);
+		globalTraceWriter.close();
+		}
+		catch(Exception e){}
 			
 		
 		/* 
