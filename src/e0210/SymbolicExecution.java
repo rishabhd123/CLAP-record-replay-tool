@@ -23,7 +23,6 @@ import soot.jimple.AssignStmt;
 import soot.jimple.BinopExpr;
 import soot.jimple.Constant;
 import soot.jimple.DivExpr;
-import soot.jimple.EqExpr;
 import soot.jimple.IfStmt;
 import soot.jimple.InvokeStmt;
 import soot.jimple.MulExpr;
@@ -53,6 +52,8 @@ public class SymbolicExecution extends SceneTransformer {
 	Hashtable<String, LinkedList<MyLock> > lockListMap=new Hashtable<String, LinkedList<MyLock>>();		//Mapping of lock-name and corresponding objects of MyLock
 	Hashtable<String,Integer> localReadCountForSymval;
 	Hashtable<String,Integer> localWriteCountForSymval;
+	Hashtable<String,LinkedList<RW>> sharedRead=new Hashtable<String,LinkedList<RW>>();
+	Hashtable<String,LinkedList<RW>> sharedWrite=new Hashtable<String,LinkedList<RW>>();
 	List<String> clinitStmt=new ArrayList<>();
 	
 	BoolExpr[]  constraints=new BoolExpr[100000];		//contains all constraints
@@ -153,6 +154,7 @@ public class SymbolicExecution extends SceneTransformer {
 		}
 		
 		generateLockUnlockConstr(); 			//Generating Lock_unlock constraints
+		generateRWConstraints();
 		
 		BoolExpr[] constraints1= new BoolExpr[c];
 		java.lang.System.arraycopy(constraints, 0, constraints1,0 ,c);
@@ -162,10 +164,10 @@ public class SymbolicExecution extends SceneTransformer {
 		System.out.println(solver.check());			//solver specific
 		System.out.println(solver.toString());
 		//solver.check();
-		//Model model=solver.getModel();
-		//System.out.println(model.toString());
+		Model model=solver.getModel();
+		System.out.println(model.toString());
 			
-		
+		System.out.println(programOrderConst);
 		/* 
         SceneTransformer vs BodyTransformer
         ===================================
@@ -610,7 +612,7 @@ public class SymbolicExecution extends SceneTransformer {
 							else if(op2 instanceof Constant){
 								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+op1_toString;				//localWriteCountForSymval.get(op1.toString());
 								VC(type, lhs, sym_op1, op2.toString(), "Mult");
-								//System.out.println(sym_op1+"-------"+op1.toString());
+								//System.out.println("--------------------"+type);
 							}
 							else{
 								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+op1_toString;				//localWriteCountForSymval.get(op1.toString());
@@ -829,9 +831,9 @@ public class SymbolicExecution extends SceneTransformer {
 				varName=s.getFieldRef().getField().toString();
 				
 							
-				if(l>r){
-					if(writeCountForSymVal.containsKey(varName))	writeCountForSymVal.put(varName,writeCountForSymVal.get(varName)+1);
-					else	writeCountForSymVal.put(varName,1);
+				if(l>r){		//Write
+					/*if(writeCountForSymVal.containsKey(varName))*/	writeCountForSymVal.put(varName,writeCountForSymVal.get(varName)+1);
+					//else	writeCountForSymVal.put(varName,1);
 					
 					stmtToPrint= thread+", Write, "+varName+", SV_"+varName+"_W"+writeCountForSymVal.get(varName);
 					programOrderConst.get(thread).put("O_"+thread+"_"+cntProgramOrder, stmtToPrint);
@@ -839,12 +841,16 @@ public class SymbolicExecution extends SceneTransformer {
 					//creating constraints that SV of lhs(static shared var) = SV of rhs(local variable)
 					global_eq_local( s.getFieldRef().getType().toString(), "SV_"+varName+"_W"+writeCountForSymVal.get(varName), "SV_"+thread+"_"+rightOp+"_W"+localWriteCountForSymval.get(rightOp));
 					
+					RW wrOb=new RW( "SV_"+varName+"_W"+writeCountForSymVal.get(varName) , "O_"+thread+"_"+cntProgramOrder);
+					
+					//if(!sharedWrite.containsKey(varName)) sharedWrite.put(varName, new LinkedList<RW>());
+					sharedWrite.get(varName).addLast(wrOb);
 					
 					cntProgramOrder++;
 					System.out.println(stmtToPrint);
 					
 				}
-				else{
+				else{		//Read
 					if(readCountForSymVal.containsKey(varName))		readCountForSymVal.put(varName,readCountForSymVal.get(varName)+1);
 					else	readCountForSymVal.put(varName,1);
 					
@@ -856,6 +862,10 @@ public class SymbolicExecution extends SceneTransformer {
 					//i am not creating a new function for this, coz this is just opposite of above case
 					global_eq_local(s.getFieldRef().getType().toString(), "SV_"+thread+"_"+leftOp+"_W1" , "SV_"+varName+"_R"+readCountForSymVal.get(varName));
 					
+					RW reOb=new RW("SV_"+varName+"_R"+readCountForSymVal.get(varName) , "O_"+thread+"_"+cntProgramOrder);
+					
+					if(!sharedRead.containsKey(varName)) sharedRead.put(varName, new LinkedList<RW>());
+					sharedRead.get(varName).addLast(reOb);
 					
 					cntProgramOrder++;
 					System.out.println(stmtToPrint);
@@ -976,39 +986,7 @@ public class SymbolicExecution extends SceneTransformer {
 	
 	}
 	
-	public void generateLockUnlockConstr(){
-		Iterator<String>lockIt= lockListMap.keySet().iterator();		//iterator of list of locks(lock1, lock2)
-		while(lockIt.hasNext()){
-			
-			String loc=lockIt.next();					//get the object list of lock into loc.     Onject list=MyLock Object which contains 'O'(order) variables-
-			LinkedList<MyLock> a=lockListMap.get(loc);	//- of lock-unlock,which will be required in contraint generation
-			int size=a.size();
-				for(int i=0;i<size-1;i++){
-			
-					MyLock ob1=a.get(i);				//
-					String lock1=ob1.lockO;
-					String unlock1=ob1.unlockO;
-					IntExpr l1=ctx.mkIntConst(lock1);
-					IntExpr u1=ctx.mkIntConst(unlock1);
-					for(int j=i+1;j<size;j++){
-			
-						MyLock ob2=a.get(j);
-						String lock2=ob2.lockO;
-						String unlock2=ob2.unlockO;
-						IntExpr l2=ctx.mkIntConst(lock2);
-						IntExpr u2=ctx.mkIntConst(unlock2);
-											
-						BoolExpr[] lt_OR_gt=new BoolExpr[2];
-						lt_OR_gt[0]=ctx.mkLt(u1, l2);	//less than
-						lt_OR_gt[1]=ctx.mkGt(l1, u2);	//greater than
-						
-						
-						constraints[c++]=ctx.mkOr(lt_OR_gt);
-						
-					}
-				}
-		}
-	}
+	
 	
 	
 	
@@ -1616,7 +1594,10 @@ public class SymbolicExecution extends SceneTransformer {
 					IntExpr lhs=ctx.mkIntConst("SV_"+var_Name+"_W1");
 					IntNum  rhs=ctx.mkInt(Integer.parseInt(arg_s));
 					constraints[c++]=ctx.mkEq(lhs, rhs);
-					
+										
+					RW wrOb= new RW("SV_"+var_Name+"_W1" , "O_0_"+cntProOrder);
+					sharedWrite.put(var_Name, new LinkedList<RW>());
+					sharedWrite.get(var_Name).addLast(wrOb);
 					cntProOrder++;
 					//syso
 				}
@@ -1625,5 +1606,94 @@ public class SymbolicExecution extends SceneTransformer {
 		}
 		
 	}
+	public void generateRWConstraints(){
+		Iterator<String> sharedReadIt=sharedRead.keySet().iterator();		//Iterator for parsing all shared read variables
+		while(sharedReadIt.hasNext()){								
+			String readVar=sharedReadIt.next();								//choose one of the shared read variables
+			LinkedList<RW>  symReadObj=sharedRead.get(readVar);				//Fetch the list of 'RW' objects corresponding to readVar
+																			//choose one symbolic read from list and map it to the different symbolic writes of same variable
+			LinkedList<BoolExpr> containAnd=new LinkedList<BoolExpr>();
+			
+			
+			for(int i=0;i<symReadObj.size();i++){							
+				String symValReadi=symReadObj.get(i).symVal;
+				String orderReadi=symReadObj.get(i).order;
+				LinkedList<RW> symWriteObj=sharedWrite.get(readVar);
+				LinkedList<BoolExpr> containOr1=new LinkedList<BoolExpr>();					// V(OR) ( V_r = w_i ∧ O_w_i < O_r ∧( O_w_j < O_w_i ∨ O_w_j > O_r) )
+				
+				for(int j=0;j<symWriteObj.size();j++){
+					String symValWritej=symWriteObj.get(j).symVal;
+					String orderWritej=symWriteObj.get(j).order;
+					
+					LinkedList<BoolExpr> containAnd1=new LinkedList<BoolExpr>();				//( V_r = w_i ∧ O_w_i < O_r ∧( O_w_j < O_w_i ∨ O_w_j > O_r) )
+					
+					IntExpr read_i=ctx.mkIntConst(symValReadi);
+					IntExpr write_j=ctx.mkIntConst(symValWritej);
+					containAnd1.addLast(ctx.mkEq(read_i, write_j));
+					IntExpr orderRead_i=ctx.mkIntConst(orderReadi);
+					IntExpr orderWrite_j=ctx.mkIntConst(orderWritej);
+					containAnd1.addLast(ctx.mkLt(orderWrite_j, orderRead_i));
+					
+					for(int k=0;k<symWriteObj.size();k++){
+						if(j!=k){
+							String orderWritek=symWriteObj.get(k).order;
+							BoolExpr[] containOr2=new BoolExpr[2];
+							IntExpr orderWrite_k=ctx.mkIntConst(orderWritek);
+							containOr2[0]=ctx.mkLt(orderWrite_k , orderWrite_j );
+							containOr2[1]=ctx.mkGt(orderWrite_k , orderRead_i);
+							containAnd1.addLast(ctx.mkOr(containOr2));
+							
+						}
+					}
+					
+					BoolExpr blexpr=ctx.mkAnd(containAnd1.toArray(new BoolExpr[containAnd1.size()]));
+					containOr1.addLast(blexpr);
+					
+					
+				}
+				BoolExpr blexpr=ctx.mkOr(containOr1.toArray(new BoolExpr[containOr1.size()]));
+				containAnd.addLast(blexpr);
+				
+			}
+			BoolExpr blexp=ctx.mkAnd(containAnd.toArray(new BoolExpr[containAnd.size()]));
+			constraints[c++]=blexp;
+		}
+		
+	}
+	
+	public void generateLockUnlockConstr(){
+		Iterator<String>lockIt= lockListMap.keySet().iterator();		//iterator of list of locks(lock1, lock2)
+		while(lockIt.hasNext()){
+			
+			String loc=lockIt.next();					//get the object list of lock into loc.     Onject list=MyLock Object which contains 'O'(order) variables-
+			LinkedList<MyLock> a=lockListMap.get(loc);	//- of lock-unlock,which will be required in contraint generation
+			int size=a.size();
+				for(int i=0;i<size-1;i++){
+			
+					MyLock ob1=a.get(i);				//
+					String lock1=ob1.lockO;
+					String unlock1=ob1.unlockO;
+					IntExpr l1=ctx.mkIntConst(lock1);
+					IntExpr u1=ctx.mkIntConst(unlock1);
+					for(int j=i+1;j<size;j++){
+			
+						MyLock ob2=a.get(j);
+						String lock2=ob2.lockO;
+						String unlock2=ob2.unlockO;
+						IntExpr l2=ctx.mkIntConst(lock2);
+						IntExpr u2=ctx.mkIntConst(unlock2);
+											
+						BoolExpr[] lt_OR_gt=new BoolExpr[2];
+						lt_OR_gt[0]=ctx.mkLt(u1, l2);	//less than
+						lt_OR_gt[1]=ctx.mkGt(l1, u2);	//greater than
+						
+						
+						constraints[c++]=ctx.mkOr(lt_OR_gt);
+						
+					}
+				}
+		}
+	}
+	
 }
 	

@@ -17,7 +17,6 @@ public class Main {
 	static Lock lock = new ReentrantLock();
 	static Integer shared_int_a = 1;
 
-
 	static class MyThread extends Thread {
 		@Override
 		public void run() {
@@ -27,7 +26,7 @@ public class Main {
 									 */
 
 			lock.lock();
-			if (shared_int_a != 1)
+			if (shared_int_a == 1)
 			/* Only one thread will be able to enter this */
 			{
 			    PoP_Util.registerEvent (1);

@@ -17,7 +17,6 @@ public class Main {
 	static Lock lock = new ReentrantLock();
 	static Integer shared_int_a = 1;
 
-
 	static class MyThread extends Thread {
 		@Override
 		public void run() {
