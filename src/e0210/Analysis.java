@@ -52,6 +52,7 @@ public class Analysis extends BodyTransformer {
 		String currentMethod=b.getMethod().getSignature();
 		
 		//System.out.println(b.toString());
+		//System.out.println(currentMethod+"---------------------------------------------------------------");
 		if(currentMethod.contains("MyCounter") || currentMethod.contains("PoP_Util")) return;
 		//System.out.println(b.getMethod().getSubSignature());
 		

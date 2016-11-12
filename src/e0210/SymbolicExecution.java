@@ -1,6 +1,7 @@
 package e0210;
 
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -22,11 +23,14 @@ import soot.jimple.AssignStmt;
 import soot.jimple.BinopExpr;
 import soot.jimple.Constant;
 import soot.jimple.DivExpr;
+import soot.jimple.EqExpr;
 import soot.jimple.IfStmt;
 import soot.jimple.InvokeStmt;
 import soot.jimple.MulExpr;
 import soot.jimple.RemExpr;
 import soot.jimple.Stmt;
+import soot.jimple.SubExpr;
+import soot.jimple.XorExpr;
 import soot.jimple.internal.AbstractInstanceInvokeExpr;
 import soot.toolkits.graph.Block;
 import soot.toolkits.graph.ExceptionalBlockGraph;
@@ -49,6 +53,7 @@ public class SymbolicExecution extends SceneTransformer {
 	Hashtable<String, LinkedList<MyLock> > lockListMap=new Hashtable<String, LinkedList<MyLock>>();		//Mapping of lock-name and corresponding objects of MyLock
 	Hashtable<String,Integer> localReadCountForSymval;
 	Hashtable<String,Integer> localWriteCountForSymval;
+	List<String> clinitStmt=new ArrayList<>();
 	
 	BoolExpr[]  constraints=new BoolExpr[100000];		//contains all constraints
 	int c=0, blockId,nextBlockId;
@@ -60,7 +65,7 @@ public class SymbolicExecution extends SceneTransformer {
 	
 	
 	String varName,stmtToPrint;		//stmtToPrint::it holds the intrathread stmts which is to be printed on the console
-	int forksByThread,cntProgramOrder;		//Sequence number of stmt which is currently executing
+	int forksByThread,cntProgramOrder,cntProOrder;		//Sequence number of stmt which is currently executing
 	
 	Chain<SootClass> classes=Scene.v().getApplicationClasses();
 	
@@ -75,6 +80,22 @@ public class SymbolicExecution extends SceneTransformer {
 	protected void internalTransform(String phaseName, Map<String, String> options) {	
 		
 		
+		//Handling clinit<>
+		Iterator<SootClass> sootClsIt=classes.iterator();
+		while(sootClsIt.hasNext()){
+			SootClass crntCls=sootClsIt.next();
+			Iterator<SootMethod> sootMthdIt=crntCls.getMethods().iterator();
+			while(sootMthdIt.hasNext()){
+				SootMethod crntMethod=sootMthdIt.next();
+				String nameOfMeth=crntMethod.getSignature();
+				if(nameOfMeth.contains("test") && nameOfMeth.contains("<clinit>()")){
+					handleclinit(crntMethod.getActiveBody());
+				}
+			}
+		}
+		
+		//^Handling clinit<>
+		
 		
 		
 		String in=null;
@@ -88,11 +109,18 @@ public class SymbolicExecution extends SceneTransformer {
 			if(tuple.contains("void main(") || tuple.contains("void run()")){
 				String[] tupleComponents=tuple.split(",");
 				String thread=tupleComponents[1];
-				programOrderConst.put(thread, new Hashtable<String,String>());
+				if(!tuple.contains("void main(") )	programOrderConst.put(thread, new Hashtable<String,String>());
 				
 				stmtToPrint= thread+", Begin";
 				programOrderConst.get(thread).put("O_"+thread+"_1", stmtToPrint);
 				System.out.println(stmtToPrint);
+				if(tuple.contains("void main(") ){
+					for(int i=2,j=0;i<cntProOrder;i++,j++){
+						programOrderConst.get("0").put("O_0_"+i, clinitStmt.get(j));
+						System.out.println(clinitStmt.get(j));
+					}
+					
+				}
 				
 				
 				getTrace(tupleComponents[0], tupleComponents[1], tupleComponents[3],true);
@@ -198,7 +226,9 @@ public class SymbolicExecution extends SceneTransformer {
 
 	public void getTrace(String method,String thread,String blString,boolean newThread){	
 		if(newThread) {
-			cntProgramOrder=2;
+			if(thread.equals("0")) cntProgramOrder=cntProOrder;
+			else cntProgramOrder=2;
+			
 			localWriteCountForSymval=new Hashtable<String,Integer>();
 			forksByThread=0;
 			forkjoinMap=new Hashtable<String,String>();
@@ -274,15 +304,149 @@ public class SymbolicExecution extends SceneTransformer {
 			String type=binaryExpOfIf.getType().toString();
 			String lhs="SV_"+thread+"_"+op1.toString()+"_W"+localWriteCountForSymval.get(op1.toString());
 			if((blockId+1)==nextBlockId){		//False according to jimple
+				switch (operation){
+				case " != ": operation=" == "; break;
+				case " == ": operation=" != "; break;
+				case " >= ": operation=" < "; break;
+				case " <= ": operation=" > "; break;
+				case " < ": operation=" >= "; break;
+				case " > ": operation=" <= "; break;
 								
+				}	
+					
 				
 			}
-			else{			//True according to jimple
+			
+			
+			if(op2 instanceof Constant){			//when rhs of Ifstmt condition in constant
+				switch (type){
+				
+				case "java.lang.Integer":
+					IntExpr lhs1=ctx.mkIntConst(lhs);
+					IntNum  rhs1=ctx.mkInt(Integer.parseInt(op2.toString()));
+					
+						switch (operation){
+							case " != ": 
+								constraints[c++]= ctx.mkNot(ctx.mkEq(lhs1, rhs1));
+								break;
+							case " == ": 
+								constraints[c++]= ctx.mkEq(lhs1, rhs1);
+								break;
+							case " >= ": 
+								constraints[c++]=ctx.mkGe(lhs1, rhs1);
+								break;
+							case " <= ": 
+								constraints[c++]=ctx.mkLe(lhs1, rhs1);
+								break;
+							case " < ": 
+								constraints[c++]=ctx.mkLt(lhs1, rhs1);
+								break;
+							case " > ": 
+								constraints[c++]=ctx.mkGt(lhs1, rhs1);
+								break;
+						
+						}
+					
+					break;
+					
+				case "int":
+					IntExpr lhs2=ctx.mkIntConst(lhs);
+					IntNum  rhs2=ctx.mkInt(Integer.parseInt(op2.toString()));
+					
+						switch (operation){
+							case " != ": 
+								constraints[c++]= ctx.mkNot(ctx.mkEq(lhs2, rhs2));
+								break;
+							case " == ": 
+								constraints[c++]= ctx.mkEq(lhs2, rhs2);
+								break;
+							case " >= ": 
+								constraints[c++]=ctx.mkGe(lhs2, rhs2);
+								break;
+							case " <= ": 
+								constraints[c++]=ctx.mkLe(lhs2, rhs2);
+								break;
+							case " < ": 
+								constraints[c++]=ctx.mkLt(lhs2, rhs2);
+								break;
+							case " > ": 
+								constraints[c++]=ctx.mkGt(lhs2, rhs2);
+								break;
+						
+						}
+					
+					break;	
+				
+				}
+				
+			}
+			else{
+				String rhs="SV_"+thread+"_"+op2.toString()+"_W"+localWriteCountForSymval.get(op2.toString());
+				switch (type){
+				
+				case "java.lang.Integer":
+					IntExpr lhs1=ctx.mkIntConst(lhs);
+					IntExpr  rhs1=ctx.mkIntConst(rhs);
+					
+						switch (operation){
+							case " != ": 
+								constraints[c++]= ctx.mkNot(ctx.mkEq(lhs1, rhs1));
+								break;
+							case " == ": 
+								constraints[c++]= ctx.mkEq(lhs1, rhs1);
+								break;
+							case " >= ": 
+								constraints[c++]=ctx.mkGe(lhs1, rhs1);
+								break;
+							case " <= ": 
+								constraints[c++]=ctx.mkLe(lhs1, rhs1);
+								break;
+							case " < ": 
+								constraints[c++]=ctx.mkLt(lhs1, rhs1);
+								break;
+							case " > ": 
+								constraints[c++]=ctx.mkGt(lhs1, rhs1);
+								break;
+						
+						}
+					
+					break;
+					
+				case "int":
+					IntExpr lhs2=ctx.mkIntConst(lhs);
+					IntExpr  rhs2=ctx.mkIntConst(rhs);
+					
+						switch (operation){
+							case " != ": 
+								constraints[c++]= ctx.mkNot(ctx.mkEq(lhs2, rhs2));
+								break;
+							case " == ": 
+								constraints[c++]= ctx.mkEq(lhs2, rhs2);
+								break;
+							case " >= ": 
+								constraints[c++]=ctx.mkGe(lhs2, rhs2);
+								break;
+							case " <= ": 
+								constraints[c++]=ctx.mkLe(lhs2, rhs2);
+								break;
+							case " < ": 
+								constraints[c++]=ctx.mkLt(lhs2, rhs2);
+								break;
+							case " > ": 
+								constraints[c++]=ctx.mkGt(lhs2, rhs2);
+								break;
+						
+						}
+					
+					break;	
+				
+				}
 				
 				
 			}
 			
-			System.out.println(type+"---"+op1+"---"+operation+"---"+op2);
+			
+			//System.out.println(type+"---"+op1+"---"+operation+"---"+op2);
 			
 			//System.out.println("------------------------------------");
 			//System.out.println(((IfStmt) s).getCondition().getUseBoxes().get(0).getValue());
@@ -391,32 +555,39 @@ public class SymbolicExecution extends SceneTransformer {
 			else if( !(s.containsFieldRef()) && !(stmtStr.contains("$r")) ){	//IMP :: enter here only when ass stmt doesn't contain InvokeExpr,Static global field. :: here "$r" condition is added to eliminate--	
 				//System.out.println(stmtStr+"-----a-------------------");		//-- ass stmt which contains thread object initialization line t1=$r0 or t2=$r1
 				
-				if(localWriteCountForSymval.containsKey(leftOp)) localWriteCountForSymval.put(leftOp, localWriteCountForSymval.get(leftOp)+1);
-				else localWriteCountForSymval.put(leftOp, 1);
-				//System.out.println(leftop.getType().toString());
-				String lhs="SV_"+thread+"_"+leftOp+"_W"+localWriteCountForSymval.get(leftOp);
+				
 				String type=leftop.getType().toString();	
 					if(rightop instanceof BinopExpr){
 						Value op1=((BinopExpr) rightop).getOp1();
 						Value op2=((BinopExpr) rightop).getOp2();
+						
+						Integer op1_toString=localWriteCountForSymval.get(op1.toString());
+						Integer op2_toString=localWriteCountForSymval.get(op2.toString());
+						
+						//To handle a=a+1 type of situation i am placing the if-else just below earlier it was at the beginning of this block(else-if block)
+						if(localWriteCountForSymval.containsKey(leftOp)) 		localWriteCountForSymval.put(leftOp, localWriteCountForSymval.get(leftOp)+1);
+						else localWriteCountForSymval.put(leftOp, 1);
+						//System.out.println(leftop.getType().toString());
+						String lhs="SV_"+thread+"_"+leftOp+"_W"+localWriteCountForSymval.get(leftOp);
+						
 						if(rightop instanceof AddExpr){
 							
 							if(op1 instanceof Constant && op2 instanceof Constant){
 								
 							}
 							else if(op1 instanceof Constant){
-								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+localWriteCountForSymval.get(op2.toString());
+								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+op2_toString;				//localWriteCountForSymval.get(op2.toString());
 								CV(type, lhs, op1.toString(), sym_op2, "Add");
 								//System.out.println(sym_op2);
 							}
 							else if(op2 instanceof Constant){
-								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+localWriteCountForSymval.get(op1.toString());
+								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+op1_toString;				//localWriteCountForSymval.get(op1.toString());
 								VC(type, lhs, sym_op1, op2.toString(), "Add");
 								//System.out.println(sym_op1+"-------"+op1.toString());
 							}
 							else{
-								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+localWriteCountForSymval.get(op1.toString());
-								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+localWriteCountForSymval.get(op2.toString());
+								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+op1_toString;				//localWriteCountForSymval.get(op1.toString());
+								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+op2_toString;				//localWriteCountForSymval.get(op2.toString());
 								VV(type, lhs, sym_op1, sym_op2, "Add");
 								//System.out.println(sym_op1+"-------"+op1.toString());
 								
@@ -432,18 +603,18 @@ public class SymbolicExecution extends SceneTransformer {
 								
 							}
 							else if(op1 instanceof Constant){
-								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+localWriteCountForSymval.get(op2.toString());
+								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+op2_toString;				//localWriteCountForSymval.get(op2.toString());
 								CV(type, lhs, op1.toString(), sym_op2, "Mult");
 								//System.out.println(sym_op2);
 							}
 							else if(op2 instanceof Constant){
-								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+localWriteCountForSymval.get(op1.toString());
+								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+op1_toString;				//localWriteCountForSymval.get(op1.toString());
 								VC(type, lhs, sym_op1, op2.toString(), "Mult");
 								//System.out.println(sym_op1+"-------"+op1.toString());
 							}
 							else{
-								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+localWriteCountForSymval.get(op1.toString());
-								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+localWriteCountForSymval.get(op2.toString());
+								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+op1_toString;				//localWriteCountForSymval.get(op1.toString());
+								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+op2_toString;				//localWriteCountForSymval.get(op2.toString());
 								VV(type, lhs, sym_op1, sym_op2, "Mult");
 								//System.out.println(sym_op1+"-------"+op1.toString());
 
@@ -458,18 +629,18 @@ public class SymbolicExecution extends SceneTransformer {
 								
 							}
 							else if(op1 instanceof Constant){
-								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+localWriteCountForSymval.get(op2.toString());
+								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+op2_toString;				//localWriteCountForSymval.get(op2.toString());
 								CV(type, lhs, op1.toString(), sym_op2, "Div");
 								//System.out.println(sym_op2);
 							}
 							else if(op2 instanceof Constant){
-								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+localWriteCountForSymval.get(op1.toString());
+								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+op1_toString;				//localWriteCountForSymval.get(op1.toString());
 								VC(type, lhs, sym_op1, op2.toString(), "Div");
 								//System.out.println(sym_op1+"-------"+op1.toString());
 							}
 							else{
-								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+localWriteCountForSymval.get(op1.toString());
-								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+localWriteCountForSymval.get(op2.toString());
+								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+op1_toString;				//localWriteCountForSymval.get(op1.toString());
+								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+op2_toString;				//localWriteCountForSymval.get(op2.toString());
 								VV(type, lhs, sym_op1, sym_op2, "Div");
 								//System.out.println(sym_op1+"-------"+op1.toString());
 								
@@ -484,18 +655,18 @@ public class SymbolicExecution extends SceneTransformer {
 								
 							}
 							else if(op1 instanceof Constant){
-								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+localWriteCountForSymval.get(op2.toString());
+								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+op2_toString;				//localWriteCountForSymval.get(op2.toString());
 								CV(type, lhs, op1.toString(), sym_op2, "Rem");
 								//System.out.println(sym_op2);
 							}
 							else if(op2 instanceof Constant){
-								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+localWriteCountForSymval.get(op1.toString());
+								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+op1_toString;				//localWriteCountForSymval.get(op1.toString());
 								VC(type, lhs, sym_op1, op2.toString(), "Rem");
 								//System.out.println(sym_op1+"-------"+op1.toString());
 							}
 							else{
-								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+localWriteCountForSymval.get(op1.toString());
-								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+localWriteCountForSymval.get(op2.toString());
+								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+op1_toString;				//localWriteCountForSymval.get(op1.toString());
+								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+op2_toString;				//localWriteCountForSymval.get(op2.toString());
 								VV(type, lhs, sym_op1, sym_op2, "Rem");
 								//System.out.println(sym_op1+"-------"+op1.toString());
 								
@@ -504,11 +675,121 @@ public class SymbolicExecution extends SceneTransformer {
 							//System.out.println(((BinopExpr) rightop).getOp1()+"---------------"+((BinopExpr) rightop).getOp2());
 							
 						}
+						else if(rightop instanceof SubExpr){
+							
+							if(op1 instanceof Constant && op2 instanceof Constant){
+								
+							}
+							else if(op1 instanceof Constant){
+								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+op2_toString;				//localWriteCountForSymval.get(op2.toString());
+								CV(type, lhs, op1.toString(), sym_op2, "Sub");
+								//System.out.println(sym_op2);
+							}
+							else if(op2 instanceof Constant){
+								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+op1_toString;				//localWriteCountForSymval.get(op1.toString());
+								VC(type, lhs, sym_op1, op2.toString(), "Sub");
+								//System.out.println(sym_op1+"-------"+op1.toString());
+							}
+							else{
+								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+op1_toString;				//localWriteCountForSymval.get(op1.toString());
+								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+op2_toString;				//localWriteCountForSymval.get(op2.toString());
+								VV(type, lhs, sym_op1, sym_op2, "Sub");
+								//System.out.println(sym_op1+"-------"+op1.toString());
+								
+							}
+							
+							//System.out.println(((BinopExpr) rightop).getOp1()+"---------------"+((BinopExpr) rightop).getOp2());
+							
+							
+						}
+						else if(rightop instanceof XorExpr){
+							
+							if(op1 instanceof Constant && op2 instanceof Constant){
+								
+							}
+							else if(op1 instanceof Constant){
+								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+op2_toString;				//localWriteCountForSymval.get(op2.toString());
+								CV(type, lhs, op1.toString(), sym_op2, "Xor");
+								//System.out.println(sym_op2);
+							}
+							else if(op2 instanceof Constant){
+								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+op1_toString;				//localWriteCountForSymval.get(op1.toString());
+								VC(type, lhs, sym_op1, op2.toString(), "Xor");
+								//System.out.println(sym_op1+"-------"+op1.toString());
+							}
+							else{
+								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+op1_toString;				//localWriteCountForSymval.get(op1.toString());
+								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+op2_toString;				//localWriteCountForSymval.get(op2.toString());
+								VV(type, lhs, sym_op1, sym_op2, "Xor");
+								//System.out.println(sym_op1+"-------"+op1.toString());
+								
+							}
+							
+							//System.out.println(((BinopExpr) rightop).getOp1()+"---------------"+((BinopExpr) rightop).getOp2());
+							
+							
+						}
 						
 					}
 					
 					else{
-						//TODO
+																		
+						if(localWriteCountForSymval.containsKey(leftOp)) localWriteCountForSymval.put(leftOp, localWriteCountForSymval.get(leftOp)+1);
+						else localWriteCountForSymval.put(leftOp, 1);
+						String SV_lhs="SV_"+thread+"_"+leftOp+"_W"+localWriteCountForSymval.get(leftOp);
+						
+						if(rightop instanceof Constant){
+							switch (type){
+							case "java.lang.Integer": 
+								IntExpr lhs=ctx.mkIntConst(SV_lhs);
+								IntNum rhs=ctx.mkInt(Integer.parseInt(rightOp));
+								constraints[c++]=ctx.mkEq(lhs, rhs);
+								break;
+								
+							case "int":
+								IntExpr lhs1=ctx.mkIntConst(SV_lhs);
+								IntNum rhs1=ctx.mkInt(Integer.parseInt(rightOp));
+								constraints[c++]=ctx.mkEq(lhs1, rhs1);
+								break;
+								
+							case "java.lang.Double": 
+								RealExpr lhs2=ctx.mkRealConst(SV_lhs);
+								RatNum rhs2=ctx.mkReal(rightOp);
+								constraints[c++]=ctx.mkEq(lhs2, rhs2);
+								break;
+								
+							case "double": 
+								RealExpr lhs3=ctx.mkRealConst(SV_lhs);
+								RatNum rhs3=ctx.mkReal(rightOp);
+								constraints[c++]=ctx.mkEq(lhs3, rhs3);
+								break;
+								
+							case "java.lang.Character": 
+								
+								break;
+								
+							case "char": 
+								break;
+								
+							case "java.lang.Boolean": 
+								IntExpr lhs6=ctx.mkIntConst(SV_lhs);
+								IntNum rhs6=ctx.mkInt(Integer.parseInt(rightOp));
+								constraints[c++]=ctx.mkEq(lhs6, rhs6);
+								break;
+								
+							case "boolean":
+								IntExpr lhs7=ctx.mkIntConst(SV_lhs);
+								IntNum rhs7=ctx.mkInt(Integer.parseInt(rightOp));
+								constraints[c++]=ctx.mkEq(lhs7, rhs7);
+								break;
+								
+							}
+							
+							
+							
+						}
+						
+						
 					}
 					
 					
@@ -729,28 +1010,7 @@ public class SymbolicExecution extends SceneTransformer {
 		}
 	}
 	
-	public void handleclinit(Body b){
-		PatchingChain<Unit> byteU=b.getUnits();
-		Iterator<Unit> iter=byteU.iterator();
-		while(iter.hasNext()){
-			Stmt s=(Stmt)iter.next();
-			String stmtStr=s.toString();
-			if(s.containsFieldRef() && ( stmtStr.contains("Integer") || stmtStr.contains("Double") || stmtStr.contains("Character") || stmtStr.contains("Boolean") ||  stmtStr.contains("int ") || stmtStr.contains("double ") || stmtStr.contains("char ") || stmtStr.contains("boolean "))){
-				Value rightop= ((AssignStmt) s).getRightOp();
-				Value leftop=  ((AssignStmt) s).getLeftOp();
-				//System.out.println(s.getFieldRef().getField().getName());
-				varName=s.getFieldRef().getField().toString();
-						
-					writeCountForSymVal.put(varName,1);
-					
-					stmtToPrint= "0, Write, "+varName+", Sym_Val_"+varName+"_W1";
-					programOrderConst.get("0").put("O_"+"0"+"_"+cntProgramOrder, stmtToPrint);
-					cntProgramOrder++;
-					System.out.println(stmtToPrint);
-			
-			}
-		}
-	}
+	
 	
 	public void global_eq_local(String type,String SV_lhs,String SV_rhs){
 		
@@ -947,7 +1207,13 @@ public class SymbolicExecution extends SceneTransformer {
 				break;
 			case "Rem":
 				rhs=ctx.mkMod(f_op1, s_op1);
-				break;			
+				break;
+			case "Sub":
+				rhs=ctx.mkSub(rightExpr1);
+				break;
+			case "Xor":
+				rhs=ctx.mkBV2Int(ctx.mkBVXOR(ctx.mkInt2BV(32, f_op1), ctx.mkInt2BV(32,s_op1)), true);
+				break;	
 			}
 			
 			
@@ -973,9 +1239,14 @@ public class SymbolicExecution extends SceneTransformer {
 				break;
 			case "Rem":
 				rhs=ctx.mkMod(f_op2, s_op2);
-				break;			
+				break;
+			case "Sub":
+				rhs=ctx.mkSub(rightExpr2);
+				break;
+			case "Xor":
+				rhs=ctx.mkBV2Int(ctx.mkBVXOR(ctx.mkInt2BV(32, f_op2), ctx.mkInt2BV(32,s_op2)), true);
+				break;	
 			}
-			
 			
 			constraints[c++]=ctx.mkEq(lhs2, rhs);
 			break;
@@ -997,6 +1268,9 @@ public class SymbolicExecution extends SceneTransformer {
 			case "Div":
 				rhs=ctx.mkDiv(f_op3, s_op3);
 				break;
+			case "Sub":
+				rhs=ctx.mkSub(rightExpr3);
+				break;	
 					
 			}
 			
@@ -1020,6 +1294,9 @@ public class SymbolicExecution extends SceneTransformer {
 			case "Div":
 				rhs=ctx.mkDiv(f_op4, s_op4);
 				break;
+			case "Sub":
+				rhs=ctx.mkSub(rightExpr4);
+				break;	
 					
 			}
 			
@@ -1069,7 +1346,11 @@ public class SymbolicExecution extends SceneTransformer {
 				break;
 			case "Rem":
 				rhs=ctx.mkMod(f_op1, s_op1);
-				break;			
+				break;
+			case "Sub":
+				rhs=ctx.mkSub(rightExpr1);
+				break;
+				
 			}
 			
 			
@@ -1095,7 +1376,10 @@ public class SymbolicExecution extends SceneTransformer {
 				break;
 			case "Rem":
 				rhs=ctx.mkMod(f_op2, s_op2);
-				break;			
+				break;
+			case "Sub":
+				rhs=ctx.mkSub(rightExpr2);
+				break;	
 			}
 			
 			
@@ -1119,6 +1403,9 @@ public class SymbolicExecution extends SceneTransformer {
 			case "Div":
 				rhs=ctx.mkDiv(f_op3, s_op3);
 				break;
+			case "Sub":
+				rhs=ctx.mkSub(rightExpr3);
+				break;	
 					
 			}
 			
@@ -1142,6 +1429,9 @@ public class SymbolicExecution extends SceneTransformer {
 			case "Div":
 				rhs=ctx.mkDiv(f_op4, s_op4);
 				break;
+			case "Sub":
+				rhs=ctx.mkSub(rightExpr4);
+				break;	
 					
 			}
 			
@@ -1191,7 +1481,10 @@ public class SymbolicExecution extends SceneTransformer {
 				break;
 			case "Rem":
 				rhs=ctx.mkMod(f_op1, s_op1);
-				break;			
+				break;	
+			case "Sub":
+				rhs=ctx.mkSub(rightExpr1);
+				break;
 			}
 			
 			
@@ -1217,7 +1510,10 @@ public class SymbolicExecution extends SceneTransformer {
 				break;
 			case "Rem":
 				rhs=ctx.mkMod(f_op2, s_op2);
-				break;			
+				break;	
+			case "Sub":
+				rhs=ctx.mkSub(rightExpr2);
+				break;	
 			}
 			
 			
@@ -1241,6 +1537,9 @@ public class SymbolicExecution extends SceneTransformer {
 			case "Div":
 				rhs=ctx.mkDiv(f_op3, s_op3);
 				break;
+			case "Sub":
+				rhs=ctx.mkSub(rightExpr3);
+				break;	
 					
 			}
 			
@@ -1264,6 +1563,9 @@ public class SymbolicExecution extends SceneTransformer {
 			case "Div":
 				rhs=ctx.mkDiv(f_op4, s_op4);
 				break;
+			case "Sub":
+				rhs=ctx.mkSub(rightExpr4);
+				break;	
 					
 			}
 			
@@ -1285,6 +1587,40 @@ public class SymbolicExecution extends SceneTransformer {
 		case "boolean":
 			//TODO
 			break;
+			
+		}
+		
+	}
+	
+	public void handleclinit(Body b){
+		programOrderConst.put("0",new Hashtable<String,String>());
+		cntProOrder=2;
+		PatchingChain<Unit> byteU=b.getUnits();
+		Iterator<Unit> iter=byteU.iterator();
+		String arg_s=null;
+		while(iter.hasNext()){
+			Stmt s=(Stmt)iter.next();
+			String stmtStr=s.toString();
+			if(s instanceof AssignStmt){
+				
+				if(stmtStr.contains("valueOf(")){
+					arg_s=s.getInvokeExpr().getArg(0).toString();					
+				}
+				else if( s.containsFieldRef() && stmtStr.contains("Integer")){					
+					String var_Name=s.getFieldRef().getField().toString();
+					writeCountForSymVal.put(var_Name, 1);
+					stmtToPrint="0, Write, "+var_Name+", SV_"+var_Name+"_W1";
+					programOrderConst.get("0").put("O_0_"+cntProOrder, stmtToPrint);
+					clinitStmt.add(stmtToPrint);
+					
+					IntExpr lhs=ctx.mkIntConst("SV_"+var_Name+"_W1");
+					IntNum  rhs=ctx.mkInt(Integer.parseInt(arg_s));
+					constraints[c++]=ctx.mkEq(lhs, rhs);
+					
+					cntProOrder++;
+					//syso
+				}
+			}
 			
 		}
 		
