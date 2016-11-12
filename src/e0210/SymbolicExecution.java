@@ -37,7 +37,6 @@ import soot.util.Chain;
 import com.microsoft.z3.*;
 
 
-
 public class SymbolicExecution extends SceneTransformer {
 	String project,testcase;
 	String[] tupleList=null;
@@ -54,6 +53,10 @@ public class SymbolicExecution extends SceneTransformer {
 	Hashtable<String,Integer> localWriteCountForSymval;
 	Hashtable<String,LinkedList<RW>> sharedRead=new Hashtable<String,LinkedList<RW>>();
 	Hashtable<String,LinkedList<RW>> sharedWrite=new Hashtable<String,LinkedList<RW>>();
+	Hashtable<Integer,String> solverOutput=new Hashtable<Integer,String>();
+	Hashtable<String,String> order_smt_Map=new Hashtable<String,String>();
+	ArrayList<Sort> orderVarValue=new ArrayList<Sort>();
+	
 	List<String> clinitStmt=new ArrayList<>();
 	
 	BoolExpr[]  constraints=new BoolExpr[100000];		//contains all constraints
@@ -162,12 +165,39 @@ public class SymbolicExecution extends SceneTransformer {
 		System.out.println(constraints1.length);
 		solver.add(ctx.mkAnd(constraints1));
 		System.out.println(solver.check());			//solver specific
-		System.out.println(solver.toString());
+		//System.out.println(solver.toString());
 		//solver.check();
 		Model model=solver.getModel();
-		System.out.println(model.toString());
+		//System.out.println(model.toString());
+		
+		
+		//Inserting order variable and their values into array list
+		for(int i=0;i<model.getNumConsts();i++){
+			int o_var_val=Integer.parseInt(model.getConstInterp(model.getDecls()[i]).toString());
+			String o_var=model.getDecls()[i].getName().toString();
 			
-		System.out.println(programOrderConst);
+			Sort obj=new Sort(o_var_val,o_var);
+			if(o_var.contains("O_0"))
+			{	orderVarValue.add(obj);
+				//System.out.println(model.getDecls()[i].getName().toString()+"--"+model.getConstInterp(model.getDecls()[i]) );
+			}
+		}
+		
+		sortArray();
+
+		//printing global trace
+		for(Sort t:orderVarValue) {
+			String prnt=programOrderConst.get(t.o_var.split("_")[1]).get(t.o_var);
+			
+			if(prnt.contains("Write") || prnt.contains("Read")){
+				String[] temp=prnt.split(">");
+				System.out.println(temp[0]+">");
+			}
+			else
+			System.out.println(prnt);
+		}
+			
+		
 		/* 
         SceneTransformer vs BodyTransformer
         ===================================
@@ -1692,6 +1722,29 @@ public class SymbolicExecution extends SceneTransformer {
 						
 					}
 				}
+		}
+	}
+	public void sortArray(){
+		int a,b,k,min;
+		Sort temp;
+		int size=orderVarValue.size();
+		for(int i=0;i<size-1;i++){
+			a=orderVarValue.get(i).o_var_val;
+			k=i;
+			min=a;
+			for(int j=i+1;j<size;j++){
+				b=orderVarValue.get(j).o_var_val;
+				
+				if(b<min){	
+					k=j;
+					min=b;			
+				}
+			}
+			
+			temp=orderVarValue.get(i);
+			orderVarValue.set(i, orderVarValue.get(k));
+			orderVarValue.set(k, temp);
+			
 		}
 	}
 	
