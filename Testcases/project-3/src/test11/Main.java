@@ -57,6 +57,8 @@ public class Main {
         
         shared_int_a = Integer.parseInt (args[0]);
         shared_int_b = Integer.parseInt (args[1]) + shared_int_a;
+	shared_int_a = 1;
+        shared_int_b = 5 + shared_int_a;
         
         PoP_Util.registerFork(t1);
 		t1.start();

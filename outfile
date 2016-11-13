@@ -23,28 +23,28 @@ build-project:
 build:
 
 -testsingle:
-   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-3/sootBin/test11
-     [java] Soot started on Sun Nov 13 23:09:54 IST 2016
-     [java] Transforming test11.Main... 
+   [delete] Deleting directory /home/rishabh/workspace/e0210-project/Testcases/project-3/sootBin/test12
+     [java] Soot started on Mon Nov 14 02:06:46 IST 2016
+     [java] Transforming test12.Main... 
      [java] Transforming e0210.MyCounter... 
      [java] Transforming popUtil.PoP_Util... 
+     [java] Transforming test12.Main$MyThread... 
      [java]     public void <init>()
      [java]     {
-     [java]         test11.Main this;
+     [java]         test12.Main this;
      [java] 
-     [java]         this := @this: test11.Main;
+     [java]         this := @this: test12.Main;
      [java] 
      [java]         specialinvoke this.<java.lang.Object: void <init>()>();
      [java] 
      [java]         return;
      [java]     }
      [java] 
-     [java] Transforming test11.Main$MyThread... 
      [java]     void <init>()
      [java]     {
-     [java]         test11.Main$MyThread this;
+     [java]         test12.Main$MyThread this;
      [java] 
-     [java]         this := @this: test11.Main$MyThread;
+     [java]         this := @this: test12.Main$MyThread;
      [java] 
      [java]         specialinvoke this.<java.lang.Thread: void <init>()>();
      [java] 
@@ -54,7 +54,7 @@ build:
      [java]     public static void main(java.lang.String[]) throws java.lang.InterruptedException
      [java]     {
      [java]         java.lang.String[] args;
-     [java]         test11.Main$MyThread $r0, $r1, $r2;
+     [java]         test12.Main$MyThread $r0, $r1, $r2;
      [java]         java.lang.StringBuilder $r3, $r5, $r7, $r8, $r10;
      [java]         java.io.PrintStream $r4;
      [java]         java.lang.String $r6, $r9, $r11, $r12, $r14;
@@ -63,17 +63,17 @@ build:
      [java] 
      [java]         args := @parameter0: java.lang.String[];
      [java] 
-     [java]         $r0 = new test11.Main$MyThread;
+     [java]         $r0 = new test12.Main$MyThread;
      [java] 
-     [java]         specialinvoke $r0.<test11.Main$MyThread: void <init>()>();
+     [java]         specialinvoke $r0.<test12.Main$MyThread: void <init>()>();
      [java] 
-     [java]         $r1 = new test11.Main$MyThread;
+     [java]         $r1 = new test12.Main$MyThread;
      [java] 
-     [java]         specialinvoke $r1.<test11.Main$MyThread: void <init>()>();
+     [java]         specialinvoke $r1.<test12.Main$MyThread: void <init>()>();
      [java] 
-     [java]         $r2 = new test11.Main$MyThread;
+     [java]         $r2 = new test12.Main$MyThread;
      [java] 
-     [java]         specialinvoke $r2.<test11.Main$MyThread: void <init>()>();
+     [java]         specialinvoke $r2.<test12.Main$MyThread: void <init>()>();
      [java] 
      [java]         $r4 = <java.lang.System: java.io.PrintStream err>;
      [java] 
@@ -103,13 +103,13 @@ build:
      [java] 
      [java]         $r13 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
      [java] 
-     [java]         <test11.Main: java.lang.Integer shared_int_a> = $r13;
+     [java]         <test12.Main: java.lang.Integer shared_int_a> = $r13;
      [java] 
      [java]         $r14 = args[1];
      [java] 
      [java]         $i1 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($r14);
      [java] 
-     [java]         $r15 = <test11.Main: java.lang.Integer shared_int_a>;
+     [java]         $r15 = <test12.Main: java.lang.Integer shared_int_a>;
      [java] 
      [java]         $i2 = virtualinvoke $r15.<java.lang.Integer: int intValue()>();
      [java] 
@@ -117,54 +117,32 @@ build:
      [java] 
      [java]         $r16 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i3);
      [java] 
-     [java]         <test11.Main: java.lang.Integer shared_int_b> = $r16;
+     [java]         <test12.Main: java.lang.Integer shared_int_b> = $r16;
      [java] 
      [java]         staticinvoke <popUtil.PoP_Util: void registerFork(java.lang.Thread)>($r0);
      [java] 
-     [java]         virtualinvoke $r0.<test11.Main$MyThread: void start()>();
+     [java]         virtualinvoke $r0.<test12.Main$MyThread: void start()>();
      [java] 
      [java]         staticinvoke <popUtil.PoP_Util: void registerFork(java.lang.Thread)>($r1);
      [java] 
-     [java]         virtualinvoke $r1.<test11.Main$MyThread: void start()>();
+     [java]         virtualinvoke $r1.<test12.Main$MyThread: void start()>();
      [java] 
      [java]         staticinvoke <popUtil.PoP_Util: void registerFork(java.lang.Thread)>($r2);
      [java] 
-     [java]         virtualinvoke $r2.<test11.Main$MyThread: void start()>();
+     [java]         virtualinvoke $r2.<test12.Main$MyThread: void start()>();
      [java] 
-     [java]         virtualinvoke $r0.<test11.Main$MyThread: void join()>();
+     [java]         virtualinvoke $r0.<test12.Main$MyThread: void join()>();
      [java] 
-     [java]         virtualinvoke $r1.<test11.Main$MyThread: void join()>();
+     [java]         virtualinvoke $r1.<test12.Main$MyThread: void join()>();
      [java] 
-     [java]         virtualinvoke $r2.<test11.Main$MyThread: void join()>();
-     [java] 
-     [java]         return;
-     [java]     }
-     [java] 
-     [java]     static void <clinit>()
-     [java]     {
-     [java]         java.util.concurrent.locks.ReentrantLock $r0;
-     [java]         java.lang.Integer $r1, $r2;
-     [java] 
-     [java]         $r0 = new java.util.concurrent.locks.ReentrantLock;
-     [java] 
-     [java]         specialinvoke $r0.<java.util.concurrent.locks.ReentrantLock: void <init>()>();
-     [java] 
-     [java]         <test11.Main: java.util.concurrent.locks.Lock lock> = $r0;
-     [java] 
-     [java]         $r1 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(1);
-     [java] 
-     [java]         <test11.Main: java.lang.Integer shared_int_a> = $r1;
-     [java] 
-     [java]         $r2 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(2);
-     [java] 
-     [java]         <test11.Main: java.lang.Integer shared_int_b> = $r2;
+     [java]         virtualinvoke $r2.<test12.Main$MyThread: void join()>();
      [java] 
      [java]         return;
      [java]     }
      [java] 
      [java]     public void run()
      [java]     {
-     [java]         test11.Main$MyThread this;
+     [java]         test12.Main$MyThread this;
      [java]         java.lang.StringBuilder $r0, $r4, $r5, $r12, $r16, $r17, $r21, $r25, $r26;
      [java]         java.io.PrintStream $r1, $r13, $r22;
      [java]         java.lang.Thread $r2, $r14, $r23;
@@ -173,7 +151,7 @@ build:
      [java]         java.util.concurrent.locks.Lock $r8, $r19, $r30;
      [java]         int $i0, $i1, $i2, $i3;
      [java] 
-     [java]         this := @this: test11.Main$MyThread;
+     [java]         this := @this: test12.Main$MyThread;
      [java] 
      [java]      label1:
      [java]         $r1 = <java.lang.System: java.io.PrintStream err>;
@@ -200,15 +178,15 @@ build:
      [java] 
      [java]         staticinvoke <popUtil.PoP_Util: void randomDelay()>();
      [java] 
-     [java]         $r8 = <test11.Main: java.util.concurrent.locks.Lock lock>;
+     [java]         $r8 = <test12.Main: java.util.concurrent.locks.Lock lock>;
      [java] 
      [java]         interfaceinvoke $r8.<java.util.concurrent.locks.Lock: void lock()>();
      [java] 
-     [java]         $r9 = <test11.Main: java.lang.Integer shared_int_a>;
+     [java]         $r9 = <test12.Main: java.lang.Integer shared_int_a>;
      [java] 
      [java]         $i0 = virtualinvoke $r9.<java.lang.Integer: int intValue()>();
      [java] 
-     [java]         $r10 = <test11.Main: java.lang.Integer shared_int_b>;
+     [java]         $r10 = <test12.Main: java.lang.Integer shared_int_b>;
      [java] 
      [java]         $i1 = virtualinvoke $r10.<java.lang.Integer: int intValue()>();
      [java] 
@@ -236,7 +214,7 @@ build:
      [java] 
      [java]         virtualinvoke $r22.<java.io.PrintStream: void println(java.lang.String)>($r27);
      [java] 
-     [java]         $r28 = <test11.Main: java.lang.Integer shared_int_a>;
+     [java]         $r28 = <test12.Main: java.lang.Integer shared_int_a>;
      [java] 
      [java]         $i2 = virtualinvoke $r28.<java.lang.Integer: int intValue()>();
      [java] 
@@ -244,9 +222,9 @@ build:
      [java] 
      [java]         $r29 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i3);
      [java] 
-     [java]         <test11.Main: java.lang.Integer shared_int_a> = $r29;
+     [java]         <test12.Main: java.lang.Integer shared_int_a> = $r29;
      [java] 
-     [java]         $r30 = <test11.Main: java.util.concurrent.locks.Lock lock>;
+     [java]         $r30 = <test12.Main: java.util.concurrent.locks.Lock lock>;
      [java] 
      [java]         interfaceinvoke $r30.<java.util.concurrent.locks.Lock: void unlock()>();
      [java] 
@@ -275,7 +253,7 @@ build:
      [java] 
      [java]         virtualinvoke $r13.<java.io.PrintStream: void println(java.lang.String)>($r18);
      [java] 
-     [java]         $r19 = <test11.Main: java.util.concurrent.locks.Lock lock>;
+     [java]         $r19 = <test12.Main: java.util.concurrent.locks.Lock lock>;
      [java] 
      [java]         interfaceinvoke $r19.<java.util.concurrent.locks.Lock: void unlock()>();
      [java] 
@@ -285,139 +263,68 @@ build:
      [java]         return;
      [java]     }
      [java] 
-     [java] Writing to Testcases/project-3/sootBin/test11/Main.class
+     [java]     static void <clinit>()
+     [java]     {
+     [java]         java.util.concurrent.locks.ReentrantLock $r0;
+     [java]         java.lang.Integer $r1, $r2;
+     [java] 
+     [java]         $r0 = new java.util.concurrent.locks.ReentrantLock;
+     [java] 
+     [java]         specialinvoke $r0.<java.util.concurrent.locks.ReentrantLock: void <init>()>();
+     [java] 
+     [java]         <test12.Main: java.util.concurrent.locks.Lock lock> = $r0;
+     [java] 
+     [java]         $r1 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(1);
+     [java] 
+     [java]         <test12.Main: java.lang.Integer shared_int_a> = $r1;
+     [java] 
+     [java]         $r2 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(2);
+     [java] 
+     [java]         <test12.Main: java.lang.Integer shared_int_b> = $r2;
+     [java] 
+     [java]         return;
+     [java]     }
+     [java] 
      [java] Writing to Testcases/project-3/sootBin/e0210/MyCounter.class
+     [java] Writing to Testcases/project-3/sootBin/test12/Main.class
      [java] Writing to Testcases/project-3/sootBin/popUtil/PoP_Util.class
-     [java] Writing to Testcases/project-3/sootBin/test11/Main$MyThread.class
-     [java] Soot finished on Sun Nov 13 23:09:55 IST 2016
+     [java] Writing to Testcases/project-3/sootBin/test12/Main$MyThread.class
+     [java] Soot finished on Mon Nov 14 02:06:47 IST 2016
      [java] Soot has run for 0 min. 0 sec.
      [echo] 
-     [echo] [Completed "run" mode for test11]
+     [echo] [Completed "run" mode for test12]
      [echo] 
-   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-3/output/test11
-     [echo] [Executing test11]
-     [java] void <clinit>(),null,0,3
-     [java] Command line args are 1 5
+   [delete] Deleting: /home/rishabh/workspace/e0210-project/Testcases/project-3/output/test12
+     [echo] [Executing test12]
+     [java] Command line args are 0 0
+     [java] void <clinit>(),null,0,7
+     [java] void <init>(),0,null,1
+     [java] void <init>(),0,null,1
      [java] Thread-0 in new iteration
+     [java] void <init>(),0,null,1
      [java] Thread-1 in new iteration
+     [java] void run(),0.1,0,4
      [java] Thread-2 in new iteration
-     [java] Thread-0 Incremented shared_int_a
-     [java] Thread-0 in new iteration
-     [java] Thread-0 Incremented shared_int_a
-     [java] Thread-0 in new iteration
-     [java] void <init>(),0,null,1
-     [java] void <init>(),0,null,1
-     [java] void <init>(),0,null,1
-     [java] void run(),0.0,0,5
-     [java] Thread-2 Incremented shared_int_a
-     [java] Thread-2 in new iteration
-     [java] Thread-0 Incremented shared_int_a
-     [java] Thread-0 in new iteration
      [java] Thread-1 Incremented shared_int_a
      [java] Thread-1 in new iteration
-     [java] Thread-0 Incremented shared_int_a
-     [java] Thread-0 in new iteration
-     [java] Thread-0 Couldn't increment shared_int_a
-     [java] void run(),0.2,0,5
-     [java] void run(),0.1,0,5
+     [java] Thread-1 Couldn't increment shared_int_a
+     [java] void run(),0.2,0,4
+     [java] void run(),0.0,0,4
      [java] void main(java.lang.String[]),0,0,2
      [java] Thread-2 Couldn't increment shared_int_a
-     [java] Thread-1 Couldn't increment shared_int_a
+     [java] Thread-0 Couldn't increment shared_int_a
      [echo] 
-     [echo] [Post-processing for test11]
+     [echo] [Post-processing for test12]
      [echo] 
-     [java] Processing test11 of project-3
-     [java] Soot started on Sun Nov 13 23:09:56 IST 2016
+     [java] Processing test12 of project-3
+     [java] Soot started on Mon Nov 14 02:06:48 IST 2016
      [java] [Call Graph] For information on where the call graph may be incomplete, use the verbose option to the cg phase.
-     [java] SATISFIABLE---(= |SV_<test11.Main: java.lang.Integer shared_int_a>_W1| 1)
-     [java] SATISFIABLE---(= |SV_<test11.Main: java.lang.Integer shared_int_b>_W1| 2)
-     [java] this := @this: test11.Main$MyThread*****
+     [java] SATISFIABLE---(= |SV_<test12.Main: java.lang.Integer shared_int_a>_W1| 1)
+     [java] SATISFIABLE---(= |SV_<test12.Main: java.lang.Integer shared_int_b>_W1| 2)
+     [java] this := @this: test12.Main$MyThread*****
      [java] $r1 = <java.lang.System: java.io.PrintStream err>*****
      [java] $r0 = new java.lang.StringBuilder*****
-     [java] specialinvoke $r0.<java.lang.StringBuilder: void <init>()>()*****
-     [java] $r2 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>()*****
-     [java] $r3 = virtualinvoke $r2.<java.lang.Thread: java.lang.String getName()>()*****
-     [java] $r4 = virtualinvoke $r0.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3)*****
-     [java] $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" in new iteration")*****
-     [java] $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>()*****
-     [java] virtualinvoke $r1.<java.io.PrintStream: void println(java.lang.String)>($r6)*****
-     [java] $r7 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(1)*****
-     [java] SATISFIABLE---(= SV_0.0_$r7_W1 1)
-     [java] staticinvoke <popUtil.PoP_Util: void registerEvent(java.lang.Integer)>($r7)*****
-     [java] staticinvoke <popUtil.PoP_Util: void randomDelay()>()*****
-     [java] $r8 = <test11.Main: java.util.concurrent.locks.Lock lock>*****
-     [java] interfaceinvoke $r8.<java.util.concurrent.locks.Lock: void lock()>()*****
-     [java] $r9 = <test11.Main: java.lang.Integer shared_int_a>*****
-     [java] SATISFIABLE---(= SV_0.0_$r9_W1 |SV_<test11.Main: java.lang.Integer shared_int_a>_R1|)
-     [java] $i0 = virtualinvoke $r9.<java.lang.Integer: int intValue()>()*****
-     [java] SATISFIABLE---(= SV_0.0_$i0_W1 SV_0.0_$r9_W1)
-     [java] $r10 = <test11.Main: java.lang.Integer shared_int_b>*****
-     [java] SATISFIABLE---(= SV_0.0_$r10_W1 |SV_<test11.Main: java.lang.Integer shared_int_b>_R1|)
-     [java] $i1 = virtualinvoke $r10.<java.lang.Integer: int intValue()>()*****
-     [java] SATISFIABLE---(= SV_0.0_$i1_W1 SV_0.0_$r10_W1)
-     [java] if $i0 > $i1 goto $r11 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(3)*****
-     [java] SATISFIABLE---(> SV_0.0_$i0_W1 SV_0.0_$i1_W1)
-     [java] $r11 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(3)*****
-     [java] SATISFIABLE---(= SV_0.0_$r11_W1 3)
-     [java] staticinvoke <popUtil.PoP_Util: void registerEvent(java.lang.Integer)>($r11)*****
-     [java] $r13 = <java.lang.System: java.io.PrintStream err>*****
-     [java] $r12 = new java.lang.StringBuilder*****
-     [java] specialinvoke $r12.<java.lang.StringBuilder: void <init>()>()*****
-     [java] $r14 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>()*****
-     [java] $r15 = virtualinvoke $r14.<java.lang.Thread: java.lang.String getName()>()*****
-     [java] $r16 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r15)*****
-     [java] $r17 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" Couldn\'t increment shared_int_a")*****
-     [java] $r18 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>()*****
-     [java] virtualinvoke $r13.<java.io.PrintStream: void println(java.lang.String)>($r18)*****
-     [java] $r19 = <test11.Main: java.util.concurrent.locks.Lock lock>*****
-     [java] interfaceinvoke $r19.<java.util.concurrent.locks.Lock: void unlock()>()*****
-     [java] goto [?= return]*****
-     [java] return*****
-     [java] this := @this: test11.Main$MyThread*****
-     [java] $r1 = <java.lang.System: java.io.PrintStream err>*****
-     [java] $r0 = new java.lang.StringBuilder*****
-     [java] specialinvoke $r0.<java.lang.StringBuilder: void <init>()>()*****
-     [java] $r2 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>()*****
-     [java] $r3 = virtualinvoke $r2.<java.lang.Thread: java.lang.String getName()>()*****
-     [java] $r4 = virtualinvoke $r0.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3)*****
-     [java] $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" in new iteration")*****
-     [java] $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>()*****
-     [java] virtualinvoke $r1.<java.io.PrintStream: void println(java.lang.String)>($r6)*****
-     [java] $r7 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(1)*****
-     [java] SATISFIABLE---(= SV_0.2_$r7_W1 1)
-     [java] staticinvoke <popUtil.PoP_Util: void registerEvent(java.lang.Integer)>($r7)*****
-     [java] staticinvoke <popUtil.PoP_Util: void randomDelay()>()*****
-     [java] $r8 = <test11.Main: java.util.concurrent.locks.Lock lock>*****
-     [java] interfaceinvoke $r8.<java.util.concurrent.locks.Lock: void lock()>()*****
-     [java] $r9 = <test11.Main: java.lang.Integer shared_int_a>*****
-     [java] SATISFIABLE---(= SV_0.2_$r9_W1 |SV_<test11.Main: java.lang.Integer shared_int_a>_R2|)
-     [java] $i0 = virtualinvoke $r9.<java.lang.Integer: int intValue()>()*****
-     [java] SATISFIABLE---(= SV_0.2_$i0_W1 SV_0.2_$r9_W1)
-     [java] $r10 = <test11.Main: java.lang.Integer shared_int_b>*****
-     [java] SATISFIABLE---(= SV_0.2_$r10_W1 |SV_<test11.Main: java.lang.Integer shared_int_b>_R2|)
-     [java] $i1 = virtualinvoke $r10.<java.lang.Integer: int intValue()>()*****
-     [java] SATISFIABLE---(= SV_0.2_$i1_W1 SV_0.2_$r10_W1)
-     [java] if $i0 > $i1 goto $r11 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(3)*****
-     [java] SATISFIABLE---(> SV_0.2_$i0_W1 SV_0.2_$i1_W1)
-     [java] $r11 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(3)*****
-     [java] SATISFIABLE---(= SV_0.2_$r11_W1 3)
-     [java] staticinvoke <popUtil.PoP_Util: void registerEvent(java.lang.Integer)>($r11)*****
-     [java] $r13 = <java.lang.System: java.io.PrintStream err>*****
-     [java] $r12 = new java.lang.StringBuilder*****
-     [java] specialinvoke $r12.<java.lang.StringBuilder: void <init>()>()*****
-     [java] $r14 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>()*****
-     [java] $r15 = virtualinvoke $r14.<java.lang.Thread: java.lang.String getName()>()*****
-     [java] $r16 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r15)*****
-     [java] $r17 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" Couldn\'t increment shared_int_a")*****
-     [java] $r18 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>()*****
-     [java] virtualinvoke $r13.<java.io.PrintStream: void println(java.lang.String)>($r18)*****
-     [java] $r19 = <test11.Main: java.util.concurrent.locks.Lock lock>*****
-     [java] interfaceinvoke $r19.<java.util.concurrent.locks.Lock: void unlock()>()*****
-     [java] goto [?= return]*****
-     [java] return*****
-     [java] this := @this: test11.Main$MyThread*****
-     [java] $r1 = <java.lang.System: java.io.PrintStream err>*****
-     [java] $r0 = new java.lang.StringBuilder*****
+     [java] $r0 = new java.lang.StringBuilder--------------------------------------------------------------
      [java] specialinvoke $r0.<java.lang.StringBuilder: void <init>()>()*****
      [java] $r2 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>()*****
      [java] $r3 = virtualinvoke $r2.<java.lang.Thread: java.lang.String getName()>()*****
@@ -429,14 +336,14 @@ build:
      [java] SATISFIABLE---(= SV_0.1_$r7_W1 1)
      [java] staticinvoke <popUtil.PoP_Util: void registerEvent(java.lang.Integer)>($r7)*****
      [java] staticinvoke <popUtil.PoP_Util: void randomDelay()>()*****
-     [java] $r8 = <test11.Main: java.util.concurrent.locks.Lock lock>*****
+     [java] $r8 = <test12.Main: java.util.concurrent.locks.Lock lock>*****
      [java] interfaceinvoke $r8.<java.util.concurrent.locks.Lock: void lock()>()*****
-     [java] $r9 = <test11.Main: java.lang.Integer shared_int_a>*****
-     [java] SATISFIABLE---(= SV_0.1_$r9_W1 |SV_<test11.Main: java.lang.Integer shared_int_a>_R3|)
+     [java] $r9 = <test12.Main: java.lang.Integer shared_int_a>*****
+     [java] SATISFIABLE---(= SV_0.1_$r9_W1 |SV_<test12.Main: java.lang.Integer shared_int_a>_R1|)
      [java] $i0 = virtualinvoke $r9.<java.lang.Integer: int intValue()>()*****
      [java] SATISFIABLE---(= SV_0.1_$i0_W1 SV_0.1_$r9_W1)
-     [java] $r10 = <test11.Main: java.lang.Integer shared_int_b>*****
-     [java] SATISFIABLE---(= SV_0.1_$r10_W1 |SV_<test11.Main: java.lang.Integer shared_int_b>_R3|)
+     [java] $r10 = <test12.Main: java.lang.Integer shared_int_b>*****
+     [java] SATISFIABLE---(= SV_0.1_$r10_W1 |SV_<test12.Main: java.lang.Integer shared_int_b>_R1|)
      [java] $i1 = virtualinvoke $r10.<java.lang.Integer: int intValue()>()*****
      [java] SATISFIABLE---(= SV_0.1_$i1_W1 SV_0.1_$r10_W1)
      [java] if $i0 > $i1 goto $r11 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(3)*****
@@ -446,6 +353,7 @@ build:
      [java] staticinvoke <popUtil.PoP_Util: void registerEvent(java.lang.Integer)>($r11)*****
      [java] $r13 = <java.lang.System: java.io.PrintStream err>*****
      [java] $r12 = new java.lang.StringBuilder*****
+     [java] $r12 = new java.lang.StringBuilder--------------------------------------------------------------
      [java] specialinvoke $r12.<java.lang.StringBuilder: void <init>()>()*****
      [java] $r14 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>()*****
      [java] $r15 = virtualinvoke $r14.<java.lang.Thread: java.lang.String getName()>()*****
@@ -453,205 +361,272 @@ build:
      [java] $r17 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" Couldn\'t increment shared_int_a")*****
      [java] $r18 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>()*****
      [java] virtualinvoke $r13.<java.io.PrintStream: void println(java.lang.String)>($r18)*****
-     [java] $r19 = <test11.Main: java.util.concurrent.locks.Lock lock>*****
+     [java] $r19 = <test12.Main: java.util.concurrent.locks.Lock lock>*****
+     [java] interfaceinvoke $r19.<java.util.concurrent.locks.Lock: void unlock()>()*****
+     [java] goto [?= return]*****
+     [java] return*****
+     [java] this := @this: test12.Main$MyThread*****
+     [java] $r1 = <java.lang.System: java.io.PrintStream err>*****
+     [java] $r0 = new java.lang.StringBuilder*****
+     [java] $r0 = new java.lang.StringBuilder--------------------------------------------------------------
+     [java] specialinvoke $r0.<java.lang.StringBuilder: void <init>()>()*****
+     [java] $r2 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>()*****
+     [java] $r3 = virtualinvoke $r2.<java.lang.Thread: java.lang.String getName()>()*****
+     [java] $r4 = virtualinvoke $r0.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3)*****
+     [java] $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" in new iteration")*****
+     [java] $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>()*****
+     [java] virtualinvoke $r1.<java.io.PrintStream: void println(java.lang.String)>($r6)*****
+     [java] $r7 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(1)*****
+     [java] SATISFIABLE---(= SV_0.2_$r7_W1 1)
+     [java] staticinvoke <popUtil.PoP_Util: void registerEvent(java.lang.Integer)>($r7)*****
+     [java] staticinvoke <popUtil.PoP_Util: void randomDelay()>()*****
+     [java] $r8 = <test12.Main: java.util.concurrent.locks.Lock lock>*****
+     [java] interfaceinvoke $r8.<java.util.concurrent.locks.Lock: void lock()>()*****
+     [java] $r9 = <test12.Main: java.lang.Integer shared_int_a>*****
+     [java] SATISFIABLE---(= SV_0.2_$r9_W1 |SV_<test12.Main: java.lang.Integer shared_int_a>_R2|)
+     [java] $i0 = virtualinvoke $r9.<java.lang.Integer: int intValue()>()*****
+     [java] SATISFIABLE---(= SV_0.2_$i0_W1 SV_0.2_$r9_W1)
+     [java] $r10 = <test12.Main: java.lang.Integer shared_int_b>*****
+     [java] SATISFIABLE---(= SV_0.2_$r10_W1 |SV_<test12.Main: java.lang.Integer shared_int_b>_R2|)
+     [java] $i1 = virtualinvoke $r10.<java.lang.Integer: int intValue()>()*****
+     [java] SATISFIABLE---(= SV_0.2_$i1_W1 SV_0.2_$r10_W1)
+     [java] if $i0 > $i1 goto $r11 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(3)*****
+     [java] SATISFIABLE---(> SV_0.2_$i0_W1 SV_0.2_$i1_W1)
+     [java] $r11 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(3)*****
+     [java] SATISFIABLE---(= SV_0.2_$r11_W1 3)
+     [java] staticinvoke <popUtil.PoP_Util: void registerEvent(java.lang.Integer)>($r11)*****
+     [java] $r13 = <java.lang.System: java.io.PrintStream err>*****
+     [java] $r12 = new java.lang.StringBuilder*****
+     [java] $r12 = new java.lang.StringBuilder--------------------------------------------------------------
+     [java] specialinvoke $r12.<java.lang.StringBuilder: void <init>()>()*****
+     [java] $r14 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>()*****
+     [java] $r15 = virtualinvoke $r14.<java.lang.Thread: java.lang.String getName()>()*****
+     [java] $r16 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r15)*****
+     [java] $r17 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" Couldn\'t increment shared_int_a")*****
+     [java] $r18 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>()*****
+     [java] virtualinvoke $r13.<java.io.PrintStream: void println(java.lang.String)>($r18)*****
+     [java] $r19 = <test12.Main: java.util.concurrent.locks.Lock lock>*****
+     [java] interfaceinvoke $r19.<java.util.concurrent.locks.Lock: void unlock()>()*****
+     [java] goto [?= return]*****
+     [java] return*****
+     [java] this := @this: test12.Main$MyThread*****
+     [java] $r1 = <java.lang.System: java.io.PrintStream err>*****
+     [java] $r0 = new java.lang.StringBuilder*****
+     [java] $r0 = new java.lang.StringBuilder--------------------------------------------------------------
+     [java] specialinvoke $r0.<java.lang.StringBuilder: void <init>()>()*****
+     [java] $r2 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>()*****
+     [java] $r3 = virtualinvoke $r2.<java.lang.Thread: java.lang.String getName()>()*****
+     [java] $r4 = virtualinvoke $r0.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3)*****
+     [java] $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" in new iteration")*****
+     [java] $r6 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>()*****
+     [java] virtualinvoke $r1.<java.io.PrintStream: void println(java.lang.String)>($r6)*****
+     [java] $r7 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(1)*****
+     [java] SATISFIABLE---(= SV_0.0_$r7_W1 1)
+     [java] staticinvoke <popUtil.PoP_Util: void registerEvent(java.lang.Integer)>($r7)*****
+     [java] staticinvoke <popUtil.PoP_Util: void randomDelay()>()*****
+     [java] $r8 = <test12.Main: java.util.concurrent.locks.Lock lock>*****
+     [java] interfaceinvoke $r8.<java.util.concurrent.locks.Lock: void lock()>()*****
+     [java] $r9 = <test12.Main: java.lang.Integer shared_int_a>*****
+     [java] SATISFIABLE---(= SV_0.0_$r9_W1 |SV_<test12.Main: java.lang.Integer shared_int_a>_R3|)
+     [java] $i0 = virtualinvoke $r9.<java.lang.Integer: int intValue()>()*****
+     [java] SATISFIABLE---(= SV_0.0_$i0_W1 SV_0.0_$r9_W1)
+     [java] $r10 = <test12.Main: java.lang.Integer shared_int_b>*****
+     [java] SATISFIABLE---(= SV_0.0_$r10_W1 |SV_<test12.Main: java.lang.Integer shared_int_b>_R3|)
+     [java] $i1 = virtualinvoke $r10.<java.lang.Integer: int intValue()>()*****
+     [java] SATISFIABLE---(= SV_0.0_$i1_W1 SV_0.0_$r10_W1)
+     [java] if $i0 > $i1 goto $r11 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(3)*****
+     [java] SATISFIABLE---(> SV_0.0_$i0_W1 SV_0.0_$i1_W1)
+     [java] $r11 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(3)*****
+     [java] SATISFIABLE---(= SV_0.0_$r11_W1 3)
+     [java] staticinvoke <popUtil.PoP_Util: void registerEvent(java.lang.Integer)>($r11)*****
+     [java] $r13 = <java.lang.System: java.io.PrintStream err>*****
+     [java] $r12 = new java.lang.StringBuilder*****
+     [java] $r12 = new java.lang.StringBuilder--------------------------------------------------------------
+     [java] specialinvoke $r12.<java.lang.StringBuilder: void <init>()>()*****
+     [java] $r14 = staticinvoke <java.lang.Thread: java.lang.Thread currentThread()>()*****
+     [java] $r15 = virtualinvoke $r14.<java.lang.Thread: java.lang.String getName()>()*****
+     [java] $r16 = virtualinvoke $r12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r15)*****
+     [java] $r17 = virtualinvoke $r16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" Couldn\'t increment shared_int_a")*****
+     [java] $r18 = virtualinvoke $r17.<java.lang.StringBuilder: java.lang.String toString()>()*****
+     [java] virtualinvoke $r13.<java.io.PrintStream: void println(java.lang.String)>($r18)*****
+     [java] $r19 = <test12.Main: java.util.concurrent.locks.Lock lock>*****
      [java] interfaceinvoke $r19.<java.util.concurrent.locks.Lock: void unlock()>()*****
      [java] goto [?= return]*****
      [java] return*****
      [java] args := @parameter0: java.lang.String[]*****
-     [java] $r0 = new test11.Main$MyThread*****
-     [java] specialinvoke $r0.<test11.Main$MyThread: void <init>()>()*****
+     [java] $r0 = new test12.Main$MyThread*****
+     [java] $r0 = new test12.Main$MyThread--------------------------------------------------------------
+     [java] specialinvoke $r0.<test12.Main$MyThread: void <init>()>()*****
      [java] t1 = $r0*****
-     [java] $r1 = new test11.Main$MyThread*****
-     [java] specialinvoke $r1.<test11.Main$MyThread: void <init>()>()*****
+     [java] t1 = $r0--------------------------------------------------------------
+     [java] $r1 = new test12.Main$MyThread*****
+     [java] $r1 = new test12.Main$MyThread--------------------------------------------------------------
+     [java] specialinvoke $r1.<test12.Main$MyThread: void <init>()>()*****
      [java] t2 = $r1*****
-     [java] $r2 = new test11.Main$MyThread*****
-     [java] specialinvoke $r2.<test11.Main$MyThread: void <init>()>()*****
+     [java] t2 = $r1--------------------------------------------------------------
+     [java] $r2 = new test12.Main$MyThread*****
+     [java] $r2 = new test12.Main$MyThread--------------------------------------------------------------
+     [java] specialinvoke $r2.<test12.Main$MyThread: void <init>()>()*****
      [java] t3 = $r2*****
+     [java] t3 = $r2--------------------------------------------------------------
      [java] $r4 = <java.lang.System: java.io.PrintStream err>*****
      [java] $r3 = new java.lang.StringBuilder*****
+     [java] $r3 = new java.lang.StringBuilder--------------------------------------------------------------
      [java] specialinvoke $r3.<java.lang.StringBuilder: void <init>()>()*****
      [java] $r5 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Command line args are ")*****
      [java] $r6 = args[0]*****
-     [java] SATISFIABLE---(= args0 1)
-     [java] SATISFIABLE---(= SV_0_$r6_W1 args0)
+     [java] $r6 = args[0]--------------------------------------------------------------
+     [java] SATISFIABLE---(= SV_0_$r6_W1 0)
      [java] $r7 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6)*****
      [java] $r8 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ")*****
      [java] $r9 = args[1]*****
-     [java] SATISFIABLE---(= args50 5)
-     [java] SATISFIABLE---(= SV_0_$r9_W1 args50)
+     [java] $r9 = args[1]--------------------------------------------------------------
+     [java] SATISFIABLE---(= SV_0_$r9_W1 0)
      [java] $r10 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r9)*****
      [java] $r11 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>()*****
      [java] virtualinvoke $r4.<java.io.PrintStream: void println(java.lang.String)>($r11)*****
      [java] $r12 = args[0]*****
-     [java] SATISFIABLE---(= args1 1)
-     [java] SATISFIABLE---(= SV_0_$r12_W1 args1)
+     [java] $r12 = args[0]--------------------------------------------------------------
+     [java] SATISFIABLE---(= SV_0_$r12_W1 0)
      [java] $i0 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($r12)*****
      [java] SATISFIABLE---(= SV_0_$i0_W1 SV_0_$r12_W1)
      [java] $r13 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0)*****
      [java] SATISFIABLE---(= SV_0_$r13_W1 SV_0_$i0_W1)
-     [java] <test11.Main: java.lang.Integer shared_int_a> = $r13*****
-     [java] SATISFIABLE---(= |SV_<test11.Main: java.lang.Integer shared_int_a>_W2| SV_0_$r13_W1)
+     [java] <test12.Main: java.lang.Integer shared_int_a> = $r13*****
+     [java] SATISFIABLE---(= |SV_<test12.Main: java.lang.Integer shared_int_a>_W2| SV_0_$r13_W1)
      [java] $r14 = args[1]*****
-     [java] SATISFIABLE---(= args51 5)
-     [java] SATISFIABLE---(= SV_0_$r14_W1 args51)
+     [java] $r14 = args[1]--------------------------------------------------------------
+     [java] SATISFIABLE---(= SV_0_$r14_W1 0)
      [java] $i1 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($r14)*****
      [java] SATISFIABLE---(= SV_0_$i1_W1 SV_0_$r14_W1)
-     [java] $r15 = <test11.Main: java.lang.Integer shared_int_a>*****
-     [java] SATISFIABLE---(= SV_0_$r15_W1 |SV_<test11.Main: java.lang.Integer shared_int_a>_R4|)
+     [java] $r15 = <test12.Main: java.lang.Integer shared_int_a>*****
+     [java] SATISFIABLE---(= SV_0_$r15_W1 |SV_<test12.Main: java.lang.Integer shared_int_a>_R4|)
      [java] $i2 = virtualinvoke $r15.<java.lang.Integer: int intValue()>()*****
      [java] SATISFIABLE---(= SV_0_$i2_W1 SV_0_$r15_W1)
      [java] $i3 = $i1 + $i2*****
      [java] SATISFIABLE---(= SV_0_$i3_W1 (+ SV_0_$i1_W1 SV_0_$i2_W1))
      [java] $r16 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i3)*****
      [java] SATISFIABLE---(= SV_0_$r16_W1 SV_0_$i3_W1)
-     [java] <test11.Main: java.lang.Integer shared_int_b> = $r16*****
-     [java] SATISFIABLE---(= |SV_<test11.Main: java.lang.Integer shared_int_b>_W2| SV_0_$r16_W1)
+     [java] <test12.Main: java.lang.Integer shared_int_b> = $r16*****
+     [java] SATISFIABLE---(= |SV_<test12.Main: java.lang.Integer shared_int_b>_W2| SV_0_$r16_W1)
      [java] staticinvoke <popUtil.PoP_Util: void registerFork(java.lang.Thread)>(t1)*****
-     [java] virtualinvoke t1.<test11.Main$MyThread: void start()>()*****
+     [java] virtualinvoke t1.<test12.Main$MyThread: void start()>()*****
      [java] SATISFIABLE---(< O_0_7 O_0.0_1)
      [java] staticinvoke <popUtil.PoP_Util: void registerFork(java.lang.Thread)>(t2)*****
-     [java] virtualinvoke t2.<test11.Main$MyThread: void start()>()*****
+     [java] virtualinvoke t2.<test12.Main$MyThread: void start()>()*****
      [java] SATISFIABLE---(< O_0_8 O_0.1_1)
      [java] staticinvoke <popUtil.PoP_Util: void registerFork(java.lang.Thread)>(t3)*****
-     [java] virtualinvoke t3.<test11.Main$MyThread: void start()>()*****
+     [java] virtualinvoke t3.<test12.Main$MyThread: void start()>()*****
      [java] SATISFIABLE---(< O_0_9 O_0.2_1)
-     [java] virtualinvoke t1.<test11.Main$MyThread: void join()>()*****
+     [java] virtualinvoke t1.<test12.Main$MyThread: void join()>()*****
      [java] SATISFIABLE---(> O_0_10 O_0.0_6)
-     [java] virtualinvoke t2.<test11.Main$MyThread: void join()>()*****
+     [java] virtualinvoke t2.<test12.Main$MyThread: void join()>()*****
      [java] SATISFIABLE---(> O_0_11 O_0.1_6)
-     [java] virtualinvoke t3.<test11.Main$MyThread: void join()>()*****
+     [java] virtualinvoke t3.<test12.Main$MyThread: void join()>()*****
      [java] SATISFIABLE---(> O_0_12 O_0.2_6)
      [java] return*****
-     [java] 75
-     [java] UNSATISFIABLE---(let ((a!1 (or (and (= |SV_<test11.Main: java.lang.Integer shared_int_a>_R1|
-     [java]                        |SV_<test11.Main: java.lang.Integer shared_int_a>_W1|)
-     [java]                     (< O_0_2 O_0.0_3)
-     [java]                     (or (< O_0_4 O_0_2) (> O_0_4 O_0.0_3)))
-     [java]                (and (= |SV_<test11.Main: java.lang.Integer shared_int_a>_R1|
-     [java]                        |SV_<test11.Main: java.lang.Integer shared_int_a>_W2|)
-     [java]                     (< O_0_4 O_0.0_3)
-     [java]                     (or (< O_0_2 O_0_4) (> O_0_2 O_0.0_3)))))
-     [java]       (a!2 (or (and (= |SV_<test11.Main: java.lang.Integer shared_int_a>_R2|
-     [java]                        |SV_<test11.Main: java.lang.Integer shared_int_a>_W1|)
-     [java]                     (< O_0_2 O_0.2_3)
-     [java]                     (or (< O_0_4 O_0_2) (> O_0_4 O_0.2_3)))
-     [java]                (and (= |SV_<test11.Main: java.lang.Integer shared_int_a>_R2|
-     [java]                        |SV_<test11.Main: java.lang.Integer shared_int_a>_W2|)
-     [java]                     (< O_0_4 O_0.2_3)
-     [java]                     (or (< O_0_2 O_0_4) (> O_0_2 O_0.2_3)))))
-     [java]       (a!3 (or (and (= |SV_<test11.Main: java.lang.Integer shared_int_a>_R3|
-     [java]                        |SV_<test11.Main: java.lang.Integer shared_int_a>_W1|)
+     [java] 47
+     [java] SATISFIABLE---(let ((a!1 (or (and (= |SV_<test12.Main: java.lang.Integer shared_int_a>_R1|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_a>_W1|)
      [java]                     (< O_0_2 O_0.1_3)
      [java]                     (or (< O_0_4 O_0_2) (> O_0_4 O_0.1_3)))
-     [java]                (and (= |SV_<test11.Main: java.lang.Integer shared_int_a>_R3|
-     [java]                        |SV_<test11.Main: java.lang.Integer shared_int_a>_W2|)
+     [java]                (and (= |SV_<test12.Main: java.lang.Integer shared_int_a>_R1|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_a>_W2|)
      [java]                     (< O_0_4 O_0.1_3)
      [java]                     (or (< O_0_2 O_0_4) (> O_0_2 O_0.1_3)))))
-     [java]       (a!4 (or (and (= |SV_<test11.Main: java.lang.Integer shared_int_a>_R4|
-     [java]                        |SV_<test11.Main: java.lang.Integer shared_int_a>_W1|)
+     [java]       (a!2 (or (and (= |SV_<test12.Main: java.lang.Integer shared_int_a>_R2|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_a>_W1|)
+     [java]                     (< O_0_2 O_0.2_3)
+     [java]                     (or (< O_0_4 O_0_2) (> O_0_4 O_0.2_3)))
+     [java]                (and (= |SV_<test12.Main: java.lang.Integer shared_int_a>_R2|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_a>_W2|)
+     [java]                     (< O_0_4 O_0.2_3)
+     [java]                     (or (< O_0_2 O_0_4) (> O_0_2 O_0.2_3)))))
+     [java]       (a!3 (or (and (= |SV_<test12.Main: java.lang.Integer shared_int_a>_R3|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_a>_W1|)
+     [java]                     (< O_0_2 O_0.0_3)
+     [java]                     (or (< O_0_4 O_0_2) (> O_0_4 O_0.0_3)))
+     [java]                (and (= |SV_<test12.Main: java.lang.Integer shared_int_a>_R3|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_a>_W2|)
+     [java]                     (< O_0_4 O_0.0_3)
+     [java]                     (or (< O_0_2 O_0_4) (> O_0_2 O_0.0_3)))))
+     [java]       (a!4 (or (and (= |SV_<test12.Main: java.lang.Integer shared_int_a>_R4|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_a>_W1|)
      [java]                     (< O_0_2 O_0_5)
      [java]                     (or (< O_0_4 O_0_2) (> O_0_4 O_0_5)))
-     [java]                (and (= |SV_<test11.Main: java.lang.Integer shared_int_a>_R4|
-     [java]                        |SV_<test11.Main: java.lang.Integer shared_int_a>_W2|)
+     [java]                (and (= |SV_<test12.Main: java.lang.Integer shared_int_a>_R4|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_a>_W2|)
      [java]                     (< O_0_4 O_0_5)
      [java]                     (or (< O_0_2 O_0_4) (> O_0_2 O_0_5)))))
-     [java]       (a!5 (or (and (= |SV_<test11.Main: java.lang.Integer shared_int_b>_R1|
-     [java]                        |SV_<test11.Main: java.lang.Integer shared_int_b>_W1|)
-     [java]                     (< O_0_3 O_0.0_4)
-     [java]                     (or (< O_0_6 O_0_3) (> O_0_6 O_0.0_4)))
-     [java]                (and (= |SV_<test11.Main: java.lang.Integer shared_int_b>_R1|
-     [java]                        |SV_<test11.Main: java.lang.Integer shared_int_b>_W2|)
-     [java]                     (< O_0_6 O_0.0_4)
-     [java]                     (or (< O_0_3 O_0_6) (> O_0_3 O_0.0_4)))))
-     [java]       (a!6 (or (and (= |SV_<test11.Main: java.lang.Integer shared_int_b>_R2|
-     [java]                        |SV_<test11.Main: java.lang.Integer shared_int_b>_W1|)
-     [java]                     (< O_0_3 O_0.2_4)
-     [java]                     (or (< O_0_6 O_0_3) (> O_0_6 O_0.2_4)))
-     [java]                (and (= |SV_<test11.Main: java.lang.Integer shared_int_b>_R2|
-     [java]                        |SV_<test11.Main: java.lang.Integer shared_int_b>_W2|)
-     [java]                     (< O_0_6 O_0.2_4)
-     [java]                     (or (< O_0_3 O_0_6) (> O_0_3 O_0.2_4)))))
-     [java]       (a!7 (or (and (= |SV_<test11.Main: java.lang.Integer shared_int_b>_R3|
-     [java]                        |SV_<test11.Main: java.lang.Integer shared_int_b>_W1|)
+     [java]       (a!5 (or (and (= |SV_<test12.Main: java.lang.Integer shared_int_b>_R1|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_b>_W1|)
      [java]                     (< O_0_3 O_0.1_4)
      [java]                     (or (< O_0_6 O_0_3) (> O_0_6 O_0.1_4)))
-     [java]                (and (= |SV_<test11.Main: java.lang.Integer shared_int_b>_R3|
-     [java]                        |SV_<test11.Main: java.lang.Integer shared_int_b>_W2|)
+     [java]                (and (= |SV_<test12.Main: java.lang.Integer shared_int_b>_R1|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_b>_W2|)
      [java]                     (< O_0_6 O_0.1_4)
-     [java]                     (or (< O_0_3 O_0_6) (> O_0_3 O_0.1_4))))))
-     [java]   (and (= |SV_<test11.Main: java.lang.Integer shared_int_a>_W1| 1)
-     [java]        (= |SV_<test11.Main: java.lang.Integer shared_int_b>_W1| 2)
-     [java]        (= SV_0.0_$r7_W1 1)
-     [java]        (= SV_0.0_$r9_W1 |SV_<test11.Main: java.lang.Integer shared_int_a>_R1|)
-     [java]        (= SV_0.0_$i0_W1 SV_0.0_$r9_W1)
-     [java]        (= SV_0.0_$r10_W1 |SV_<test11.Main: java.lang.Integer shared_int_b>_R1|)
-     [java]        (= SV_0.0_$i1_W1 SV_0.0_$r10_W1)
-     [java]        (> SV_0.0_$i0_W1 SV_0.0_$i1_W1)
-     [java]        (= SV_0.0_$r11_W1 3)
-     [java]        (< O_0.0_1 O_0.0_2)
-     [java]        (< O_0.0_2 O_0.0_3)
-     [java]        (< O_0.0_3 O_0.0_4)
-     [java]        (< O_0.0_4 O_0.0_5)
-     [java]        (< O_0.0_5 O_0.0_6)
-     [java]        (= SV_0.2_$r7_W1 1)
-     [java]        (= SV_0.2_$r9_W1 |SV_<test11.Main: java.lang.Integer shared_int_a>_R2|)
-     [java]        (= SV_0.2_$i0_W1 SV_0.2_$r9_W1)
-     [java]        (= SV_0.2_$r10_W1 |SV_<test11.Main: java.lang.Integer shared_int_b>_R2|)
-     [java]        (= SV_0.2_$i1_W1 SV_0.2_$r10_W1)
-     [java]        (> SV_0.2_$i0_W1 SV_0.2_$i1_W1)
-     [java]        (= SV_0.2_$r11_W1 3)
-     [java]        (< O_0.2_1 O_0.2_2)
-     [java]        (< O_0.2_2 O_0.2_3)
-     [java]        (< O_0.2_3 O_0.2_4)
-     [java]        (< O_0.2_4 O_0.2_5)
-     [java]        (< O_0.2_5 O_0.2_6)
+     [java]                     (or (< O_0_3 O_0_6) (> O_0_3 O_0.1_4)))))
+     [java]       (a!6 (or (and (= |SV_<test12.Main: java.lang.Integer shared_int_b>_R2|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_b>_W1|)
+     [java]                     (< O_0_3 O_0.2_4)
+     [java]                     (or (< O_0_6 O_0_3) (> O_0_6 O_0.2_4)))
+     [java]                (and (= |SV_<test12.Main: java.lang.Integer shared_int_b>_R2|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_b>_W2|)
+     [java]                     (< O_0_6 O_0.2_4)
+     [java]                     (or (< O_0_3 O_0_6) (> O_0_3 O_0.2_4)))))
+     [java]       (a!7 (or (and (= |SV_<test12.Main: java.lang.Integer shared_int_b>_R3|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_b>_W1|)
+     [java]                     (< O_0_3 O_0.0_4)
+     [java]                     (or (< O_0_6 O_0_3) (> O_0_6 O_0.0_4)))
+     [java]                (and (= |SV_<test12.Main: java.lang.Integer shared_int_b>_R3|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_b>_W2|)
+     [java]                     (< O_0_6 O_0.0_4)
+     [java]                     (or (< O_0_3 O_0_6) (> O_0_3 O_0.0_4))))))
+     [java]   (and (= |SV_<test12.Main: java.lang.Integer shared_int_a>_W1| 1)
+     [java]        (= |SV_<test12.Main: java.lang.Integer shared_int_b>_W1| 2)
      [java]        (= SV_0.1_$r7_W1 1)
-     [java]        (= SV_0.1_$r9_W1 |SV_<test11.Main: java.lang.Integer shared_int_a>_R3|)
+     [java]        (= SV_0.1_$r9_W1 |SV_<test12.Main: java.lang.Integer shared_int_a>_R1|)
      [java]        (= SV_0.1_$i0_W1 SV_0.1_$r9_W1)
-     [java]        (= SV_0.1_$r10_W1 |SV_<test11.Main: java.lang.Integer shared_int_b>_R3|)
+     [java]        (= SV_0.1_$r10_W1 |SV_<test12.Main: java.lang.Integer shared_int_b>_R1|)
      [java]        (= SV_0.1_$i1_W1 SV_0.1_$r10_W1)
      [java]        (> SV_0.1_$i0_W1 SV_0.1_$i1_W1)
      [java]        (= SV_0.1_$r11_W1 3)
-     [java]        (< O_0.1_1 O_0.1_2)
-     [java]        (< O_0.1_2 O_0.1_3)
-     [java]        (< O_0.1_3 O_0.1_4)
-     [java]        (< O_0.1_4 O_0.1_5)
-     [java]        (< O_0.1_5 O_0.1_6)
-     [java]        (= args0 1)
-     [java]        (= SV_0_$r6_W1 args0)
-     [java]        (= args50 5)
-     [java]        (= SV_0_$r9_W1 args50)
-     [java]        (= args1 1)
-     [java]        (= SV_0_$r12_W1 args1)
+     [java]        (= SV_0.2_$r7_W1 1)
+     [java]        (= SV_0.2_$r9_W1 |SV_<test12.Main: java.lang.Integer shared_int_a>_R2|)
+     [java]        (= SV_0.2_$i0_W1 SV_0.2_$r9_W1)
+     [java]        (= SV_0.2_$r10_W1 |SV_<test12.Main: java.lang.Integer shared_int_b>_R2|)
+     [java]        (= SV_0.2_$i1_W1 SV_0.2_$r10_W1)
+     [java]        (> SV_0.2_$i0_W1 SV_0.2_$i1_W1)
+     [java]        (= SV_0.2_$r11_W1 3)
+     [java]        (= SV_0.0_$r7_W1 1)
+     [java]        (= SV_0.0_$r9_W1 |SV_<test12.Main: java.lang.Integer shared_int_a>_R3|)
+     [java]        (= SV_0.0_$i0_W1 SV_0.0_$r9_W1)
+     [java]        (= SV_0.0_$r10_W1 |SV_<test12.Main: java.lang.Integer shared_int_b>_R3|)
+     [java]        (= SV_0.0_$i1_W1 SV_0.0_$r10_W1)
+     [java]        (> SV_0.0_$i0_W1 SV_0.0_$i1_W1)
+     [java]        (= SV_0.0_$r11_W1 3)
+     [java]        (= SV_0_$r6_W1 0)
+     [java]        (= SV_0_$r9_W1 0)
+     [java]        (= SV_0_$r12_W1 0)
      [java]        (= SV_0_$i0_W1 SV_0_$r12_W1)
      [java]        (= SV_0_$r13_W1 SV_0_$i0_W1)
-     [java]        (= |SV_<test11.Main: java.lang.Integer shared_int_a>_W2| SV_0_$r13_W1)
-     [java]        (= args51 5)
-     [java]        (= SV_0_$r14_W1 args51)
+     [java]        (= |SV_<test12.Main: java.lang.Integer shared_int_a>_W2| SV_0_$r13_W1)
+     [java]        (= SV_0_$r14_W1 0)
      [java]        (= SV_0_$i1_W1 SV_0_$r14_W1)
-     [java]        (= SV_0_$r15_W1 |SV_<test11.Main: java.lang.Integer shared_int_a>_R4|)
+     [java]        (= SV_0_$r15_W1 |SV_<test12.Main: java.lang.Integer shared_int_a>_R4|)
      [java]        (= SV_0_$i2_W1 SV_0_$r15_W1)
      [java]        (= SV_0_$i3_W1 (+ SV_0_$i1_W1 SV_0_$i2_W1))
      [java]        (= SV_0_$r16_W1 SV_0_$i3_W1)
-     [java]        (= |SV_<test11.Main: java.lang.Integer shared_int_b>_W2| SV_0_$r16_W1)
+     [java]        (= |SV_<test12.Main: java.lang.Integer shared_int_b>_W2| SV_0_$r16_W1)
      [java]        (< O_0_7 O_0.0_1)
      [java]        (< O_0_8 O_0.1_1)
      [java]        (< O_0_9 O_0.2_1)
      [java]        (> O_0_10 O_0.0_6)
      [java]        (> O_0_11 O_0.1_6)
      [java]        (> O_0_12 O_0.2_6)
-     [java]        (< O_0_1 O_0_2)
-     [java]        (< O_0_2 O_0_3)
-     [java]        (< O_0_3 O_0_4)
-     [java]        (< O_0_4 O_0_5)
-     [java]        (< O_0_5 O_0_6)
-     [java]        (< O_0_6 O_0_7)
-     [java]        (< O_0_7 O_0_8)
-     [java]        (< O_0_8 O_0_9)
-     [java]        (< O_0_9 O_0_10)
-     [java]        (< O_0_10 O_0_11)
-     [java]        (< O_0_11 O_0_12)
-     [java]        (< O_0_12 O_0_13)
+     [java]        (or (< O_0.1_5 O_0.2_2) (> O_0.1_2 O_0.2_5))
+     [java]        (or (< O_0.1_5 O_0.0_2) (> O_0.1_2 O_0.0_5))
+     [java]        (or (< O_0.2_5 O_0.0_2) (> O_0.2_2 O_0.0_5))
      [java]        a!1
      [java]        a!2
      [java]        a!3
@@ -659,9 +634,256 @@ build:
      [java]        a!5
      [java]        a!6
      [java]        a!7))
-     [java] Transforming test11.Main... 
-     [java] Transforming Transforming jdk.internal.org.objectweb.asm.ClassVisitor... 
-     [java] jdk.internal.org.objectweb.asm.ClassWriter... 
+     [java] (declare-fun |SV_<test12.Main: java.lang.Integer shared_int_a>_W1| () Int)
+     [java] (declare-fun |SV_<test12.Main: java.lang.Integer shared_int_b>_W1| () Int)
+     [java] (declare-fun SV_0.1_$r7_W1 () Int)
+     [java] (declare-fun |SV_<test12.Main: java.lang.Integer shared_int_a>_R1| () Int)
+     [java] (declare-fun SV_0.1_$r9_W1 () Int)
+     [java] (declare-fun SV_0.1_$i0_W1 () Int)
+     [java] (declare-fun |SV_<test12.Main: java.lang.Integer shared_int_b>_R1| () Int)
+     [java] (declare-fun SV_0.1_$r10_W1 () Int)
+     [java] (declare-fun SV_0.1_$i1_W1 () Int)
+     [java] (declare-fun SV_0.1_$r11_W1 () Int)
+     [java] (declare-fun SV_0.2_$r7_W1 () Int)
+     [java] (declare-fun |SV_<test12.Main: java.lang.Integer shared_int_a>_R2| () Int)
+     [java] (declare-fun SV_0.2_$r9_W1 () Int)
+     [java] (declare-fun SV_0.2_$i0_W1 () Int)
+     [java] (declare-fun |SV_<test12.Main: java.lang.Integer shared_int_b>_R2| () Int)
+     [java] (declare-fun SV_0.2_$r10_W1 () Int)
+     [java] (declare-fun SV_0.2_$i1_W1 () Int)
+     [java] (declare-fun SV_0.2_$r11_W1 () Int)
+     [java] (declare-fun SV_0.0_$r7_W1 () Int)
+     [java] (declare-fun |SV_<test12.Main: java.lang.Integer shared_int_a>_R3| () Int)
+     [java] (declare-fun SV_0.0_$r9_W1 () Int)
+     [java] (declare-fun SV_0.0_$i0_W1 () Int)
+     [java] (declare-fun |SV_<test12.Main: java.lang.Integer shared_int_b>_R3| () Int)
+     [java] (declare-fun SV_0.0_$r10_W1 () Int)
+     [java] (declare-fun SV_0.0_$i1_W1 () Int)
+     [java] (declare-fun SV_0.0_$r11_W1 () Int)
+     [java] (declare-fun SV_0_$r6_W1 () Int)
+     [java] (declare-fun SV_0_$r9_W1 () Int)
+     [java] (declare-fun SV_0_$r12_W1 () Int)
+     [java] (declare-fun SV_0_$i0_W1 () Int)
+     [java] (declare-fun SV_0_$r13_W1 () Int)
+     [java] (declare-fun |SV_<test12.Main: java.lang.Integer shared_int_a>_W2| () Int)
+     [java] (declare-fun SV_0_$r14_W1 () Int)
+     [java] (declare-fun SV_0_$i1_W1 () Int)
+     [java] (declare-fun |SV_<test12.Main: java.lang.Integer shared_int_a>_R4| () Int)
+     [java] (declare-fun SV_0_$r15_W1 () Int)
+     [java] (declare-fun SV_0_$i2_W1 () Int)
+     [java] (declare-fun SV_0_$i3_W1 () Int)
+     [java] (declare-fun SV_0_$r16_W1 () Int)
+     [java] (declare-fun |SV_<test12.Main: java.lang.Integer shared_int_b>_W2| () Int)
+     [java] (declare-fun O_0.0_1 () Int)
+     [java] (declare-fun O_0_7 () Int)
+     [java] (declare-fun O_0.1_1 () Int)
+     [java] (declare-fun O_0_8 () Int)
+     [java] (declare-fun O_0.2_1 () Int)
+     [java] (declare-fun O_0_9 () Int)
+     [java] (declare-fun O_0.0_6 () Int)
+     [java] (declare-fun O_0_10 () Int)
+     [java] (declare-fun O_0.1_6 () Int)
+     [java] (declare-fun O_0_11 () Int)
+     [java] (declare-fun O_0.2_6 () Int)
+     [java] (declare-fun O_0_12 () Int)
+     [java] (declare-fun O_0.0_4 () Int)
+     [java] (declare-fun O_0_3 () Int)
+     [java] (declare-fun O_0_6 () Int)
+     [java] (declare-fun O_0.2_4 () Int)
+     [java] (declare-fun O_0.1_4 () Int)
+     [java] (declare-fun O_0_5 () Int)
+     [java] (declare-fun O_0_2 () Int)
+     [java] (declare-fun O_0_4 () Int)
+     [java] (declare-fun O_0.0_3 () Int)
+     [java] (declare-fun O_0.2_3 () Int)
+     [java] (declare-fun O_0.1_3 () Int)
+     [java] (declare-fun O_0.0_5 () Int)
+     [java] (declare-fun O_0.2_2 () Int)
+     [java] (declare-fun O_0.0_2 () Int)
+     [java] (declare-fun O_0.2_5 () Int)
+     [java] (declare-fun O_0.1_2 () Int)
+     [java] (declare-fun O_0.1_5 () Int)
+     [java] (assert (= |SV_<test12.Main: java.lang.Integer shared_int_a>_W1| 1))
+     [java] (assert (= |SV_<test12.Main: java.lang.Integer shared_int_b>_W1| 2))
+     [java] (assert (= SV_0.1_$r7_W1 1))
+     [java] (assert (= SV_0.1_$r9_W1 |SV_<test12.Main: java.lang.Integer shared_int_a>_R1|))
+     [java] (assert (= SV_0.1_$i0_W1 SV_0.1_$r9_W1))
+     [java] (assert (= SV_0.1_$r10_W1 |SV_<test12.Main: java.lang.Integer shared_int_b>_R1|))
+     [java] (assert (= SV_0.1_$i1_W1 SV_0.1_$r10_W1))
+     [java] (assert (> SV_0.1_$i0_W1 SV_0.1_$i1_W1))
+     [java] (assert (= SV_0.1_$r11_W1 3))
+     [java] (assert (= SV_0.2_$r7_W1 1))
+     [java] (assert (= SV_0.2_$r9_W1 |SV_<test12.Main: java.lang.Integer shared_int_a>_R2|))
+     [java] (assert (= SV_0.2_$i0_W1 SV_0.2_$r9_W1))
+     [java] (assert (= SV_0.2_$r10_W1 |SV_<test12.Main: java.lang.Integer shared_int_b>_R2|))
+     [java] (assert (= SV_0.2_$i1_W1 SV_0.2_$r10_W1))
+     [java] (assert (> SV_0.2_$i0_W1 SV_0.2_$i1_W1))
+     [java] (assert (= SV_0.2_$r11_W1 3))
+     [java] (assert (= SV_0.0_$r7_W1 1))
+     [java] (assert (= SV_0.0_$r9_W1 |SV_<test12.Main: java.lang.Integer shared_int_a>_R3|))
+     [java] (assert (= SV_0.0_$i0_W1 SV_0.0_$r9_W1))
+     [java] (assert (= SV_0.0_$r10_W1 |SV_<test12.Main: java.lang.Integer shared_int_b>_R3|))
+     [java] (assert (= SV_0.0_$i1_W1 SV_0.0_$r10_W1))
+     [java] (assert (> SV_0.0_$i0_W1 SV_0.0_$i1_W1))
+     [java] (assert (= SV_0.0_$r11_W1 3))
+     [java] (assert (= SV_0_$r6_W1 0))
+     [java] (assert (= SV_0_$r9_W1 0))
+     [java] (assert (= SV_0_$r12_W1 0))
+     [java] (assert (= SV_0_$i0_W1 SV_0_$r12_W1))
+     [java] (assert (= SV_0_$r13_W1 SV_0_$i0_W1))
+     [java] (assert (= |SV_<test12.Main: java.lang.Integer shared_int_a>_W2| SV_0_$r13_W1))
+     [java] (assert (= SV_0_$r14_W1 0))
+     [java] (assert (= SV_0_$i1_W1 SV_0_$r14_W1))
+     [java] (assert (= SV_0_$r15_W1 |SV_<test12.Main: java.lang.Integer shared_int_a>_R4|))
+     [java] (assert (= SV_0_$i2_W1 SV_0_$r15_W1))
+     [java] (assert (= SV_0_$i3_W1 (+ SV_0_$i1_W1 SV_0_$i2_W1)))
+     [java] (assert (= SV_0_$r16_W1 SV_0_$i3_W1))
+     [java] (assert (= |SV_<test12.Main: java.lang.Integer shared_int_b>_W2| SV_0_$r16_W1))
+     [java] (assert (< O_0_7 O_0.0_1))
+     [java] (assert (< O_0_8 O_0.1_1))
+     [java] (assert (< O_0_9 O_0.2_1))
+     [java] (assert (> O_0_10 O_0.0_6))
+     [java] (assert (> O_0_11 O_0.1_6))
+     [java] (assert (> O_0_12 O_0.2_6))
+     [java] (assert (let ((a!1 (or (and (= |SV_<test12.Main: java.lang.Integer shared_int_a>_R1|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_a>_W1|)
+     [java]                     (< O_0_2 O_0.1_3)
+     [java]                     (or (< O_0_4 O_0_2) (> O_0_4 O_0.1_3)))
+     [java]                (and (= |SV_<test12.Main: java.lang.Integer shared_int_a>_R1|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_a>_W2|)
+     [java]                     (< O_0_4 O_0.1_3)
+     [java]                     (or (< O_0_2 O_0_4) (> O_0_2 O_0.1_3)))))
+     [java]       (a!2 (or (and (= |SV_<test12.Main: java.lang.Integer shared_int_a>_R2|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_a>_W1|)
+     [java]                     (< O_0_2 O_0.2_3)
+     [java]                     (or (< O_0_4 O_0_2) (> O_0_4 O_0.2_3)))
+     [java]                (and (= |SV_<test12.Main: java.lang.Integer shared_int_a>_R2|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_a>_W2|)
+     [java]                     (< O_0_4 O_0.2_3)
+     [java]                     (or (< O_0_2 O_0_4) (> O_0_2 O_0.2_3)))))
+     [java]       (a!3 (or (and (= |SV_<test12.Main: java.lang.Integer shared_int_a>_R3|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_a>_W1|)
+     [java]                     (< O_0_2 O_0.0_3)
+     [java]                     (or (< O_0_4 O_0_2) (> O_0_4 O_0.0_3)))
+     [java]                (and (= |SV_<test12.Main: java.lang.Integer shared_int_a>_R3|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_a>_W2|)
+     [java]                     (< O_0_4 O_0.0_3)
+     [java]                     (or (< O_0_2 O_0_4) (> O_0_2 O_0.0_3)))))
+     [java]       (a!4 (or (and (= |SV_<test12.Main: java.lang.Integer shared_int_a>_R4|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_a>_W1|)
+     [java]                     (< O_0_2 O_0_5)
+     [java]                     (or (< O_0_4 O_0_2) (> O_0_4 O_0_5)))
+     [java]                (and (= |SV_<test12.Main: java.lang.Integer shared_int_a>_R4|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_a>_W2|)
+     [java]                     (< O_0_4 O_0_5)
+     [java]                     (or (< O_0_2 O_0_4) (> O_0_2 O_0_5)))))
+     [java]       (a!5 (or (and (= |SV_<test12.Main: java.lang.Integer shared_int_b>_R1|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_b>_W1|)
+     [java]                     (< O_0_3 O_0.1_4)
+     [java]                     (or (< O_0_6 O_0_3) (> O_0_6 O_0.1_4)))
+     [java]                (and (= |SV_<test12.Main: java.lang.Integer shared_int_b>_R1|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_b>_W2|)
+     [java]                     (< O_0_6 O_0.1_4)
+     [java]                     (or (< O_0_3 O_0_6) (> O_0_3 O_0.1_4)))))
+     [java]       (a!6 (or (and (= |SV_<test12.Main: java.lang.Integer shared_int_b>_R2|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_b>_W1|)
+     [java]                     (< O_0_3 O_0.2_4)
+     [java]                     (or (< O_0_6 O_0_3) (> O_0_6 O_0.2_4)))
+     [java]                (and (= |SV_<test12.Main: java.lang.Integer shared_int_b>_R2|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_b>_W2|)
+     [java]                     (< O_0_6 O_0.2_4)
+     [java]                     (or (< O_0_3 O_0_6) (> O_0_3 O_0.2_4)))))
+     [java]       (a!7 (or (and (= |SV_<test12.Main: java.lang.Integer shared_int_b>_R3|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_b>_W1|)
+     [java]                     (< O_0_3 O_0.0_4)
+     [java]                     (or (< O_0_6 O_0_3) (> O_0_6 O_0.0_4)))
+     [java]                (and (= |SV_<test12.Main: java.lang.Integer shared_int_b>_R3|
+     [java]                        |SV_<test12.Main: java.lang.Integer shared_int_b>_W2|)
+     [java]                     (< O_0_6 O_0.0_4)
+     [java]                     (or (< O_0_3 O_0_6) (> O_0_3 O_0.0_4))))))
+     [java]   (and (= |SV_<test12.Main: java.lang.Integer shared_int_a>_W1| 1)
+     [java]        (= |SV_<test12.Main: java.lang.Integer shared_int_b>_W1| 2)
+     [java]        (= SV_0.1_$r7_W1 1)
+     [java]        (= SV_0.1_$r9_W1 |SV_<test12.Main: java.lang.Integer shared_int_a>_R1|)
+     [java]        (= SV_0.1_$i0_W1 SV_0.1_$r9_W1)
+     [java]        (= SV_0.1_$r10_W1 |SV_<test12.Main: java.lang.Integer shared_int_b>_R1|)
+     [java]        (= SV_0.1_$i1_W1 SV_0.1_$r10_W1)
+     [java]        (> SV_0.1_$i0_W1 SV_0.1_$i1_W1)
+     [java]        (= SV_0.1_$r11_W1 3)
+     [java]        (= SV_0.2_$r7_W1 1)
+     [java]        (= SV_0.2_$r9_W1 |SV_<test12.Main: java.lang.Integer shared_int_a>_R2|)
+     [java]        (= SV_0.2_$i0_W1 SV_0.2_$r9_W1)
+     [java]        (= SV_0.2_$r10_W1 |SV_<test12.Main: java.lang.Integer shared_int_b>_R2|)
+     [java]        (= SV_0.2_$i1_W1 SV_0.2_$r10_W1)
+     [java]        (> SV_0.2_$i0_W1 SV_0.2_$i1_W1)
+     [java]        (= SV_0.2_$r11_W1 3)
+     [java]        (= SV_0.0_$r7_W1 1)
+     [java]        (= SV_0.0_$r9_W1 |SV_<test12.Main: java.lang.Integer shared_int_a>_R3|)
+     [java]        (= SV_0.0_$i0_W1 SV_0.0_$r9_W1)
+     [java]        (= SV_0.0_$r10_W1 |SV_<test12.Main: java.lang.Integer shared_int_b>_R3|)
+     [java]        (= SV_0.0_$i1_W1 SV_0.0_$r10_W1)
+     [java]        (> SV_0.0_$i0_W1 SV_0.0_$i1_W1)
+     [java]        (= SV_0.0_$r11_W1 3)
+     [java]        (= SV_0_$r6_W1 0)
+     [java]        (= SV_0_$r9_W1 0)
+     [java]        (= SV_0_$r12_W1 0)
+     [java]        (= SV_0_$i0_W1 SV_0_$r12_W1)
+     [java]        (= SV_0_$r13_W1 SV_0_$i0_W1)
+     [java]        (= |SV_<test12.Main: java.lang.Integer shared_int_a>_W2| SV_0_$r13_W1)
+     [java]        (= SV_0_$r14_W1 0)
+     [java]        (= SV_0_$i1_W1 SV_0_$r14_W1)
+     [java]        (= SV_0_$r15_W1 |SV_<test12.Main: java.lang.Integer shared_int_a>_R4|)
+     [java]        (= SV_0_$i2_W1 SV_0_$r15_W1)
+     [java]        (= SV_0_$i3_W1 (+ SV_0_$i1_W1 SV_0_$i2_W1))
+     [java]        (= SV_0_$r16_W1 SV_0_$i3_W1)
+     [java]        (= |SV_<test12.Main: java.lang.Integer shared_int_b>_W2| SV_0_$r16_W1)
+     [java]        (< O_0_7 O_0.0_1)
+     [java]        (< O_0_8 O_0.1_1)
+     [java]        (< O_0_9 O_0.2_1)
+     [java]        (> O_0_10 O_0.0_6)
+     [java]        (> O_0_11 O_0.1_6)
+     [java]        (> O_0_12 O_0.2_6)
+     [java]        (or (< O_0.1_5 O_0.2_2) (> O_0.1_2 O_0.2_5))
+     [java]        (or (< O_0.1_5 O_0.0_2) (> O_0.1_2 O_0.0_5))
+     [java]        (or (< O_0.2_5 O_0.0_2) (> O_0.2_2 O_0.0_5))
+     [java]        a!1
+     [java]        a!2
+     [java]        a!3
+     [java]        a!4
+     [java]        a!5
+     [java]        a!6
+     [java]        a!7)))
+     [java] 
+     [java] 0, Write, <test12.Main: java.lang.Integer shared_int_a>
+     [java] 0.2, End
+     [java] 0, Fork, 0.1
+     [java] 0, Fork, 0.2
+     [java] 0, Read, <test12.Main: java.lang.Integer shared_int_a>
+     [java] 0, Fork, 0.0
+     [java] 0.0, Begin
+     [java] 0.1, Begin
+     [java] 0, Join, 0.2
+     [java] 0.1, End
+     [java] 0.1, Unlock, <test12.Main: java.util.concurrent.locks.Lock lock>
+     [java] 0, Write, <test12.Main: java.lang.Integer shared_int_a>
+     [java] 0, Write, <test12.Main: java.lang.Integer shared_int_b>
+     [java] 0.2, Begin
+     [java] 0.0, Unlock, <test12.Main: java.util.concurrent.locks.Lock lock>
+     [java] 0.0, End
+     [java] 0.1, Read, <test12.Main: java.lang.Integer shared_int_a>
+     [java] 0, Join, 0.0
+     [java] 0, Join, 0.1
+     [java] 0.2, Read, <test12.Main: java.lang.Integer shared_int_b>
+     [java] 0.1, Lock, <test12.Main: java.util.concurrent.locks.Lock lock>
+     [java] 0.1, Read, <test12.Main: java.lang.Integer shared_int_b>
+     [java] 0.2, Read, <test12.Main: java.lang.Integer shared_int_a>
+     [java] 0.2, Lock, <test12.Main: java.util.concurrent.locks.Lock lock>
+     [java] 0.0, Read, <test12.Main: java.lang.Integer shared_int_b>
+     [java] 0.0, Read, <test12.Main: java.lang.Integer shared_int_a>
+     [java] 0, Write, <test12.Main: java.lang.Integer shared_int_b>
+     [java] Transforming test12.Main... 
+     [java] Transforming jdk.internal.org.objectweb.asm.ClassWriter... 
+     [java] Transforming jdk.internal.org.objectweb.asm.ClassVisitor... 
      [java] Transforming jdk.internal.org.objectweb.asm.ClassReader... 
      [java] Transforming jdk.internal.org.objectweb.asm.ByteVector... 
      [java] Transforming jdk.internal.org.objectweb.asm.Item... 
@@ -682,8 +904,8 @@ build:
      [java] Transforming jdk.internal.org.objectweb.asm.Frame... 
      [java] Transforming jdk.internal.org.objectweb.asm.Edge... 
      [java] Transforming popUtil.PoP_Util... 
-     [java] Transforming test11.Main$MyThread... 
-     [java] Writing to Testcases/project-3/sootBin/test11/Main.class
+     [java] Transforming test12.Main$MyThread... 
+     [java] Writing to Testcases/project-3/sootBin/test12/Main.class
      [java] Writing to Testcases/project-3/sootBin/jdk/internal/org/objectweb/asm/ClassWriter.class
      [java] Writing to Testcases/project-3/sootBin/jdk/internal/org/objectweb/asm/ClassVisitor.class
      [java] Writing to Testcases/project-3/sootBin/jdk/internal/org/objectweb/asm/ClassReader.class
@@ -706,17 +928,17 @@ build:
      [java] Writing to Testcases/project-3/sootBin/jdk/internal/org/objectweb/asm/Frame.class
      [java] Writing to Testcases/project-3/sootBin/jdk/internal/org/objectweb/asm/Edge.class
      [java] Writing to Testcases/project-3/sootBin/popUtil/PoP_Util.class
-     [java] Writing to Testcases/project-3/sootBin/test11/Main$MyThread.class
-     [java] Soot finished on Sun Nov 13 23:09:59 IST 2016
-     [java] Soot has run for 0 min. 3 sec.
+     [java] Writing to Testcases/project-3/sootBin/test12/Main$MyThread.class
+     [java] Soot finished on Mon Nov 14 02:06:51 IST 2016
+     [java] Soot has run for 0 min. 2 sec.
      [echo] 
-     [echo] [Completed post-processing for test11]
-     [echo] 
-     [echo] 
-     [echo] [Checking the output for test11]
+     [echo] [Completed post-processing for test12]
      [echo] 
      [echo] 
-     [echo] [Completed "test" mode for test11]
+     [echo] [Checking the output for test12]
+     [echo] 
+     [echo] 
+     [echo] [Completed "test" mode for test12]
      [echo] 
 
 BUILD SUCCESSFUL
