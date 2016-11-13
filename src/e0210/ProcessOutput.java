@@ -16,12 +16,16 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class ProcessOutput {
-
+	static String finalResult="abc";				//Refer tracemaker nad symbolic execution
+	static String globalTrace="";				//
 	public static void main(String[] args) throws IOException {
-
+		
 		String project = args[0];
 		String testcase = args[1];
-
+		
+		String globalTraceOutPath = "Testcases/" + project + "/processed-output/" + testcase + ".global_trace";
+		String tupleOutPath = "Testcases/" + project + "/processed-output/" + testcase + ".tuples";
+		
 		String inPath = "Testcases/" + project + "/output/" + testcase;
 		String outPath = "Testcases/" + project + "/processed-output/" + testcase;
 
@@ -37,10 +41,13 @@ public class ProcessOutput {
 		 */
 
 		// Write the contents of the string to the output file
-		PrintWriter out = new PrintWriter(outPath);
-		out.print(in);
-
+		PrintWriter out = new PrintWriter(tupleOutPath);
+		out.print(finalResult);		
 		out.close();
+		
+		PrintWriter globalTraceWriter = new PrintWriter(globalTraceOutPath);
+		globalTraceWriter.print(globalTrace);
+		globalTraceWriter.close();
 
 		return;
 	}

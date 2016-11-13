@@ -119,6 +119,7 @@ public class TraceMaker {
 		PrintWriter out = new PrintWriter(tupleOutPath);
 		out.print(finalResult);		
 		out.close();
+		ProcessOutput.finalResult=finalResult;
 		
 		//----------Tuple Written Successfully--------//
 		sootMainSymbolicExecution(project, testcase);
@@ -145,6 +146,7 @@ public class TraceMaker {
            trace entries in ascending order of their order variables.
         */
 
+		
 		
 		return;
 	}

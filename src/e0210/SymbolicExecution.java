@@ -42,6 +42,8 @@ public class SymbolicExecution extends SceneTransformer {
 	String project,testcase;
 	String[] tupleList=null;
 	
+	
+	
 	Hashtable<String,Hashtable<String,Integer> > hashThreadMethodCount= new Hashtable<String,Hashtable<String,Integer> >();
 	Hashtable<String,String> forkjoinMap;
 	Hashtable<String,String> lockObjMap;
@@ -57,7 +59,7 @@ public class SymbolicExecution extends SceneTransformer {
 	Hashtable<Integer,String> solverOutput=new Hashtable<Integer,String>();
 	Hashtable<String,String> order_smt_Map=new Hashtable<String,String>();
 	ArrayList<Sort> orderVarValue=new ArrayList<Sort>();
-	
+	String[] arguments;
 	List<String> clinitStmt=new ArrayList<>();
 	
 	BoolExpr[]  constraints=new BoolExpr[100000];		//contains all constraints
@@ -70,7 +72,7 @@ public class SymbolicExecution extends SceneTransformer {
 	
 	
 	String varName,stmtToPrint;		//stmtToPrint::it holds the intrathread stmts which is to be printed on the console
-	int forksByThread,cntProgramOrder,cntProOrder;		//Sequence number of stmt which is currently executing
+	int forksByThread,cntProgramOrder,cntProOrder,p=0,q=50;		//Sequence number of stmt which is currently executing
 	
 	Chain<SootClass> classes=Scene.v().getApplicationClasses();
 	
@@ -81,8 +83,16 @@ public class SymbolicExecution extends SceneTransformer {
 		testcase=test;
 	}
 	
+	
+	
 	@Override
 	protected void internalTransform(String phaseName, Map<String, String> options) {	
+		
+		String inPathForArgs = "Testcases/" + project + "/input/" + testcase ;
+		try {
+			arguments  = (new String(Files.readAllBytes(Paths.get(inPathForArgs)))).split(" ");
+		} catch (IOException e1) {}
+		
 		
 		
 		//Handling clinit<>
@@ -119,11 +129,11 @@ public class SymbolicExecution extends SceneTransformer {
 				
 				stmtToPrint= thread+", Begin";
 				programOrderConst.get(thread).put("O_"+thread+"_1", stmtToPrint);
-				System.out.println(stmtToPrint);
+				//System.out.println(stmtToPrint);
 				if(tuple.contains("void main(") ){
 					for(int i=2,j=0;i<cntProOrder;i++,j++){
 						programOrderConst.get("0").put("O_0_"+i, clinitStmt.get(j));
-						System.out.println(clinitStmt.get(j));
+						//System.out.println(clinitStmt.get(j));
 					}
 					
 				}
@@ -135,10 +145,11 @@ public class SymbolicExecution extends SceneTransformer {
 				stmtToPrint= thread+", End";
 				programOrderConst.get(thread).put("O_"+thread+"_"+cntProgramOrder, stmtToPrint);
 				
-				System.out.println(stmtToPrint+"\n\n");				
+				//System.out.println(stmtToPrint+"\n\n");				
 				stmtCountOfThread.put(thread, cntProgramOrder);
 
 				// inserting program order constraints of "thread" in array of constraints.
+					
 					for(int p=1;p<cntProgramOrder;p++){
 						IntExpr innum1=ctx.mkIntConst("O_"+thread+"_"+p);
 						IntExpr innum2=ctx.mkIntConst("O_"+thread+"_"+(p+1));
@@ -156,7 +167,7 @@ public class SymbolicExecution extends SceneTransformer {
 						
 		}
 		
-		generateLockUnlockConstr(); 			//Generating Lock_unlock constraints
+		//generateLockUnlockConstr(); 			//Generating Lock_unlock constraints
 		generateRWConstraints();
 		
 		BoolExpr[] constraints1= new BoolExpr[c];
@@ -164,13 +175,13 @@ public class SymbolicExecution extends SceneTransformer {
 				
 		System.out.println(constraints1.length);
 		solver.add(ctx.mkAnd(constraints1));
-		System.out.println(solver.check());			//solver specific
+		System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());			//solver specific
 		//System.out.println(solver.toString());
 		//solver.check();
-		Model model=solver.getModel();
+		//Model model=solver.getModel();
 		//System.out.println(model.toString());
 		
-		
+		/*
 		//Inserting order variable and their values into array list
 		for(int i=0;i<model.getNumConsts();i++){
 			int o_var_val=Integer.parseInt(model.getConstInterp(model.getDecls()[i]).toString());
@@ -207,47 +218,11 @@ public class SymbolicExecution extends SceneTransformer {
 		globalTraceWriter.close();
 		}
 		catch(Exception e){}
-			
 		
-		/* 
-        SceneTransformer vs BodyTransformer
-        ===================================
-        BodyTransformer is applied on all methods separately. It uses multiple 
-        worker threads to process the methods in parallel.
-        SceneTransformer is applied on the whole program in one go. 
-        SceneTransformer uses only one worker thread.
-        
-        It is better to use SceneTransformer for this part of the project 
-        because:
-        1. During symbolic execution you may need to 'jump' from one method
-        to another when you encounter a call instruction. This is easily 
-        done in SceneTransformer (see below)
-        2. There is only one worker thread in SceneTransformer which saves 
-        you from having to synchronize accesses to any global data structures
-        that you'll use, (eg data structures to store constraints, trace, etc)
-        
-        How to get method body?
-        =======================
-        Use Scene.v().getApplicationClasses() to get all classes and
-        SootClass::getMethods() to get all methods in a particular class. You
-        can search these lists to find the body of any method.
-        
-        */
-        
-        /* 
-        Perform the following for each thread T:
-        1. Start with the first method of thread T. If T is the main thread,
-        the first method is main(), else it is the run() method of the thread's
-        class
-        2. Using (only) the tuples for thread T, walk through the code to 
-        reproduce the path followed by T. If thread T performs method calls
-        then, during this walk you'll need to jump from one method's body to 
-        another to imitate the flow of control (as discussed during the Project session)
-        3. While walking through the code, collect the intra-thread trace for 
-        T and the path constraints.
-        Don't forget that you need to renumber each dynamic instance of a static
-        variable (i.e. SSA)
-        */
+		ProcessOutput.globalTrace=globalTrace;
+		
+		*/
+		
 	    return;
 	}
 	
@@ -338,7 +313,7 @@ public class SymbolicExecution extends SceneTransformer {
 		
 	}
 	public void printStatement(Stmt s,String thread){				//Print statement of Unit if it is assign or if stmt
-		
+		System.out.println(s.toString()+"*****");
 		if(s instanceof IfStmt) { //System.out.println(s);
 			BinopExpr binaryExpOfIf=(BinopExpr)((IfStmt) s).getCondition();
 			Value op1=binaryExpOfIf.getOp1();
@@ -371,21 +346,34 @@ public class SymbolicExecution extends SceneTransformer {
 						switch (operation){
 							case " != ": 
 								constraints[c++]= ctx.mkNot(ctx.mkEq(lhs1, rhs1));
+								solver.add(ctx.mkNot(ctx.mkEq(lhs1, rhs1)));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
+								
 								break;
 							case " == ": 
 								constraints[c++]= ctx.mkEq(lhs1, rhs1);
+								solver.add(ctx.mkEq(lhs1, rhs1));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 							case " >= ": 
 								constraints[c++]=ctx.mkGe(lhs1, rhs1);
+								solver.add(ctx.mkGe(lhs1, rhs1));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 							case " <= ": 
 								constraints[c++]=ctx.mkLe(lhs1, rhs1);
+								solver.add(ctx.mkLe(lhs1, rhs1));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 							case " < ": 
 								constraints[c++]=ctx.mkLt(lhs1, rhs1);
+								solver.add(ctx.mkLt(lhs1, rhs1));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 							case " > ": 
 								constraints[c++]=ctx.mkGt(lhs1, rhs1);
+								solver.add(ctx.mkGt(lhs1, rhs1));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 						
 						}
@@ -399,21 +387,35 @@ public class SymbolicExecution extends SceneTransformer {
 						switch (operation){
 							case " != ": 
 								constraints[c++]= ctx.mkNot(ctx.mkEq(lhs2, rhs2));
+								solver.add(ctx.mkNot(ctx.mkEq(lhs2, rhs2)));
+								System.out.println("*-*-*-*-*-*-*-*");
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 							case " == ": 
 								constraints[c++]= ctx.mkEq(lhs2, rhs2);
+								solver.add(ctx.mkEq(lhs2, rhs2));
+								System.out.println("+-+-+-+-+-+-+-+-+-");
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 							case " >= ": 
 								constraints[c++]=ctx.mkGe(lhs2, rhs2);
+								solver.add(ctx.mkGe(lhs2, rhs2));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 							case " <= ": 
 								constraints[c++]=ctx.mkLe(lhs2, rhs2);
+								solver.add(ctx.mkLe(lhs2, rhs2));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 							case " < ": 
 								constraints[c++]=ctx.mkLt(lhs2, rhs2);
+								solver.add(ctx.mkLt(lhs2, rhs2));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 							case " > ": 
 								constraints[c++]=ctx.mkGt(lhs2, rhs2);
+								solver.add(ctx.mkGt(lhs2, rhs2));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 						
 						}
@@ -429,26 +431,38 @@ public class SymbolicExecution extends SceneTransformer {
 				
 				case "java.lang.Integer":
 					IntExpr lhs1=ctx.mkIntConst(lhs);
-					IntExpr  rhs1=ctx.mkIntConst(rhs);
+					IntExpr rhs1=ctx.mkIntConst(rhs);
 					
 						switch (operation){
 							case " != ": 
 								constraints[c++]= ctx.mkNot(ctx.mkEq(lhs1, rhs1));
+								solver.add(ctx.mkNot(ctx.mkEq(lhs1, rhs1)));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 							case " == ": 
 								constraints[c++]= ctx.mkEq(lhs1, rhs1);
+								solver.add(ctx.mkEq(lhs1, rhs1));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 							case " >= ": 
 								constraints[c++]=ctx.mkGe(lhs1, rhs1);
+								solver.add(ctx.mkGe(lhs1, rhs1));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 							case " <= ": 
 								constraints[c++]=ctx.mkLe(lhs1, rhs1);
+								solver.add(ctx.mkLe(lhs1, rhs1));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 							case " < ": 
 								constraints[c++]=ctx.mkLt(lhs1, rhs1);
+								solver.add(ctx.mkLt(lhs1, rhs1));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 							case " > ": 
 								constraints[c++]=ctx.mkGt(lhs1, rhs1);
+								solver.add(ctx.mkGt(lhs1, rhs1));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 						
 						}
@@ -462,21 +476,33 @@ public class SymbolicExecution extends SceneTransformer {
 						switch (operation){
 							case " != ": 
 								constraints[c++]= ctx.mkNot(ctx.mkEq(lhs2, rhs2));
+								solver.add(ctx.mkNot(ctx.mkEq(lhs2, rhs2)));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 							case " == ": 
 								constraints[c++]= ctx.mkEq(lhs2, rhs2);
+								solver.add(ctx.mkEq(lhs2, rhs2));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 							case " >= ": 
 								constraints[c++]=ctx.mkGe(lhs2, rhs2);
+								solver.add(ctx.mkGe(lhs2, rhs2));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 							case " <= ": 
 								constraints[c++]=ctx.mkLe(lhs2, rhs2);
+								solver.add(ctx.mkLe(lhs2, rhs2));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 							case " < ": 
 								constraints[c++]=ctx.mkLt(lhs2, rhs2);
+								solver.add(ctx.mkLt(lhs2, rhs2));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 							case " > ": 
 								constraints[c++]=ctx.mkGt(lhs2, rhs2);
+								solver.add(ctx.mkGt(lhs2, rhs2));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 						
 						}
@@ -521,7 +547,7 @@ public class SymbolicExecution extends SceneTransformer {
 					
 					
 				}
-				else if(stmtStr.contains("valueOf(")){
+				else if(stmtStr.contains("valueOf(") || stmtStr.contains("parseInt(")  ){//
 					
 					if(localWriteCountForSymval.containsKey(leftOp)) 	localWriteCountForSymval.put(leftOp, localWriteCountForSymval.get(leftOp)+1);
 					else		localWriteCountForSymval.put(leftOp, 1);
@@ -530,6 +556,7 @@ public class SymbolicExecution extends SceneTransformer {
 					Value arg=s.getInvokeExpr().getArg(0);
 					String arg_s=arg.toString();
 					String type=s.getInvokeExpr().getType().toString();
+					//System.out.println(rightOp+"---------------------------------"+type);
 					
 					lhs="SV_"+thread+"_"+leftOp+"_W"+localWriteCountForSymval.get(leftOp);
 					
@@ -540,25 +567,34 @@ public class SymbolicExecution extends SceneTransformer {
 							IntExpr lhs0=ctx.mkIntConst(lhs);
 							IntNum rhs0=ctx.mkInt(Integer.parseInt(arg_s));
 							constraints[c++]=ctx.mkEq(lhs0, rhs0);
+							solver.add(ctx.mkEq(lhs0, rhs0));
+							System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 							break;
 							
 						case "int":
 							IntExpr lhs1=ctx.mkIntConst(lhs);
 							IntNum rhs1=ctx.mkInt(Integer.parseInt(arg_s));
 							constraints[c++]=ctx.mkEq(lhs1, rhs1);
+							solver.add(ctx.mkEq(lhs1, rhs1));
+							System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 							break;
 							
 						case "java.lang.Double": 
 							RealExpr lhs2=ctx.mkRealConst(lhs);
 							RatNum rhs2=ctx.mkReal(arg_s);
 							constraints[c++]=ctx.mkEq(lhs2, rhs2);
+							solver.add(ctx.mkEq(lhs2, rhs2));
+							System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 							break;
 							
 						case "double": 
 							RealExpr lhs3=ctx.mkRealConst(lhs);
 							RatNum rhs3=ctx.mkReal(arg_s);
 							constraints[c++]=ctx.mkEq(lhs3, rhs3);
+							solver.add(ctx.mkEq(lhs3, rhs3));
+							System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 							break;
+							
 							
 						case "java.lang.Character": 
 							
@@ -572,12 +608,16 @@ public class SymbolicExecution extends SceneTransformer {
 							IntExpr lhs6=ctx.mkIntConst(lhs);
 							IntNum rhs6=ctx.mkInt(Integer.parseInt(arg_s));
 							constraints[c++]=ctx.mkEq(lhs6, rhs6);
+							solver.add(ctx.mkEq(lhs6, rhs6));
+							System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 							break;
 							
 						case "boolean":
 							IntExpr lhs7=ctx.mkIntConst(lhs);
 							IntNum rhs7=ctx.mkInt(Integer.parseInt(arg_s));
 							constraints[c++]=ctx.mkEq(lhs7, rhs7);
+							solver.add(ctx.mkEq(lhs7, rhs7));
+							System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 							break;
 							
 						}
@@ -594,8 +634,8 @@ public class SymbolicExecution extends SceneTransformer {
 					
 				}
 			}
-			
-			else if( !(s.containsFieldRef()) && !(stmtStr.contains("$r")) ){	//IMP :: enter here only when ass stmt doesn't contain InvokeExpr,Static global field. :: here "$r" condition is added to eliminate--	
+													//&& !(stmtStr.contains("$r"))
+			else if( !(s.containsFieldRef()) ){	//IMP :: enter here only when ass stmt doesn't contain InvokeExpr,Static global field. :: here "$r" condition is added to eliminate--	
 				//System.out.println(stmtStr+"-----a-------------------");		//-- ass stmt which contains thread object initialization line t1=$r0 or t2=$r1
 				
 				
@@ -621,11 +661,13 @@ public class SymbolicExecution extends SceneTransformer {
 							else if(op1 instanceof Constant){
 								String sym_op2="SV_"+thread+"_"+op2.toString()+"_W"+op2_toString;				//localWriteCountForSymval.get(op2.toString());
 								CV(type, lhs, op1.toString(), sym_op2, "Add");
+								
 								//System.out.println(sym_op2);
 							}
 							else if(op2 instanceof Constant){
 								String sym_op1="SV_"+thread+"_"+op1.toString()+"_W"+op1_toString;				//localWriteCountForSymval.get(op1.toString());
 								VC(type, lhs, sym_op1, op2.toString(), "Add");
+								//System.out.println(lhs+" %%%%%%%%%%%%%%%%%%%%%%%% "+sym_op1+" %%%%%%%%%%%%%%%%%%%%% "+op2.toString());
 								//System.out.println(sym_op1+"-------"+op1.toString());
 							}
 							else{
@@ -787,24 +829,33 @@ public class SymbolicExecution extends SceneTransformer {
 								IntExpr lhs=ctx.mkIntConst(SV_lhs);
 								IntNum rhs=ctx.mkInt(Integer.parseInt(rightOp));
 								constraints[c++]=ctx.mkEq(lhs, rhs);
+								solver.add(ctx.mkEq(lhs, rhs));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 								
 							case "int":
 								IntExpr lhs1=ctx.mkIntConst(SV_lhs);
 								IntNum rhs1=ctx.mkInt(Integer.parseInt(rightOp));
 								constraints[c++]=ctx.mkEq(lhs1, rhs1);
+								solver.add(ctx.mkEq(lhs1, rhs1));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
+								//System.out.println(type+" %%%%%%%%%% "+SV_lhs+" %%%%%%%% "+Integer.parseInt(rightOp));
 								break;
 								
 							case "java.lang.Double": 
 								RealExpr lhs2=ctx.mkRealConst(SV_lhs);
 								RatNum rhs2=ctx.mkReal(rightOp);
 								constraints[c++]=ctx.mkEq(lhs2, rhs2);
+								solver.add(ctx.mkEq(lhs2, rhs2));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 								
 							case "double": 
 								RealExpr lhs3=ctx.mkRealConst(SV_lhs);
 								RatNum rhs3=ctx.mkReal(rightOp);
 								constraints[c++]=ctx.mkEq(lhs3, rhs3);
+								solver.add(ctx.mkEq(lhs3, rhs3));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 								
 							case "java.lang.Character": 
@@ -818,18 +869,57 @@ public class SymbolicExecution extends SceneTransformer {
 								IntExpr lhs6=ctx.mkIntConst(SV_lhs);
 								IntNum rhs6=ctx.mkInt(Integer.parseInt(rightOp));
 								constraints[c++]=ctx.mkEq(lhs6, rhs6);
+								solver.add(ctx.mkEq(lhs6, rhs6));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 								
 							case "boolean":
 								IntExpr lhs7=ctx.mkIntConst(SV_lhs);
 								IntNum rhs7=ctx.mkInt(Integer.parseInt(rightOp));
 								constraints[c++]=ctx.mkEq(lhs7, rhs7);
+								solver.add(ctx.mkEq(lhs7, rhs7));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 								break;
 								
 							}
 							
 							
 							
+						}else{
+							if(rightOp.contains("args[0]")){
+								int arg0=Integer.parseInt(arguments[0]);
+								IntExpr a=ctx.mkIntConst("args"+p);
+								//System.out.println(arguments[0]+"************************");
+								p++;
+								IntNum  b=ctx.mkInt(arg0);
+								constraints[c++]=ctx.mkEq(a, b);
+								solver.add(ctx.mkEq(a, b));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
+								
+								IntExpr lhs=ctx.mkIntConst(SV_lhs);
+								constraints[c++]=ctx.mkEq(lhs, a);
+								solver.add(ctx.mkEq(lhs, a));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
+								///System.out.println(rightOp+"++++++++++++++++++++++++++++++++++");
+								
+							}
+							else if(rightOp.contains("args[1]")){
+								int arg1=Integer.parseInt(arguments[1]);
+								//System.out.println(arguments[1]+"************************");
+								IntExpr a=ctx.mkIntConst("args"+q);
+								q++;
+								IntNum  b=ctx.mkInt(arg1);
+								constraints[c++]=ctx.mkEq(a, b);
+								solver.add(ctx.mkEq(a, b));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
+								
+								IntExpr lhs=ctx.mkIntConst(SV_lhs);
+								constraints[c++]=ctx.mkEq(lhs, a);
+								solver.add(ctx.mkEq(lhs, a));
+								System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
+								//System.out.println(rightOp+"++++++++++++++++++++++++++++++++++");
+								
+							}
 						}
 						
 						
@@ -837,6 +927,7 @@ public class SymbolicExecution extends SceneTransformer {
 					
 					
 			}
+			
 			
 			
 			if(rightOp.contains("locks.Lock")){
@@ -888,7 +979,7 @@ public class SymbolicExecution extends SceneTransformer {
 					sharedWrite.get(varName).addLast(wrOb);
 					
 					cntProgramOrder++;
-					System.out.println(stmtToPrint);
+					//System.out.println(stmtToPrint);
 					
 				}
 				else{		//Read
@@ -898,10 +989,11 @@ public class SymbolicExecution extends SceneTransformer {
 					stmtToPrint= thread+", Read, "+varName+", SV_"+varName+"_R"+readCountForSymVal.get(varName);
 					programOrderConst.get(thread).put("O_"+thread+"_"+cntProgramOrder, stmtToPrint);
 					
-					localWriteCountForSymval.put(leftOp, 1);
+					if(localWriteCountForSymval.containsKey(leftOp)) localWriteCountForSymval.put(leftOp, localWriteCountForSymval.get(leftOp)+1);
+					else	localWriteCountForSymval.put(leftOp, 1);
 					//creating constraints that SV of lhs(local) = SV of rhs(static shared var)		
 					//i am not creating a new function for this, coz this is just opposite of above case
-					global_eq_local(s.getFieldRef().getType().toString(), "SV_"+thread+"_"+leftOp+"_W1" , "SV_"+varName+"_R"+readCountForSymVal.get(varName));
+					global_eq_local(s.getFieldRef().getType().toString(), "SV_"+thread+"_"+leftOp+"_W"+localWriteCountForSymval.get(leftOp) , "SV_"+varName+"_R"+readCountForSymVal.get(varName));
 					
 					RW reOb=new RW("SV_"+varName+"_R"+readCountForSymVal.get(varName) , "O_"+thread+"_"+cntProgramOrder);
 					
@@ -909,7 +1001,7 @@ public class SymbolicExecution extends SceneTransformer {
 					sharedRead.get(varName).addLast(reOb);
 					
 					cntProgramOrder++;
-					System.out.println(stmtToPrint);
+					//System.out.println(stmtToPrint);
 				}
 				
 				
@@ -925,19 +1017,21 @@ public class SymbolicExecution extends SceneTransformer {
 				stmtToPrint=thread+", Fork, "+thread+"."+forksByThread;
 				programOrderConst.get(thread).put("O_"+thread+"_"+cntProgramOrder, stmtToPrint);
 				
-				System.out.println(stmtToPrint);
+				//System.out.println(stmtToPrint);
 				
 				AbstractInstanceInvokeExpr expr1=(AbstractInstanceInvokeExpr)s.getInvokeExpr();
 				String baseObj=expr1.getBase().toString();
 				forkjoinMap.put(baseObj, thread+", Join, "+thread+"."+forksByThread);
 				
 				//fork constraints: instead of printing, give these to solver
-				System.out.println("O_"+thread+"_"+cntProgramOrder+" < "+ "O_"+thread+"."+forksByThread+"_"+1 );
+				//System.out.println("O_"+thread+"_"+cntProgramOrder+" < "+ "O_"+thread+"."+forksByThread+"_"+1 );
 				//
 					IntExpr innum1=ctx.mkIntConst("O_"+thread+"_"+cntProgramOrder);		//solver specific
 					IntExpr innum2=ctx.mkIntConst("O_"+thread+"."+forksByThread+"_"+1);
 					BoolExpr lt=ctx.mkLt(innum1, innum2);
 					constraints[c++]=lt;
+					solver.add(lt);
+					System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 					//solver.add(lt);
 					
 				//
@@ -953,17 +1047,19 @@ public class SymbolicExecution extends SceneTransformer {
 				stmtToPrint=forkjoinMap.get(baseObj);
 				programOrderConst.get(thread).put("O_"+thread+"_"+cntProgramOrder, stmtToPrint);
 				
-				System.out.println(stmtToPrint);
+				//System.out.println(stmtToPrint);
 				
 				String temp=forkjoinMap.get(baseObj).split(" ")[2];
 				
 				//join constraints: instead of printing, give these to solver
-				System.out.println("O_"+thread+"_"+cntProgramOrder+" > "+ "O_"+temp+"_"+stmtCountOfThread.get(temp));
+				//System.out.println("O_"+thread+"_"+cntProgramOrder+" > "+ "O_"+temp+"_"+stmtCountOfThread.get(temp));
 				//
 					IntExpr innum1=ctx.mkIntConst("O_"+thread+"_"+cntProgramOrder);			//solver specific
 					IntExpr innum2=ctx.mkIntConst("O_"+temp+"_"+stmtCountOfThread.get(temp));
 					BoolExpr gt=ctx.mkGt(innum1, innum2);
 					constraints[c++]=gt;
+					solver.add(gt);
+					System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 					//solver.add(lt);
 				//
 				
@@ -982,7 +1078,7 @@ public class SymbolicExecution extends SceneTransformer {
 				lockListMap.get(lockName).addLast(loc);
 				
 				cntProgramOrder++;
-				System.out.println(stmtToPrint);
+				//System.out.println(stmtToPrint);
 				
 			}
 			else if(stmtStr.contains("void unlock()")){
@@ -996,7 +1092,7 @@ public class SymbolicExecution extends SceneTransformer {
 				lockListMap.get(lockName).addLast(loc);
 				
 				cntProgramOrder++;
-				System.out.println(stmtToPrint);
+				//System.out.println(stmtToPrint);
 				
 			}			
 			else if( !(  stmtStr.contains("<init>(") ) && stmtStr.contains("test") ){
@@ -1038,24 +1134,32 @@ public class SymbolicExecution extends SceneTransformer {
 			IntExpr lhs=ctx.mkIntConst(SV_lhs);
 			IntExpr rhs=ctx.mkIntConst(SV_rhs);
 			constraints[c++]=ctx.mkEq(lhs, rhs);
+			solver.add(ctx.mkEq(lhs, rhs));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		case "int":
 			IntExpr lhs1=ctx.mkIntConst(SV_lhs);
 			IntExpr rhs1=ctx.mkIntConst(SV_rhs);
 			constraints[c++]=ctx.mkEq(lhs1, rhs1);
+			solver.add(ctx.mkEq(lhs1, rhs1));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		case "java.lang.Double": 
 			RealExpr lhs2=ctx.mkRealConst(SV_lhs);
 			RealExpr rhs2=ctx.mkRealConst(SV_rhs);
 			constraints[c++]=ctx.mkEq(lhs2, rhs2);
+			solver.add(ctx.mkEq(lhs2, rhs2));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		case "double": 
 			RealExpr lhs3=ctx.mkRealConst(SV_lhs);
 			RealExpr rhs3=ctx.mkRealConst(SV_rhs);
 			constraints[c++]=ctx.mkEq(lhs3, rhs3);
+			solver.add(ctx.mkEq(lhs3, rhs3));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		case "java.lang.Character": 
@@ -1069,12 +1173,16 @@ public class SymbolicExecution extends SceneTransformer {
 			IntExpr lhs6=ctx.mkIntConst(SV_lhs);
 			IntExpr rhs6=ctx.mkIntConst(SV_rhs);
 			constraints[c++]=ctx.mkEq(lhs6, rhs6);
+			solver.add(ctx.mkEq(lhs6, rhs6));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		case "boolean":
 			IntExpr lhs7=ctx.mkIntConst(SV_lhs);
 			IntExpr rhs7=ctx.mkIntConst(SV_rhs);
 			constraints[c++]=ctx.mkEq(lhs7, rhs7);
+			solver.add(ctx.mkEq(lhs7, rhs7));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		}
@@ -1109,6 +1217,8 @@ public class SymbolicExecution extends SceneTransformer {
 			
 			
 			constraints[c++]=ctx.mkEq(lhs1, rhs);
+			solver.add(ctx.mkEq(lhs1, rhs));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		case "int":
@@ -1135,6 +1245,8 @@ public class SymbolicExecution extends SceneTransformer {
 			
 			
 			constraints[c++]=ctx.mkEq(lhs2, rhs);
+			solver.add(ctx.mkEq(lhs2, rhs));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		case "java.lang.Double": 
@@ -1158,6 +1270,8 @@ public class SymbolicExecution extends SceneTransformer {
 			}
 			
 			constraints[c++]=ctx.mkEq(lhs3, rhs);
+			solver.add(ctx.mkEq(lhs3, rhs));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		case "double": 
@@ -1181,6 +1295,8 @@ public class SymbolicExecution extends SceneTransformer {
 			}
 			
 			constraints[c++]=ctx.mkEq(lhs4, rhs);
+			solver.add(ctx.mkEq(lhs4, rhs));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		case "java.lang.Character": 
@@ -1237,6 +1353,8 @@ public class SymbolicExecution extends SceneTransformer {
 			
 			
 			constraints[c++]=ctx.mkEq(lhs1, rhs);
+			solver.add(ctx.mkEq(lhs1, rhs));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		case "int":
@@ -1268,6 +1386,8 @@ public class SymbolicExecution extends SceneTransformer {
 			}
 			
 			constraints[c++]=ctx.mkEq(lhs2, rhs);
+			solver.add(ctx.mkEq(lhs2, rhs));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		case "java.lang.Double": 
@@ -1294,6 +1414,8 @@ public class SymbolicExecution extends SceneTransformer {
 			}
 			
 			constraints[c++]=ctx.mkEq(lhs3, rhs);
+			solver.add(ctx.mkEq(lhs3, rhs));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		case "double": 
@@ -1320,6 +1442,8 @@ public class SymbolicExecution extends SceneTransformer {
 			}
 			
 			constraints[c++]=ctx.mkEq(lhs4, rhs);
+			solver.add(ctx.mkEq(lhs4, rhs));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		case "java.lang.Character": 
@@ -1374,6 +1498,8 @@ public class SymbolicExecution extends SceneTransformer {
 			
 			
 			constraints[c++]=ctx.mkEq(lhs1, rhs);
+			solver.add(ctx.mkEq(lhs1, rhs));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		case "int":
@@ -1403,6 +1529,8 @@ public class SymbolicExecution extends SceneTransformer {
 			
 			
 			constraints[c++]=ctx.mkEq(lhs2, rhs);
+			solver.add(ctx.mkEq(lhs2, rhs));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		case "java.lang.Double": 
@@ -1429,6 +1557,8 @@ public class SymbolicExecution extends SceneTransformer {
 			}
 			
 			constraints[c++]=ctx.mkEq(lhs3, rhs);
+			solver.add(ctx.mkEq(lhs3, rhs));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		case "double": 
@@ -1455,6 +1585,8 @@ public class SymbolicExecution extends SceneTransformer {
 			}
 			
 			constraints[c++]=ctx.mkEq(lhs4, rhs);
+			solver.add(ctx.mkEq(lhs4, rhs));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		case "java.lang.Character": 
@@ -1508,6 +1640,8 @@ public class SymbolicExecution extends SceneTransformer {
 			
 			
 			constraints[c++]=ctx.mkEq(lhs1, rhs);
+			solver.add(ctx.mkEq(lhs1, rhs));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		case "int":
@@ -1537,6 +1671,8 @@ public class SymbolicExecution extends SceneTransformer {
 			
 			
 			constraints[c++]=ctx.mkEq(lhs2, rhs);
+			solver.add(ctx.mkEq(lhs2, rhs));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		case "java.lang.Double": 
@@ -1563,6 +1699,8 @@ public class SymbolicExecution extends SceneTransformer {
 			}
 			
 			constraints[c++]=ctx.mkEq(lhs3, rhs);
+			solver.add(ctx.mkEq(lhs3, rhs));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		case "double": 
@@ -1589,6 +1727,8 @@ public class SymbolicExecution extends SceneTransformer {
 			}
 			
 			constraints[c++]=ctx.mkEq(lhs4, rhs);
+			solver.add(ctx.mkEq(lhs4, rhs));
+			System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 			break;
 			
 		case "java.lang.Character": 
@@ -1635,6 +1775,8 @@ public class SymbolicExecution extends SceneTransformer {
 					IntExpr lhs=ctx.mkIntConst("SV_"+var_Name+"_W1");
 					IntNum  rhs=ctx.mkInt(Integer.parseInt(arg_s));
 					constraints[c++]=ctx.mkEq(lhs, rhs);
+					solver.add(ctx.mkEq(lhs, rhs));
+					System.out.println(solver.check()+"---"+solver.getAssertions()[solver.getNumAssertions()-1].toString());
 										
 					RW wrOb= new RW("SV_"+var_Name+"_W1" , "O_0_"+cntProOrder);
 					sharedWrite.put(var_Name, new LinkedList<RW>());
@@ -1660,13 +1802,13 @@ public class SymbolicExecution extends SceneTransformer {
 				String symValReadi=symReadObj.get(i).symVal;
 				String orderReadi=symReadObj.get(i).order;
 				LinkedList<RW> symWriteObj=sharedWrite.get(readVar);
-				LinkedList<BoolExpr> containOr1=new LinkedList<BoolExpr>();					// V(OR) ( V_r = w_i ∧ O_w_i < O_r ∧( O_w_j < O_w_i ∨ O_w_j > O_r) )
+				LinkedList<BoolExpr> containOr1=new LinkedList<BoolExpr>();					
 				
 				for(int j=0;j<symWriteObj.size();j++){
 					String symValWritej=symWriteObj.get(j).symVal;
 					String orderWritej=symWriteObj.get(j).order;
 					
-					LinkedList<BoolExpr> containAnd1=new LinkedList<BoolExpr>();				//( V_r = w_i ∧ O_w_i < O_r ∧( O_w_j < O_w_i ∨ O_w_j > O_r) )
+					LinkedList<BoolExpr> containAnd1=new LinkedList<BoolExpr>();				
 					
 					IntExpr read_i=ctx.mkIntConst(symValReadi);
 					IntExpr write_j=ctx.mkIntConst(symValWritej);
