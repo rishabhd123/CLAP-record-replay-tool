@@ -32,14 +32,33 @@ fi
     
     
 input_args=`cat ./Testcases/project-4/input/$tc_no`
+trial_replay_exit_code=""
+echo "[replay.sh] Performing trial replay on Project-3 $tc_no sample output"
+cp ./Testcases/output/project-3/$tc_no global_trace
+timeout 10 java -cp ./PoP_Replay/sootBin "$tc_no.Main" $input_args > $tc_no.replay_run.stdout 2> $tc_no.replay_run.stderr
+if [ $? -ne 0 ]
+then
+    trial_replay_exit_code="exit code $?"
+fi
+
+rm pathLog > /dev/null 2> /dev/null
+rm global_trace > /dev/null 2> /dev/null
+
+if [ "$trial_replay_exit_code" != "" ]
+then
+    echo "[replay.sh] Trial replay failed"
+    exit 2
+fi
+
+echo "[replay.sh] Starting actual replay runs"
 
 replayCnt=0
 replayDone=1
 correctPath=1
-while [ $replayCnt -lt 5 ] 
+while [ $replayCnt -lt 10 ] && [ "$replayDone" == "1" ]
 do
     replayCnt=$(( $replayCnt+1 ))	
-    echo -n "[replay.sh] Replay iteration $replayCnt out of 5 :: "
+    echo -n "[replay.sh] Replay iteration $replayCnt out of 10 :: "
     rm pathLog > /dev/null 2> /dev/null
     rm global_trace > /dev/null 2> /dev/null
     cp ./Testcases/project-4/processed-output/$tc_no.global_trace global_trace
@@ -86,6 +105,8 @@ do
     
 done
 
+rm pathLog > /dev/null 2> /dev/null
+rm global_trace > /dev/null 2> /dev/null
 rm -r PoP_Replay/build > /dev/null 2> /dev/null
 rm -r PoP_Replay/sootBin > /dev/null 2> /dev/null
     
@@ -108,6 +129,6 @@ then
     final_result=2
 else
     echo "UNKNOWN ERROR!! Please contact the TA"
-    final_result=3
+    final_result=4
 fi
 exit $final_result
