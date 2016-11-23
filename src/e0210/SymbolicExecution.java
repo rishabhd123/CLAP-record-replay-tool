@@ -173,9 +173,9 @@ public class SymbolicExecution extends SceneTransformer {
 		BoolExpr[] constraints1= new BoolExpr[c];
 		java.lang.System.arraycopy(constraints, 0, constraints1,0 ,c);
 				
-		System.out.println(constraints1.length);
+		//System.out.println(constraints1.length);
 		solver.add(ctx.mkAnd(constraints1));
-		System.out.println(solver.toString());
+		//System.out.println(solver.toString());
 		solver.check();
 		Model model=solver.getModel();
 		//System.out.println(model.toString());
@@ -887,7 +887,7 @@ public class SymbolicExecution extends SceneTransformer {
 							
 						}
 						else{
-							System.out.println(s.toString()+"--------------------------------------------------------------");
+							
 							if(rightOp.contains("args[0]")){
 								
 								//System.out.println(rightOp+"--------------------------------------------------------------");

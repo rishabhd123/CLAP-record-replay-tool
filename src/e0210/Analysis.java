@@ -51,27 +51,14 @@ public class Analysis extends BodyTransformer {
 		
 		String currentMethod=b.getMethod().getSignature();
 		
-		//System.out.println(b.toString());
-		//System.out.println(currentMethod+"---------------------------------------------------------------");
+		
 		if(currentMethod.contains("MyCounter") || currentMethod.contains("PoP_Util")) return;
 		//System.out.println(b.getMethod().getSubSignature());
 		
 		
-		System.out.println(b.toString());
+		//System.out.println(b.toString());
 		
-		/*
-		// Create List of SootMethod-Start
-		List<SootMethod> sootMethodList=new ArrayList<SootMethod>();
-		sootMethodList.add(countMethod);
-		sootMethodList.add(calls);
-		sootMethodList.add(initialize);
-		*/
-		// Create List of SootMethod-Start
-		
-		/*Things Related to graph*/
-		
-		
-		
+			
 		
 		
 		

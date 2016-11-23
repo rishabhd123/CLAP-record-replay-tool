@@ -1,36 +1,41 @@
 package pop_replay;
 
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayDeque;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class PoP_Replay_Util 
-{
+{	
+	static int cnt=0;
+	static ArrayList<String> gtraceArr = null;
     static {
-           
+          
             /* The global_trace will be copied to the current directory before running the test case */
-          //  BufferedReader br = new BufferedReader(new FileReader("global_trace"));
-            
+    	
+    	try {
+			String in = new String(Files.readAllBytes(Paths.get("global_trace")));
+			String[] gtrace=in.split("\n");
+			gtraceArr=new ArrayList<String>();
+			for(String s:gtrace){
+				if(!( s.contains("Begin")||s.contains("End") )) gtraceArr.add(s);					
+				
+			}
+			
+		} catch (IOException e) {e.printStackTrace();}
+    	
+    	            
     }
     ////////////////////////
-    
+    static Object obj1=new Object();
+    static Object obj2=new Object();
     static int[] forks=new int[10000];					//current TID--->number of forks
     static String[] threadMapping=new String[10000];		//current TID--->TID(0.0.1 like)
     static Hashtable<String,Integer>[] threadMethodCount = (Hashtable<String,Integer>[])new Hashtable<?,?>[10000];
-
+    
    
     public static synchronized void countMethod(String methodSign){		//Count Number of times "methodSign" is called by current thread
   	  long  tid=Thread.currentThread().getId();
@@ -82,13 +87,38 @@ public class PoP_Replay_Util
     
   
     /* You can modify criticalBefore() to receive the required arguments */
-    public static void criticalBefore () {
-   
+    
+    public static void criticalBefore (String mid,String last,long cid) throws InterruptedException {
+    	
+    	int parent=(int)Thread.currentThread().getId();
+    	String first=threadMapping[parent];
+    	
+    	if(first==null) first="0";
+    	
+    	String tuple=first+", "+mid+", ";
+    	if(mid.contains("Fork")||mid.contains("Join")){
+    		tuple=tuple+threadMapping[(int)cid];    		
+    	}
+    	else tuple=tuple+last;   //got the tuple
+    	
+    	while(true){
+    		synchronized (obj1) {
+    			if(tuple.equals(gtraceArr.get(cnt))) {break;}
+    			obj1.wait();
+			}
+    		 		  		
+    		
+    	}
+    	   	
+    		
     }
     
     /* You can modify criticalAfter() to receive the required arguments */
     public static void criticalAfter () {
-       
+       synchronized (obj1) {
+    	   cnt++;
+    	   obj1.notifyAll();		
+       }
     }
        
 }
